@@ -1,0 +1,59 @@
+
+
+services:
+  # 1. Base de Datos (PostgreSQL v15+)
+  db-checklizz:
+    image: postgres:15
+    container_name: checklizz_postgres
+    environment:
+      POSTGRES_USER: admin_checklizz
+      POSTGRES_PASSWORD: password_seguro
+      POSTGRES_DB: checklizz_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      # Aquí se monta tu archivo init.sql para que las tablas se creen solas
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql 
+    networks:
+      - checklizz-network
+
+  # 2. Seguridad e Identidad (Keycloak)
+  keycloak-checklizz:
+    image: quay.io/keycloak/keycloak:latest
+    container_name: checklizz_keycloak
+    command: start-dev # Inicia Keycloak en modo desarrollo
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    ports:
+      - "8080:8080" # Puerto para acceder al panel web de Keycloak
+    depends_on:
+      - db-checklizz
+    networks:
+      - checklizz-network
+
+  
+  api-checklizz:
+    build: ./backend # Busca el Dockerfile dentro de la carpeta /backend
+    container_name: checklizz_node_api
+    ports:
+      - "3001:3000"
+    environment:
+      DB_HOST: db-checklizz # Se conecta a Postgres usando el nombre del contenedor
+      DB_USER: admin_checklizz
+      DB_PASSWORD: password_seguro
+      DB_NAME: checklizz_db
+      DB_PORT: 5432
+    depends_on:
+      - db-checklizz
+      - keycloak-checklizz
+    networks:
+      - checklizz-network
+
+volumes:
+  pgdata: # Volumen persistente para no perder la base de datos si se apaga el contenedor
+
+networks:
+  checklizz-network:
+    driver: bridge
