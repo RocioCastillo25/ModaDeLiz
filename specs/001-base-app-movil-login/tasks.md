@@ -173,10 +173,10 @@
 
 - [X] T062 [P] Revisar que todos los textos de interfaz estén en español con tildes y signos de apertura correctos en `mobile/lib/`
 - [X] T063 [P] Verificar que no existan colores sueltos fuera de `mobile/lib/core/theme/` y que ninguna View importe un Service o `dio` (`mobile/lib/features/`, `mobile/lib/shared/`)
-- [ ] T064 Ejecutar `flutter analyze` y `flutter test` en `mobile/` y corregir los hallazgos
+- [X] T064 Ejecutar `flutter analyze` y `flutter test` en `mobile/` y corregir los hallazgos
 - [X] T065 [P] Escribir `mobile/README.md` en español (cómo ejecutar con `USE_MOCK`, usuarios de ejemplo, cómo cambiar a la API real y cómo generar el APK)
 - [ ] T066 Ejecutar el `quickstart.md` completo, incluidos los escenarios 12 (reducir animaciones) y 13 (accesos "próximamente"), en un emulador o dispositivo Android
-- [ ] T067 Generar el APK de prueba con `flutter build apk --release --dart-define=USE_MOCK=true` y probarlo en un dispositivo Android
+- [X] T067 Generar el APK de prueba con `flutter build apk --release --dart-define=USE_MOCK=true` y probarlo en un dispositivo Android
 - [ ] T068 Reunir la evidencia para la bitácora (capturas del inicio de sesión y de la pantalla principal) y coordinar con el Integrante 4 la etiqueta `v0.1.0` y el Pull Request desde una rama `feature/mobile-*` (sin commit ni etiqueta hasta que el usuario lo pida)
 
 ---
