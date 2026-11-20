@@ -9,9 +9,10 @@ import 'package:flutter_test/flutter_test.dart';
 
 /// Adaptador falso: responde con un código fijo y guarda la última petición.
 class _FakeAdapter implements HttpClientAdapter {
-  _FakeAdapter(this.status);
+  _FakeAdapter(this.status, {this.body = const {'ok': true}});
 
   final int status;
+  final Object body;
   RequestOptions? lastRequest;
 
   @override
@@ -22,7 +23,7 @@ class _FakeAdapter implements HttpClientAdapter {
   ) async {
     lastRequest = options;
     return ResponseBody.fromString(
-      jsonEncode({'ok': true}),
+      jsonEncode(body),
       status,
       headers: {
         Headers.contentTypeHeader: ['application/json'],
@@ -100,6 +101,51 @@ void main() {
     );
     expect(forbiddenCount, 1);
     expect(unauthorizedCount, 0);
+  });
+
+  test('no sobrescribe un encabezado Authorization que la petición ya trae', () async {
+    final adapter = _FakeAdapter(200);
+    await buildClient(adapter, token: 'guardado').get(
+      '/me',
+      headers: {'Authorization': 'Bearer recien-emitido'},
+    );
+    expect(adapter.lastRequest?.headers['Authorization'], 'Bearer recien-emitido',
+        reason: 'justo después de iniciar sesión se usa el token recién emitido');
+  });
+
+  test('postForm envía los datos como formulario', () async {
+    final adapter = _FakeAdapter(200, body: {'access_token': 'a', 'expires_in': 300});
+    final json = await buildClient(adapter).postForm(
+      'https://id.prueba/realms/checklizz/protocol/openid-connect/token',
+      {'grant_type': 'password', 'username': 'ana'},
+    );
+    expect(adapter.lastRequest?.contentType, contains('application/x-www-form-urlencoded'));
+    expect(adapter.lastRequest?.uri.host, 'id.prueba',
+        reason: 'usa la dirección completa, no la base de la API');
+    expect(json['access_token'], 'a');
+  });
+
+  test('getList devuelve una lista', () async {
+    final adapter = _FakeAdapter(200, body: [
+      {'id': 1, 'nombre': 'Huauchinango'},
+    ]);
+    final list = await buildClient(adapter).getList('/sucursales');
+    expect(list, hasLength(1));
+  });
+
+  test('conserva el código y la descripción del error del cuerpo', () async {
+    final client = buildClient(
+      _FakeAdapter(400, body: {'error': 'invalid_grant', 'error_description': 'Account disabled'}),
+    );
+    await expectLater(
+      client.postForm('https://id.prueba/token', {'a': 'b'}),
+      throwsA(
+        isA<ApiException>()
+            .having((e) => e.code, 'código', 'invalid_grant')
+            .having((e) => e.description, 'descripción', 'Account disabled')
+            .having((e) => e.kind, 'tipo', ApiErrorKind.badRequest),
+      ),
+    );
   });
 
   test('traduce un 500 a error de servidor', () async {

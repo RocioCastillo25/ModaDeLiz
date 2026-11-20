@@ -23,6 +23,7 @@ void registerDependencies(
   GetIt getIt, {
   bool useMock = AppConfig.useMock,
   String apiBaseUrl = AppConfig.apiBaseUrl,
+  String keycloakBaseUrl = AppConfig.keycloakBaseUrl,
 }) {
   getIt
     // Seguridad y red.
@@ -40,7 +41,12 @@ void registerDependencies(
       ),
     )
     // Servicios y repositorios: real o simulado según la configuración.
-    ..registerLazySingleton<AuthService>(() => AuthService(getIt<ApiClient>()))
+    ..registerLazySingleton<AuthService>(
+      () => AuthService(
+        getIt<ApiClient>(),
+        tokenUrl: AppConfig.keycloakTokenUrl(keycloakBaseUrl),
+      ),
+    )
     ..registerLazySingleton<AuthRepository>(
       () => useMock
           ? MockAuthRepository(getIt<TokenStorage>())

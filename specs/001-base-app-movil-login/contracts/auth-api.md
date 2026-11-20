@@ -1,51 +1,71 @@
-# Contrato provisional de acceso (API REST)
+# Contrato de acceso (Keycloak y API REST)
 
-**Estado**: provisional. `docs/openapi.yaml` aún no existe; este contrato lo propone la app y debe confirmarse con el Integrante 1. Mientras tanto la app usa el repositorio simulado.
+**Estado**: alineado con `docs/openapi.yaml` (Integrante 1), publicado en `develop` el 2026-11-20.
+Sustituye al contrato provisional (`POST /auth/login`), que ya no existe en la API.
 
-Base: `API_BASE_URL` (configurable por entorno, HTTPS).
+El acceso tiene tres pasos. Los dos últimos usan el token que emite el primero.
 
-## POST /auth/login
+## 1. Pedir el token a Keycloak
 
-Inicia sesión con usuario y contraseña.
+`POST {KEYCLOAK_BASE_URL}/realms/checklizz/protocol/openid-connect/token`
 
-**Solicitud** (`application/json`)
+Cuerpo `application/x-www-form-urlencoded`:
 
-```json
-{ "username": "string", "password": "string" }
-```
+| Campo | Valor |
+|---|---|
+| `grant_type` | `password` |
+| `client_id` | `checklizz-app` |
+| `username` | usuario escrito en el formulario |
+| `password` | contraseña escrita en el formulario (viaja por HTTPS y nunca se guarda) |
 
-**Respuesta 200**
+**Respuesta 200** (campos que usa la app): `access_token` y `expires_in` (segundos).
 
-```json
-{
-  "accessToken": "string",
-  "expiresIn": 3600,
-  "user": {
-    "id": "string",
-    "name": "string",
-    "role": "ROLE_VENDEDOR | ROLE_ENCARGADO | ROLE_ADMIN",
-    "branch": { "id": "string", "name": "string" }
-  }
-}
-```
+| Respuesta | Significado | Qué muestra la app |
+|---|---|---|
+| 401 `invalid_grant` | Credenciales incorrectas | Mensaje genérico, sin revelar si el usuario existe |
+| 400 `invalid_grant` con "Account disabled" | Cuenta desactivada | Mensaje claro de cuenta desactivada |
+| Otro 400 | Solicitud rechazada | Mensaje genérico de credenciales incorrectas |
+| 5xx / sin respuesta | Servicio no disponible | Mensaje de servicio caído o de sin conexión, con reintento |
 
-`branch` puede faltar solo para `ROLE_ADMIN`.
+## 2. Leer el perfil
 
-**Errores**
+`GET {API_BASE_URL}/me` con `Authorization: Bearer <access_token>`.
 
-| Código | Significado | Comportamiento de la app |
-|--------|-------------|--------------------------|
-| 400 | Solicitud inválida | Mensaje genérico de error |
-| 401 | Credenciales incorrectas | Mensaje genérico, sin revelar si el usuario existe |
-| 403 | Cuenta desactivada | Mensaje claro de cuenta desactivada |
-| 5xx / sin respuesta | Servicio no disponible | Mensaje claro con opción de reintentar |
+**Respuesta 200** (`Perfil`): `id`, `nombre`, `rol`, `sucursalId` (puede ser `null` para el administrador) y `keycloakId`.
+
+El rol llega como `administrador`, `gerente` o `empleado`.
+
+| Respuesta | Qué hace la app |
+|---|---|
+| 401 | Fallo del servicio (el token acaba de emitirse) |
+| 403, o un código de usuario inactivo | Cuenta que no puede usar la app (mensaje de cuenta desactivada) |
+
+## 3. Leer el nombre de la sucursal
+
+`GET {API_BASE_URL}/sucursales` con el mismo encabezado. Solo se pide para gerentes y empleados.
+
+**Respuesta 200**: lista de `{ id, nombre, ubicacion }`. La app busca la sucursal cuyo `id` es `sucursalId` del perfil; si no aparece, el acceso se rechaza como datos incompletos.
+
+## Direcciones
+
+| Entorno | `API_BASE_URL` | `KEYCLOAK_BASE_URL` |
+|---|---|---|
+| Emulador Android (desarrollo) | `http://10.0.2.2:3000/api/v1` | `http://10.0.2.2:8080` |
+| Teléfono físico en la misma red | `http://<IP de la computadora>:3000/api/v1` | `http://<IP de la computadora>:8080` |
+| Producción (Cloudflare Tunnel) | `https://<dominio>/api/v1` | `https://<dominio-de-identidad>` |
+
+Solo las versiones de **depuración** aceptan HTTP. La versión release exige HTTPS.
 
 ## Encabezado en peticiones autenticadas
 
-`Authorization: Bearer <accessToken>`, agregado por el interceptor. Un 401 posterior se trata como sesión vencida; un 403 muestra aviso de falta de permisos sin cerrar sesión.
+`Authorization: Bearer <access_token>`, agregado por el interceptor. Un 401 posterior se trata como sesión vencida; un 403 muestra aviso de falta de permisos sin cerrar sesión.
 
-## Preguntas abiertas para el Integrante 1
+## Formato de error de la API
 
-1. ¿Distinguirá la API "cuenta desactivada" con un código propio (por ejemplo, 403 con motivo)?
-2. ¿Habrá endpoint de renovación de sesión? (Sprint 1 no lo usa.)
-3. ¿Los nombres de campo coinciden con los propuestos?
+`{ "error": "CODIGO", "mensaje": "...", "detalles": [{ "campo", "mensaje" }] }`. La app lo lee para decidir qué hacer y nunca lo muestra tal cual al usuario.
+
+## Puntos abiertos
+
+1. **Vigencia del token.** Keycloak emite tokens cortos por defecto (5 minutos). Sin renovación de sesión, el empleado tendría que iniciar sesión de nuevo cada vez que venza. Conviene acordar con el Integrante 2 una vigencia razonable para la app o incorporar la renovación con `refresh_token` (decisión diferida del Sprint 1).
+2. **Usuarios inactivos.** El contrato no define el código de error de la API para un usuario desactivado en la base de datos. La app trata un 403 o un código con "INACTIV" como cuenta desactivada.
+3. **HTTPS de desarrollo.** Para probar en un teléfono físico hace falta que la API y Keycloak sean alcanzables desde él.

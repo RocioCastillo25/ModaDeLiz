@@ -24,21 +24,60 @@ class ApiClient {
 
   final Dio _dio;
 
-  /// Envía un POST y devuelve el cuerpo JSON. Lanza [ApiException] si falla.
+  /// Envía un POST con JSON y devuelve el cuerpo. Lanza [ApiException] si falla.
   Future<Map<String, dynamic>> post(String path, {Object? data}) async {
-    try {
-      final response = await _dio.post<Map<String, dynamic>>(path, data: data);
-      return response.data ?? <String, dynamic>{};
-    } on DioException catch (error) {
-      throw ApiException.fromDio(error);
-    }
+    final body = await _send(
+      () => _dio.post<Map<String, dynamic>>(path, data: data),
+    );
+    return body ?? <String, dynamic>{};
   }
 
-  /// Envía un GET y devuelve el cuerpo JSON. Lanza [ApiException] si falla.
-  Future<Map<String, dynamic>> get(String path) async {
+  /// Envía un POST con formulario (`application/x-www-form-urlencoded`) a una
+  /// dirección completa. Se usa con el endpoint de token de Keycloak.
+  Future<Map<String, dynamic>> postForm(
+    String url,
+    Map<String, String> fields,
+  ) async {
+    final body = await _send(
+      () => _dio.post<Map<String, dynamic>>(
+        url,
+        data: fields,
+        options: Options(contentType: Headers.formUrlEncodedContentType),
+      ),
+    );
+    return body ?? <String, dynamic>{};
+  }
+
+  /// Envía un GET y devuelve el cuerpo JSON (un objeto). Lanza [ApiException]
+  /// si falla. Con [headers] se puede indicar un encabezado propio, por
+  /// ejemplo `Authorization`, antes de que exista una sesión guardada.
+  Future<Map<String, dynamic>> get(
+    String path, {
+    Map<String, String>? headers,
+  }) async {
+    final body = await _send(
+      () => _dio.get<Map<String, dynamic>>(
+        path,
+        options: Options(headers: headers),
+      ),
+    );
+    return body ?? <String, dynamic>{};
+  }
+
+  /// Envía un GET y devuelve el cuerpo JSON (una lista).
+  Future<List<dynamic>> getList(
+    String path, {
+    Map<String, String>? headers,
+  }) async {
+    final body = await _send(
+      () => _dio.get<List<dynamic>>(path, options: Options(headers: headers)),
+    );
+    return body ?? <dynamic>[];
+  }
+
+  Future<T?> _send<T>(Future<Response<T>> Function() request) async {
     try {
-      final response = await _dio.get<Map<String, dynamic>>(path);
-      return response.data ?? <String, dynamic>{};
+      return (await request()).data;
     } on DioException catch (error) {
       throw ApiException.fromDio(error);
     }

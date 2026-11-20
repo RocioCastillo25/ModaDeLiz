@@ -13,7 +13,7 @@ Los campos exactos dependen del contrato `docs/openapi.yaml` (aún inexistente).
 
 ### AppRole (Rol)
 
-Enumeración cerrada: `admin` (`ROLE_ADMIN`), `manager` (`ROLE_ENCARGADO`), `seller` (`ROLE_VENDEDOR`).
+Enumeración cerrada: `admin` (`ROLE_ADMIN` en Keycloak, `administrador` en la API), `manager` (`ROLE_ENCARGADO`, `gerente`), `seller` (`ROLE_VENDEDOR`, `empleado`). `AppRole.tryParse` acepta ambos nombres.
 
 - Un valor de rol desconocido no se acepta: el acceso se rechaza con mensaje claro.
 - Etiquetas para pantalla: Administrador, Gerente de tienda, Empleado.
@@ -37,9 +37,13 @@ Enumeración cerrada: `admin` (`ROLE_ADMIN`), `manager` (`ROLE_ENCARGADO`), `sel
 
 Propiedad derivada: `isValid` (vigente según `expiresAt`).
 
-### LoginResponseDto (DTO)
+### DTOs del acceso (según `docs/openapi.yaml`)
 
-Respuesta cruda del acceso: token, segundos de vigencia, `user` con `id`, `name`, `role` y `branch`. Se convierte a `Session` con el Adapter; si falta rol o sucursal en un rol que la requiere, la conversión falla y el acceso se rechaza.
+- **TokenResponseDto** (Keycloak): `access_token` y `expires_in`.
+- **ProfileDto** (`GET /me`): `id`, `nombre`, `rol` (`administrador`, `gerente` o `empleado`) y `sucursalId` (puede faltar para el administrador). `toUser` es el Adapter a `User`.
+- **BranchDto** (`GET /sucursales`): `id` y `nombre`. `toBranch` es el Adapter a `Branch`.
+
+Si falta un dato obligatorio, el rol es desconocido o un rol que requiere sucursal no la trae, la conversión falla con "datos incompletos" y el acceso se rechaza. La `Session` se arma con el token, la vigencia (`expires_in`) y el `User`.
 
 ## Estados de la sesión (máquina de estados)
 

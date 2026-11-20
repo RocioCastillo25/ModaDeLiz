@@ -32,7 +32,11 @@ No quedan marcadores `NEEDS CLARIFICATION`. Las decisiones del contexto ya se re
 - **Justificación**: FR-018 pide avisar y no intentar el inicio de sesión sin internet. Además, los fallos de conexión durante la petición se mapean al mismo aviso.
 - **Alternativas**: detectar solo por fallo de la petición (no cumple "no intentar"); `internet_connection_checker` (paquete extra con sondeos periódicos).
 
-## D6. Contrato de acceso provisional
+## D6. Contrato de acceso (actualizado el 2026-11-20)
+
+> **Actualización:** `docs/openapi.yaml` ya existe y el acceso real es distinto de lo que se supuso aquí: el token se pide a Keycloak (`grant_type=password`, cliente `checklizz-app`) y el perfil sale de `GET /me` y `GET /sucursales`. Ver [contracts/auth-api.md](contracts/auth-api.md). El texto de abajo es la decisión original, conservada como historial.
+
+### Decisión original (provisional)
 
 - **Decisión**: la app asume un endpoint `POST /auth/login` en la API que recibe usuario y contraseña y devuelve token, expiración y datos del usuario (ver [contracts/auth-api.md](contracts/auth-api.md)).
 - **Justificación**: `docs/openapi.yaml` aún no existe y la regla I.2 prohíbe depender de Keycloak para operaciones de negocio. La API entregará la "respuesta de autenticación" con nombre, rol y sucursal, como describe `docs/sprint-1.md`.
