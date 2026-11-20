@@ -2,14 +2,16 @@
 
 **Integrante:** 3 — Frontend móvil y escaneo (Flutter)
 **Sprint:** 1, "Base de la app móvil e inicio de sesión" (16 al 21 de noviembre de 2026)
-**Fecha de esta entrada:** 20 de noviembre de 2026 (cierre de la semana)
-**Rama:** `feature/mobile-base-login`
-**Pull Request:** https://github.com/RocioCastillo25/ModaDeLiz/pull/1 (en borrador, con 8 commits)
+**Fecha de esta entrada:** 20 de noviembre de 2026 (cierre de la semana, actualizada la misma noche)
+**Ramas:** `feature/mobile-base-login` (fusionada) y `feature/mobile-acceso-keycloak` (seguimiento, ver sección 11)
+**Pull Requests:** [#1](https://github.com/RocioCastillo25/ModaDeLiz/pull/1) (Sprint 1, **fusionado en `develop`**) y [#5](https://github.com/RocioCastillo25/ModaDeLiz/pull/5) (acceso con Keycloak, en borrador)
 **Evidencia en el repositorio:** `docs/evidencia/sprint-1/` (capturas, resultados de pruebas y esta bitácora)
 
 ## Resumen de cierre
 
-El Sprint 1 de la app móvil queda **entregado a falta de la revisión del Pull Request**: 65 de 68 tareas completadas (96 %), código con 80 pruebas automáticas en verde, APK de prueba instalado y probado en un teléfono Android, y evidencia reunida. Las 3 tareas restantes no dependen de código: el escenario de sesión vencida en el teléfono (T056 y T066) y la aprobación del Pull Request con la etiqueta `v0.1.0` (T068).
+El Sprint 1 de la app móvil queda **entregado y fusionado en `develop`**: 65 de 68 tareas completadas (96 %), código con 80 pruebas automáticas en verde (96 con el trabajo de seguimiento), APK de prueba instalado y probado en un teléfono Android, y evidencia reunida. El Pull Request #1 lo aprobó y fusionó Karol Salvador el 20 de noviembre de 2026. Las 3 tareas restantes no dependen de código: el escenario de sesión vencida en el teléfono (T056 y T066) y la etiqueta `v0.1.0` con el Integrante 4 (T068).
+
+Ese mismo día apareció el contrato real de la API (`docs/openapi.yaml`), distinto del provisional. El acceso de la app ya se adaptó en una rama nueva (sección 11).
 
 ## 1. Objetivo del sprint
 
@@ -120,20 +122,22 @@ Detalle completo en `pruebas-flutter.txt`.
 
 - [ ] Escenario 11 (sesión vencida) en el teléfono: hoy solo en pruebas automáticas (T056 y T066).
 - [ ] Entregar el APK a la dueña para que lo pruebe.
-- [ ] Pull Request revisado y aprobado por otra persona, y etiqueta `v0.1.0`, coordinados con el Integrante 4 (T068).
-- [ ] Pasar el Pull Request de borrador a "listo para revisión".
+- [x] Pull Request #1 revisado, aprobado y fusionado en `develop` (20 de noviembre de 2026).
+- [ ] Etiqueta `v0.1.0`, coordinada con el Integrante 4 (T068).
+- [ ] Revisión del Pull Request #5 (acceso con Keycloak) y prueba contra Keycloak y la API reales.
 
 ## 8. Dependencias con otros integrantes
 
 | Necesito | De | Estado |
 |---|---|---|
-| Contrato `docs/openapi.yaml` de autenticación | Integrante 1 | No existe aún. Se usa un contrato provisional (`specs/001-base-app-movil-login/contracts/auth-api.md`) con 3 preguntas abiertas |
-| Realm, roles y usuarios de prueba en Keycloak | Integrante 2 | Pendiente. Mientras tanto, usuarios de ejemplo |
-| Rama `develop` y reglas de Pull Request | Integrante 4 | Disponible. El PR necesita al menos 1 aprobación |
+| Contrato `docs/openapi.yaml` | Integrante 1 | Publicado el 20 de noviembre. Difiere del contrato provisional; la app se adaptó (PR #5). Falta definir el error de la API para un usuario inactivo |
+| Realm, roles y usuarios de prueba en Keycloak | Integrante 2 | Pendiente. Mientras tanto, usuarios de ejemplo. Hay que confirmar que el cliente `checklizz-app` permite `grant_type=password` y acordar la vigencia del token |
+| Rama `develop` y reglas de Pull Request | Integrante 4 | Disponible. El PR #1 se fusionó con la aprobación de otra persona |
 
 ## 9. Riesgos
 
-- El contrato real de la API puede diferir del provisional. El cambio queda aislado en `login_response_dto.dart`.
+- El contrato real de la API podía diferir del provisional, y así fue. El cambio quedó aislado en la capa de datos (servicio, DTOs y repositorio), sin tocar pantallas ni ViewModels (sección 11).
+- Los tokens de Keycloak duran 5 minutos por defecto. Sin renovación de sesión, el empleado tendría que iniciar sesión de nuevo con esa frecuencia. Hay que acordar la vigencia con el Integrante 2 o incorporar `refresh_token` en el Sprint 2.
 - La fecha límite del sprint es el 21 de noviembre. Las validaciones en dispositivo y el APK dependen de tener el teléfono conectado y memoria libre para compilar.
 
 ## 10. Evidencia adjunta
@@ -151,3 +155,44 @@ Detalle completo en `pruebas-flutter.txt`.
 | `07-sin-conexion.png` | Aviso de sin conexión | Listo |
 | `checklizz-sprint1-prueba.apk` | APK de prueba (release, datos de ejemplo) | Listo. Se entrega por separado: no se sube al repositorio por su tamaño (47 MB) |
 | Diseño en Figma | https://www.figma.com/design/wTgySHkdZDt93fM4dYnTPx | Listo |
+
+
+## 11. Seguimiento posterior al cierre (20 de noviembre de 2026, noche)
+
+### Novedades del repositorio
+- **Pull Request #1 fusionado.** Karol Salvador lo aprobó (colaboradora del repositorio) y lo fusionó en `develop` a las 20:43 UTC. Con esto se cumple la definición de "hecha" de `docs/reglas.md`: integrado por un Pull Request revisado por otra persona.
+- **Contrato de la API publicado.** El Integrante 1 subió `docs/openapi.yaml`, junto con `docs/modelo-relacional.md`. Otros Pull Requests (#2, #3 y #4) agregaron la base de datos, la API y una reestructuración del repositorio (`api/` e `infra/`). Las carpetas de la app móvil no cambiaron de lugar.
+- **Copia de trabajo conectada a GitHub.** La carpeta de trabajo ya es un repositorio git limitado a `mobile`, `docs`, `specs` y `.specify`, con un script para subir avances con el formato de commits del proyecto.
+
+### Diferencias entre el contrato real y el provisional
+
+| Tema | Contrato real | Lo que asumía la app |
+|---|---|---|
+| Inicio de sesión | Contra Keycloak: `POST .../realms/checklizz/protocol/openid-connect/token` con `grant_type=password` y `client_id=checklizz-app` | `POST /auth/login` en la API |
+| Datos del usuario | `GET /me`: id, nombre, rol y `sucursalId` | Todo venía en la respuesta de acceso |
+| Roles | `administrador`, `gerente`, `empleado` | `ROLE_ADMIN`, `ROLE_ENCARGADO`, `ROLE_VENDEDOR` |
+| Nombre de la sucursal | `GET /sucursales` | Venía en la respuesta de acceso |
+| Errores | `{error, mensaje, detalles}` | Códigos HTTP simples |
+
+### Trabajo realizado
+- Rama `feature/mobile-acceso-keycloak`, creada desde `develop`.
+- Acceso adaptado al contrato real: token de Keycloak, perfil en `/me` y sucursal en `/sucursales`. Se agregaron los DTOs de token, perfil y sucursal; el servicio y el repositorio real se reescribieron; los roles de la API se reconocen junto con los de Keycloak.
+- Pantallas y ViewModels sin cambios. El modo de ejemplo sigue igual y el APK de prueba no se ve afectado.
+- Direcciones por entorno: `API_BASE_URL` y `KEYCLOAK_BASE_URL`. HTTP permitido solo en las versiones de depuración.
+- Documentación alineada: `contracts/auth-api.md` reescrito, y modelo de datos, investigación, plan, quickstart y README actualizados.
+
+### Resultado
+- `flutter analyze` sin avisos y **96 pruebas automáticas en verde** (80 del Sprint 1 y 16 nuevas del flujo real).
+- Pull Request #5 abierto en borrador hacia `develop`.
+- **Sin probar contra Keycloak ni la API reales:** los servicios no están disponibles desde el equipo de desarrollo. Las pruebas usan respuestas simuladas escritas según `docs/openapi.yaml`.
+
+### Puntos abiertos para el equipo
+1. **Integrante 2 (Keycloak):** confirmar que el cliente `checklizz-app` permite el flujo de contraseña directa y acordar una vigencia del token razonable para la app (el valor por defecto es de 5 minutos).
+2. **Integrante 1 (API):** definir el error de la API para un usuario inactivo. Hoy la app lo trata como cuenta desactivada si recibe un 403 o un código que contenga la palabra inactivo.
+3. **Renovación de sesión:** recomendada para el Sprint 2, con `refresh_token`, para no pedir inicio de sesión cada pocos minutos.
+
+### Próximos pasos
+- Revisión del Pull Request #5 y prueba real contra Keycloak y la API cuando estén disponibles.
+- Etiqueta `v0.1.0` con el Integrante 4.
+- Entregar el APK de prueba a la dueña.
+- Iniciar el Sprint 2 (búsqueda, ficha de prenda, escáner y descuento por venta) en una rama nueva desde `develop`, con `/speckit.specify` a partir de `docs/sprint-2.md`.
