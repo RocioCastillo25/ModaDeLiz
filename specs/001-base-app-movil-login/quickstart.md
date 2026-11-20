@@ -26,7 +26,7 @@ flutter run --dart-define=USE_MOCK=true
 ## Ejecución contra la API real (cuando exista)
 
 ```text
-flutter run --dart-define=USE_MOCK=false --dart-define=API_BASE_URL=https://<dirección-de-la-api>
+flutter run --dart-define=USE_MOCK=false --dart-define=API_BASE_URL=https://<dirección-de-la-api>/api/v1 --dart-define=KEYCLOAK_BASE_URL=https://<dirección-de-keycloak>
 ```
 
 ## Escenarios de validación

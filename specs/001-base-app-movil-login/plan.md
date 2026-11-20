@@ -91,7 +91,7 @@ mobile/
 │   │       └── motion.dart              # reducir movimiento
 │   ├── data/
 │   │   ├── models/                      # user.dart, session.dart, branch.dart, app_role.dart
-│   │   ├── dto/                         # login_response_dto.dart
+│   │   ├── dto/                         # token_response_dto, profile_dto, branch_dto
 │   │   ├── repositories/
 │   │   │   ├── auth_repository.dart     # interfaz
 │   │   │   ├── api_auth_repository.dart
