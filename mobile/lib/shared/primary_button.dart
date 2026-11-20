@@ -44,8 +44,8 @@ class _PrimaryButtonState extends State<PrimaryButton> {
           color: enabled ? null : AppColors.disabled,
           borderRadius: radius,
           border: Border.all(
-            color: _focused ? AppColors.cyan : Colors.transparent,
-            width: 2,
+            color: _focused ? AppColors.violet : Colors.transparent,
+            width: 3,
           ),
         ),
         child: Material(
@@ -61,16 +61,16 @@ class _PrimaryButtonState extends State<PrimaryButton> {
                       height: 24,
                       child: CircularProgressIndicator(
                         strokeWidth: 3,
-                        color: AppColors.textPrimary,
+                        color: AppColors.onPrimary,
                       ),
                     )
                   : Text(
                       widget.label,
                       style: TextStyle(
-                        fontSize: 17,
+                        fontSize: 18,
                         fontWeight: FontWeight.w700,
                         color: enabled
-                            ? AppColors.textPrimary
+                            ? AppColors.onPrimary
                             : AppColors.textSecondary,
                       ),
                     ),

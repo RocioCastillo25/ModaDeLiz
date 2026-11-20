@@ -29,7 +29,7 @@ class AdminNoticeView extends StatelessWidget {
                       const Icon(
                         Icons.laptop_chromebook,
                         size: 48,
-                        color: AppColors.cyan,
+                        color: AppColors.pink,
                       ),
                       const SizedBox(height: 16),
                       const Text(

@@ -9,6 +9,7 @@ import 'features/auth/login_view_model.dart';
 import 'features/auth/session_view_model.dart';
 import 'features/home/home_view.dart';
 import 'features/home/home_view_model.dart';
+import 'shared/brand_logo.dart';
 import 'shared/gradient_background.dart';
 
 /// Aplicación CheckLizz. Recibe sus ViewModels ya construidos (inyección por
@@ -32,7 +33,7 @@ class CheckLizzApp extends StatelessWidget {
     return MaterialApp(
       title: 'CheckLizz',
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.dark,
+      theme: AppTheme.light,
       home: SessionGate(
         session: session,
         login: login,
@@ -117,16 +118,9 @@ class _SplashView extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
-                'CheckLizz',
-                style: TextStyle(
-                  fontSize: 40,
-                  fontWeight: FontWeight.w800,
-                  color: AppColors.pink,
-                ),
-              ),
+              BrandLogo(height: 130),
               SizedBox(height: 24),
-              CircularProgressIndicator(color: AppColors.violet),
+              CircularProgressIndicator(color: AppColors.pink),
             ],
           ),
         ),

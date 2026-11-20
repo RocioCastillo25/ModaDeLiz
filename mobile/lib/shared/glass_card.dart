@@ -1,8 +1,11 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 import '../core/theme/app_colors.dart';
 
-/// Tarjeta tipo vidrio: blanco translúcido, borde sutil y esquinas redondeadas.
+/// Tarjeta tipo vidrio (glassmorphism discreto): blanco translúcido con
+/// desenfoque suave, borde claro, esquinas redondeadas y sombra rosada.
 class GlassCard extends StatelessWidget {
   const GlassCard({
     super.key,
@@ -15,14 +18,33 @@ class GlassCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: padding,
+    final radius = BorderRadius.circular(24);
+    return DecoratedBox(
       decoration: BoxDecoration(
-        color: AppColors.glass,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: AppColors.glassBorder),
+        borderRadius: radius,
+        boxShadow: const [
+          BoxShadow(
+            color: AppColors.glassShadow,
+            blurRadius: 24,
+            offset: Offset(0, 10),
+          ),
+        ],
       ),
-      child: child,
+      child: ClipRRect(
+        borderRadius: radius,
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 14, sigmaY: 14),
+          child: Container(
+            padding: padding,
+            decoration: BoxDecoration(
+              color: AppColors.glass,
+              borderRadius: radius,
+              border: Border.all(color: AppColors.glassBorder, width: 1.5),
+            ),
+            child: child,
+          ),
+        ),
+      ),
     );
   }
 }

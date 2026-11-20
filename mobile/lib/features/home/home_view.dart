@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/theme/app_colors.dart';
+import '../../shared/brand_logo.dart';
 import '../../shared/glass_card.dart';
 import '../../shared/gradient_background.dart';
 import 'home_view_model.dart';
@@ -88,13 +89,29 @@ class _HomeViewState extends State<HomeView> {
     return ListView(
       padding: const EdgeInsets.fromLTRB(24, 24, 24, 8),
       children: [
-        const Text(
-          'CheckLizz',
-          style: TextStyle(
-            fontSize: 28,
-            fontWeight: FontWeight.w800,
-            color: AppColors.pink,
-          ),
+        const Row(
+          children: [
+            GlassCard(
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+              child: BrandLogo(height: 44),
+            ),
+            SizedBox(width: 12),
+            // Se reduce solo si no cabe, para no cortarse en pantallas pequeñas.
+            Expanded(
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'CheckLizz',
+                  style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.w800,
+                    color: AppColors.pink,
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
         const SizedBox(height: 16),
         GlassCard(
@@ -153,7 +170,7 @@ class _InfoRow extends StatelessWidget {
       excludeSemantics: true,
       child: Row(
         children: [
-          Icon(icon, color: AppColors.cyan),
+          Icon(icon, color: AppColors.pink),
           const SizedBox(width: 12),
           Text(
             '$label: ',
