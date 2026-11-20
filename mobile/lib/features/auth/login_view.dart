@@ -116,7 +116,10 @@ class _LoginViewState extends State<LoginView> {
         ),
         const SizedBox(height: 28),
         GlassCard(
+          // La contraseña nunca se guarda en el dispositivo: se cancela el
+          // contexto de autocompletado para que Android no ofrezca guardarla.
           child: AutofillGroup(
+            onDisposeAction: AutofillContextAction.cancel,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -132,7 +135,7 @@ class _LoginViewState extends State<LoginView> {
                 TextField(
                   controller: _usernameController,
                   enabled: !loading,
-                  autofillHints: const [AutofillHints.username],
+                  autocorrect: false,
                   textInputAction: TextInputAction.next,
                   onSubmitted: (_) => _passwordFocus.requestFocus(),
                   decoration: InputDecoration(
@@ -147,7 +150,8 @@ class _LoginViewState extends State<LoginView> {
                   focusNode: _passwordFocus,
                   enabled: !loading,
                   obscureText: _obscure,
-                  autofillHints: const [AutofillHints.password],
+                  enableSuggestions: false,
+                  autocorrect: false,
                   textInputAction: TextInputAction.done,
                   onSubmitted: (_) => _submit(),
                   decoration: InputDecoration(
