@@ -4,4 +4,8 @@
          to allow setting breakpoints, to provide hot reload, etc.
     -->
     <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- Solo en depuración: permite probar contra la API y Keycloak locales por
+         HTTP (por ejemplo http://10.0.2.2:3000). La versión release solo usa
+         HTTPS, como exige la constitución del proyecto. -->
+    <application android:usesCleartextTraffic="true"/>
 </manifest>

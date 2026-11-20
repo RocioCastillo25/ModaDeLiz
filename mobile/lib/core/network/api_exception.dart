@@ -5,10 +5,24 @@ enum ApiErrorKind { network, badRequest, unauthorized, forbidden, server }
 
 /// Error que expone el [ApiClient] a las capas superiores.
 class ApiException implements Exception {
-  const ApiException(this.kind, {this.statusCode});
+  const ApiException(
+    this.kind, {
+    this.statusCode,
+    this.code,
+    this.description,
+  });
 
   final ApiErrorKind kind;
   final int? statusCode;
+
+  /// Código de error del cuerpo de la respuesta (`error`), si lo hay. Es para
+  /// decidir qué hacer; nunca se muestra al usuario.
+  final String? code;
+
+  /// Descripción del error del cuerpo (`error_description` de Keycloak o
+  /// `mensaje` de la API). Es para decidir qué hacer; nunca se muestra al
+  /// usuario.
+  final String? description;
 
   /// Traduce un error de `dio` a un [ApiException].
   factory ApiException.fromDio(DioException error) {
@@ -16,16 +30,29 @@ class ApiException implements Exception {
     if (status == null) {
       return const ApiException(ApiErrorKind.network);
     }
+    String? code;
+    String? description;
+    final body = error.response?.data;
+    if (body is Map) {
+      code = body['error']?.toString();
+      description = (body['error_description'] ?? body['mensaje'])?.toString();
+    }
+    final ApiErrorKind kind;
     if (status == 401) {
-      return ApiException(ApiErrorKind.unauthorized, statusCode: status);
+      kind = ApiErrorKind.unauthorized;
+    } else if (status == 403) {
+      kind = ApiErrorKind.forbidden;
+    } else if (status >= 400 && status < 500) {
+      kind = ApiErrorKind.badRequest;
+    } else {
+      kind = ApiErrorKind.server;
     }
-    if (status == 403) {
-      return ApiException(ApiErrorKind.forbidden, statusCode: status);
-    }
-    if (status >= 400 && status < 500) {
-      return ApiException(ApiErrorKind.badRequest, statusCode: status);
-    }
-    return ApiException(ApiErrorKind.server, statusCode: status);
+    return ApiException(
+      kind,
+      statusCode: status,
+      code: code,
+      description: description,
+    );
   }
 
   @override

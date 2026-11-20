@@ -25,9 +25,13 @@ class AuthInterceptor extends Interceptor {
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
-    final token = await _readToken();
-    if (token != null && token.isNotEmpty) {
-      options.headers['Authorization'] = 'Bearer $token';
+    // Si la petición ya trae su propio encabezado (por ejemplo, justo después
+    // de iniciar sesión, antes de guardar la sesión), no se sobrescribe.
+    if (!options.headers.containsKey('Authorization')) {
+      final token = await _readToken();
+      if (token != null && token.isNotEmpty) {
+        options.headers['Authorization'] = 'Bearer $token';
+      }
     }
     handler.next(options);
   }

@@ -1,12 +1,16 @@
 import '../../core/network/api_exception.dart';
 import '../../core/security/token_storage.dart';
 import '../models/app_role.dart';
+import '../models/branch.dart';
 import '../models/session.dart';
 import '../services/auth_service.dart';
 import 'auth_failure.dart';
 import 'auth_repository.dart';
 
-/// Repositorio de autenticación contra la API real.
+/// Paso del acceso en el que ocurrió un error; cambia cómo se interpreta.
+enum _Step { token, profile, branches }
+
+/// Repositorio de autenticación contra Keycloak y la API real.
 class ApiAuthRepository implements AuthRepository {
   ApiAuthRepository(
     this._service,
@@ -20,12 +24,37 @@ class ApiAuthRepository implements AuthRepository {
 
   @override
   Future<Session> login(String username, String password) async {
+    var step = _Step.token;
     final Session session;
     try {
-      final dto = await _service.login(username, password);
-      session = dto.toSession(now: _clock());
+      final token = await _service.requestToken(username, password);
+
+      step = _Step.profile;
+      final profile = await _service.fetchProfile(token.accessToken);
+      final role = profile.appRole;
+      if (role == null) {
+        throw const AuthFailure(AuthFailureType.incompleteData);
+      }
+
+      Branch? branch;
+      if (role.requiresBranch) {
+        step = _Step.branches;
+        final branches = await _service.fetchBranches(token.accessToken);
+        for (final candidate in branches) {
+          if (candidate.id == profile.branchId) {
+            branch = candidate.toBranch();
+            break;
+          }
+        }
+      }
+
+      session = Session(
+        accessToken: token.accessToken,
+        expiresAt: _clock().add(Duration(seconds: token.expiresIn)),
+        user: profile.toUser(branch),
+      );
     } on ApiException catch (error) {
-      throw AuthFailure(_mapError(error));
+      throw AuthFailure(_mapError(error, step));
     }
     // Un administrador no conserva sesión en el dispositivo.
     if (session.user.role != AppRole.admin) {
@@ -40,17 +69,27 @@ class ApiAuthRepository implements AuthRepository {
   @override
   Future<void> logout() => _storage.clear();
 
-  AuthFailureType _mapError(ApiException error) {
-    switch (error.kind) {
-      case ApiErrorKind.unauthorized:
-        return AuthFailureType.invalidCredentials;
-      case ApiErrorKind.forbidden:
-        return AuthFailureType.accountDisabled;
-      case ApiErrorKind.network:
-        return AuthFailureType.network;
-      case ApiErrorKind.badRequest:
-      case ApiErrorKind.server:
-        return AuthFailureType.server;
+  AuthFailureType _mapError(ApiException error, _Step step) {
+    if (error.kind == ApiErrorKind.network) return AuthFailureType.network;
+    if (error.kind == ApiErrorKind.server) return AuthFailureType.server;
+
+    final texto = '${error.code ?? ''} ${error.description ?? ''}'.toLowerCase();
+    final desactivada = texto.contains('disabled') || texto.contains('inactiv');
+
+    if (step == _Step.token) {
+      // Keycloak responde 401 ante credenciales incorrectas y 400 con
+      // "Account disabled" ante una cuenta desactivada. Cualquier otro rechazo
+      // se muestra como credenciales incorrectas, sin revelar si existe el usuario.
+      if (desactivada) return AuthFailureType.accountDisabled;
+      return AuthFailureType.invalidCredentials;
     }
+
+    // Con el token recién emitido, la API no debería rechazarlo: un 401 o un
+    // 400 aquí es un fallo del servicio. Un 403 o un usuario inactivo significa
+    // que la cuenta no puede usar la app.
+    if (error.kind == ApiErrorKind.forbidden || desactivada) {
+      return AuthFailureType.accountDisabled;
+    }
+    return AuthFailureType.server;
   }
 }

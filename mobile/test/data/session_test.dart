@@ -20,6 +20,12 @@ void main() {
       expect(AppRole.tryParse('ROLE_VENDEDOR'), AppRole.seller);
     });
 
+    test('reconoce los nombres de rol de la API', () {
+      expect(AppRole.tryParse('administrador'), AppRole.admin);
+      expect(AppRole.tryParse('gerente'), AppRole.manager);
+      expect(AppRole.tryParse('empleado'), AppRole.seller);
+    });
+
     test('rechaza un rol desconocido', () {
       expect(AppRole.tryParse('ROLE_OTRO'), isNull,
           reason: 'un rol desconocido no debe aceptarse');

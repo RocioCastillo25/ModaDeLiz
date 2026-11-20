@@ -20,11 +20,18 @@ flutter pub get
 flutter run --dart-define=USE_MOCK=true
 ```
 
-Contra la API real, cuando esté disponible:
+Contra Keycloak y la API real (contrato en `docs/openapi.yaml`):
 
 ```text
-flutter run --dart-define=USE_MOCK=false --dart-define=API_BASE_URL=https://<dirección-de-la-api>
+flutter run --dart-define=USE_MOCK=false ^
+  --dart-define=API_BASE_URL=http://10.0.2.2:3000/api/v1 ^
+  --dart-define=KEYCLOAK_BASE_URL=http://10.0.2.2:8080
 ```
+
+`10.0.2.2` es la computadora vista desde el emulador de Android. En un teléfono físico usa la IP de
+la computadora en la misma red. Las versiones de depuración aceptan HTTP; la versión release exige
+HTTPS. El inicio de sesión pide el token a Keycloak y luego lee el perfil (`GET /me`) y la sucursal
+(`GET /sucursales`); ver `specs/001-base-app-movil-login/contracts/auth-api.md`.
 
 La dirección de la API se configura por entorno. No se usan archivos `.env` ni se sube ninguna
 contraseña al repositorio.
