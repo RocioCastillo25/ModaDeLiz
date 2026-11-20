@@ -113,7 +113,7 @@
 - [X] T043 [P] [US1] Crear `HomeView` en `mobile/lib/features/home/home_view.dart` con tarjeta de vidrio de nombre, rol y sucursal, y los accesos "próximamente"
 - [X] T044 [US1] Crear `mobile/lib/app.dart` con `MaterialApp`, el tema central y la compuerta de sesión (muestra `LoginView` o `HomeView` según `SessionViewModel`) (depende de T040, T041, T042, T043)
 - [X] T045 [US1] Crear `mobile/lib/main.dart` que inicializa el registro de dependencias y ejecuta la app (depende de T044)
-- [ ] T046 [US1] Validar los escenarios 1, 2, 3, 4, 5, 7 y 8 de `specs/001-base-app-movil-login/quickstart.md` en emulador Android
+- [X] T046 [US1] Validar los escenarios 1, 2, 3, 4, 5, 7 y 8 de `specs/001-base-app-movil-login/quickstart.md` en emulador Android
 
 **Punto de control**: la Historia 1 funciona de forma independiente (MVP).
 
@@ -128,7 +128,7 @@
 - [X] T047 [P] [US2] Pruebas de cierre de sesión (borra el token, pasa a `unauthenticated`, limpia el estado de `LoginViewModel` y `HomeViewModel`) en `mobile/test/features/auth/session_view_model_test.dart`
 - [X] T048 [US2] Implementar `logout()` en `mobile/lib/features/auth/session_view_model.dart` y en ambos repositorios (`mobile/lib/data/repositories/mock_auth_repository.dart` y `api_auth_repository.dart`), con limpieza del estado de los demás ViewModels registrados (depende de T047)
 - [X] T049 [US2] Conectar el botón "Cerrar sesión" en `mobile/lib/features/home/home_view.dart` y `mobile/lib/features/home/home_view_model.dart` (depende de T048)
-- [ ] T050 [US2] Validar el escenario 10 de `quickstart.md`
+- [X] T050 [US2] Validar el escenario 10 de `quickstart.md`
 
 **Punto de control**: las Historias 1 y 2 funcionan de forma independiente.
 
@@ -161,7 +161,7 @@
 - [X] T058 [P] [US4] Crear `AdminNoticeView` en `mobile/lib/features/auth/admin_notice_view.dart` con el mensaje que dirige a la página web y un botón para volver al inicio de sesión
 - [X] T059 [US4] Garantizar en `mobile/lib/data/repositories/mock_auth_repository.dart` y `api_auth_repository.dart` que no se guarda el token cuando el rol es `admin` (`research.md` D9) (depende de T057)
 - [X] T060 [US4] Exponer el aviso de administrador en `mobile/lib/features/auth/login_view_model.dart` y mostrarlo desde la compuerta de `mobile/lib/app.dart` (depende de T058, T059)
-- [ ] T061 [US4] Validar el escenario 6 de `quickstart.md`
+- [X] T061 [US4] Validar el escenario 6 de `quickstart.md`
 
 **Punto de control**: todas las historias funcionan de forma independiente.
 
@@ -171,7 +171,7 @@
 
 **Propósito**: calidad, documentación y entrega del sprint
 
-- [ ] T062 [P] Revisar que todos los textos de interfaz estén en español con tildes y signos de apertura correctos en `mobile/lib/`
+- [X] T062 [P] Revisar que todos los textos de interfaz estén en español con tildes y signos de apertura correctos en `mobile/lib/`
 - [X] T063 [P] Verificar que no existan colores sueltos fuera de `mobile/lib/core/theme/` y que ninguna View importe un Service o `dio` (`mobile/lib/features/`, `mobile/lib/shared/`)
 - [ ] T064 Ejecutar `flutter analyze` y `flutter test` en `mobile/` y corregir los hallazgos
 - [X] T065 [P] Escribir `mobile/README.md` en español (cómo ejecutar con `USE_MOCK`, usuarios de ejemplo, cómo cambiar a la API real y cómo generar el APK)
