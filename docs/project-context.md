@@ -170,13 +170,14 @@ La app móvil se considerará satisfactoria cuando las pruebas demuestren que:
 
 ## 12. Diseño visual de la aplicación
 
-La interfaz retoma la estética del pitch del proyecto (`pitch-moda-de-lizz.html`): **moderna, oscura y con glassmorphism discreto**.
+La interfaz es **moderna, clara y con glassmorphism discreto, en rosa pastel y blanco**, y toma sus colores del logo de Moda D' Liz (`Logo.jpg`). *(Actualizado el 2026-11-20 a petición del equipo: sustituye la estética oscura del pitch.)*
 
-- Fondo principal: degradado de `#1b1035` a `#3a1561`.
-- Acentos: rosa `#ff5fa2`, violeta `#8b5cf6`, cian `#38d6e8` y ámbar `#ffb86b`.
-- Superficies tipo vidrio: blanco con transparencia (`rgba(255, 255, 255, 0.10)`), borde sutil y esquinas redondeadas.
-- Texto blanco, con texto secundario al 72 % de opacidad.
-- Botón principal con degradado rosa a violeta; estados de foco visibles y buen contraste.
+- Fondo principal: degradado de rosa pastel `#ffd9ea` a blanco `#ffffff`.
+- Acentos: rosa fuerte `#d6338a` (el del logo), rosa pastel `#f9a8d4`, violeta `#7c5ce0` para el foco, y ámbar oscuro `#a86400` para avisos.
+- Superficies tipo vidrio: blanco translúcido (60 %), borde blanco claro, desenfoque suave, esquinas redondeadas y sombra rosada.
+- Texto en ciruela oscuro `#3a1030`, con texto secundario `#6e4c62`; texto blanco sobre el botón principal.
+- Botón principal con degradado de rosa a rosa fuerte; estados de foco visibles y buen contraste.
+- El logo de Moda D' Liz aparece en el inicio de sesión, en la pantalla principal y como icono de la app.
 - Tipografía sans-serif limpia.
 - Diseñada para uso con una mano y en piso de venta: botones grandes, pocos pasos y lectura rápida.
 - Las animaciones son suaves y breves, y no retrasan ninguna operación. Se respeta la preferencia del sistema de reducir movimiento.

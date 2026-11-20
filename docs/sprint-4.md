@@ -83,7 +83,7 @@ Como empleado, quiero una guía corta de uso dentro de la app para aprender sin 
 
 - Tamaños de texto legibles y respeto del tamaño de fuente del sistema.
 - Zonas táctiles suficientemente grandes.
-- Contraste adecuado en el tema oscuro.
+- Contraste adecuado en el tema rosa pastel y blanco.
 - Revisión del flujo completo con personal de la tienda, con el cliente enfrente.
 
 ### 4.6 Guía de uso

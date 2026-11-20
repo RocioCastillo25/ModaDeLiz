@@ -96,7 +96,7 @@ Como integrante del equipo, quiero una base de app ordenada, con la imagen visua
 
 1. **Dado** que los servicios reales aún no están disponibles, **Cuando** se usa la app con los datos de ejemplo, **Entonces** existe un usuario de ejemplo por rol, cada uno con su sucursal, identificado claramente como de prueba.
 2. **Dado** que los servicios reales ya están disponibles, **Cuando** el equipo cambia de datos de ejemplo a datos reales, **Entonces** las pantallas siguen funcionando igual, sin modificarse.
-3. **Dado** que el usuario abre el inicio de sesión, **Cuando** ve la pantalla, **Entonces** aparece el nombre "CheckLizz" con estética oscura, botones grandes y lectura rápida.
+3. **Dado** que el usuario abre el inicio de sesión, **Cuando** ve la pantalla, **Entonces** aparecen el logo de la tienda y el nombre "CheckLizz" con estética clara en rosa pastel y blanco, botones grandes y lectura rápida.
 4. **Dado** que el sistema tiene activada la preferencia de reducir movimiento, **Cuando** el usuario navega, **Entonces** las animaciones se reducen o desaparecen.
 
 ---
@@ -135,7 +135,7 @@ Como integrante del equipo, quiero una base de app ordenada, con la imagen visua
 - **FR-019**: El sistema DEBE mostrar mensajes de error claros, en español, sin detalles técnicos ni códigos internos, con opción de reintentar cuando aplique.
 - **FR-020**: El sistema DEBE incluir usuarios de ejemplo (uno por rol, con su sucursal) claramente identificados como de prueba.
 - **FR-021**: El sistema DEBE permitir cambiar entre los datos de ejemplo y los servicios reales sin modificar las pantallas.
-- **FR-022**: La interfaz DEBE usar la estética oscura y la paleta definidas en la sección 12 de `docs/project-context.md`, con el nombre "CheckLizz" en el inicio de sesión.
+- **FR-022**: La interfaz DEBE usar la estética de glassmorphism en rosa pastel y blanco y la paleta definidas en la sección 12 de `docs/project-context.md`, con el logo de la tienda y el nombre "CheckLizz" en el inicio de sesión.
 - **FR-023**: La interfaz DEBE tener botones grandes, foco visible y buen contraste, y DEBE respetar la preferencia del sistema de reducir movimiento.
 - **FR-024**: Todos los textos de la interfaz DEBEN estar en español, con tildes y signos de apertura correctos.
 - **FR-025**: El sistema NO DEBE incluir en este sprint búsqueda, ficha de prenda, escáner, descuento de existencias, traspasos, notificaciones, registro de cuentas, recuperación de contraseña, precios ni modo sin conexión.

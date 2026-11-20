@@ -77,12 +77,12 @@
 
 ### Implementación de la Historia 5
 
-- [X] T026 [P] [US5] Crear la paleta en `mobile/lib/core/theme/app_colors.dart` (fondo `#1b1035` a `#3a1561`; rosa `#ff5fa2`, violeta `#8b5cf6`, cian `#38d6e8`, ámbar `#ffb86b`; vidrio blanco al 10 %; texto secundario al 72 %)
+- [X] T026 [P] [US5] Crear la paleta en `mobile/lib/core/theme/app_colors.dart` (rosa pastel y blanco, según la sección 12 de `docs/project-context.md`: fondo `#ffd9ea` a `#ffffff`; rosa `#d6338a`, rosa pastel `#f9a8d4`, violeta `#7c5ce0`, ámbar `#a86400`; vidrio blanco al 60 %)
 - [X] T027 [P] [US5] Crear `mobile/lib/core/theme/motion.dart` que reduce o elimina animaciones según `MediaQuery.disableAnimations`
 - [X] T028 [US5] Crear `mobile/lib/core/theme/app_theme.dart` con tipografía sans-serif del sistema, botones grandes y foco visible (depende de T026)
 - [X] T029 [P] [US5] Crear `mobile/lib/shared/gradient_background.dart`
 - [X] T030 [P] [US5] Crear `mobile/lib/shared/glass_card.dart` (vidrio discreto, borde sutil, esquinas redondeadas)
-- [X] T031 [P] [US5] Crear `mobile/lib/shared/primary_button.dart` (degradado rosa a violeta, grande, deshabilitado mientras carga)
+- [X] T031 [P] [US5] Crear `mobile/lib/shared/primary_button.dart` (degradado de rosa a rosa fuerte, grande, deshabilitado mientras carga)
 - [X] T032 [P] [US5] Crear `mobile/lib/shared/error_message.dart` (mensaje claro con botón de reintentar, sin detalles técnicos)
 - [X] T033 [P] [US5] Crear `SecureTokenStorage` sobre `flutter_secure_storage` en `mobile/lib/core/security/secure_token_storage.dart`
 - [X] T034 [P] [US5] Crear `ConnectivityPlusService` en `mobile/lib/data/services/connectivity_plus_service.dart`

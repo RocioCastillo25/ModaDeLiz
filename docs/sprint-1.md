@@ -86,7 +86,7 @@ Como empleado o gerente, quiero ver una pantalla principal con mi nombre, mi rol
 
 ### 4.6 Diseño visual
 
-- Fondo oscuro con degradado y tarjetas de vidrio discreto, según la sección 12 de `docs/project-context.md`.
+- Fondo rosa pastel y blanco con degradado y tarjetas de vidrio discreto, y el logo de la tienda, según la sección 12 de `docs/project-context.md`.
 - La pantalla de inicio de sesión muestra el nombre "CheckLizz" y un formulario claro y de lectura rápida.
 - Botones grandes y estados de foco visibles.
 - Animaciones suaves y breves, con respeto a la preferencia de reducir movimiento.

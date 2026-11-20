@@ -59,7 +59,7 @@ No quedan marcadores `NEEDS CLARIFICATION`. Las decisiones del contexto ya se re
 
 ## D10. Tema, tipografía y movimiento
 
-- **Decisión**: tema central en `core/theme` con la paleta de la sección 12; tipografía sans-serif del sistema (sin paquete de fuentes). Fondo con degradado `#1b1035` a `#3a1561`; superficies de vidrio con blanco al 10 % y borde sutil, sin desenfoque costoso en gama baja. El movimiento se reduce consultando `MediaQuery.disableAnimations`.
+- **Decisión**: tema central en `core/theme` con la paleta de la sección 12; tipografía sans-serif del sistema (sin paquete de fuentes). Estética clara en rosa pastel y blanco (actualizada el 2026-11-20 a petición del equipo): fondo con degradado `#ffd9ea` a `#ffffff`; superficies de vidrio con blanco al 60 %, borde claro y desenfoque suave (sigma 14) solo en las pocas tarjetas de cada pantalla, para cuidar el rendimiento en gama baja. El logo de Moda D' Liz se muestra en la app y como icono. El movimiento se reduce consultando `MediaQuery.disableAnimations`.
 - **Justificación**: evita descargar fuentes y asegura arranque rápido; cumple la constitución IX y X.
 - **Alternativas**: `google_fonts` (descarga en ejecución, dependencia extra).
 

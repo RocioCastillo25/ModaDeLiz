@@ -135,8 +135,8 @@ Aplicar solo donde resuelven un problema concreto:
 
 ## XIV. Diseño visual y animaciones
 
-1. Estética oscura con glassmorphism discreto, según la sección 12 de `docs/project-context.md`.
-2. Paleta: fondo degradado `#1b1035` a `#3a1561`; acentos rosa `#ff5fa2`, violeta `#8b5cf6`, cian `#38d6e8` y ámbar `#ffb86b`.
+1. Estética clara con glassmorphism discreto en rosa pastel y blanco, con el logo de Moda D' Liz, según la sección 12 de `docs/project-context.md`.
+2. Paleta: fondo degradado de `#ffd9ea` a `#ffffff`; acentos rosa fuerte `#d6338a`, rosa pastel `#f9a8d4`, violeta `#7c5ce0` y ámbar oscuro `#a86400`; texto `#3a1030`.
 3. Las animaciones son suaves y breves; no retrasan la búsqueda, el escaneo ni el descuento de stock.
 4. El diseño debe verse bien en pantallas pequeñas y grandes, en vertical.
 5. La estética no debe alterar la lógica, las llamadas a la API ni el manejo de sesión.

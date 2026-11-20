@@ -1,11 +1,14 @@
 <!--
 Informe de impacto de sincronización
-- Cambio de versión: (plantilla sin completar) → 1.0.0
-- Principios modificados: ninguno (constitución inicial)
-- Principios agregados: I–XI (derivados de docs/reglas.md, secciones I–XI y XIV)
-- Secciones agregadas: "Restricciones técnicas y alcance excluido", "Flujo de desarrollo y pruebas", "Gobernanza"
+- Cambio de versión: 1.0.0 → 1.1.0 (2026-11-20)
+- Principios modificados: X (Diseño visual y animaciones): la estética pasa de oscura (morado) a
+  clara en rosa pastel y blanco, con el logo de Moda D' Liz, a petición del equipo; se actualizó
+  también docs/project-context.md (sección 12) y docs/reglas.md (sección XIV)
+- Principios agregados: ninguno
+- Secciones agregadas: ninguna
 - Secciones eliminadas: ninguna
 - Pendientes: ninguno
+- Versión 1.0.0 (2026-11-20): constitución inicial con los principios I–XI derivados de docs/reglas.md
 -->
 # Constitución de CheckLizz (app móvil)
 
@@ -108,9 +111,10 @@ sección de Gobernanza.
 - La app respeta la preferencia del sistema de reducir animaciones.
 
 ### X. Diseño visual y animaciones
-- Estética oscura con glassmorphism discreto (sección 12 de `docs/project-context.md`).
-- Paleta: fondo degradado `#1b1035` a `#3a1561`; acentos rosa `#ff5fa2`, violeta `#8b5cf6`, cian
-  `#38d6e8` y ámbar `#ffb86b`.
+- Estética clara con glassmorphism discreto en rosa pastel y blanco, con el logo de Moda D' Liz
+  (sección 12 de `docs/project-context.md`).
+- Paleta: fondo degradado de `#ffd9ea` a `#ffffff`; acentos rosa fuerte `#d6338a`, rosa pastel
+  `#f9a8d4`, violeta `#7c5ce0` y ámbar oscuro `#a86400`; texto `#3a1030`.
 - Las animaciones son suaves y breves; no retrasan la búsqueda, el escaneo ni el descuento de stock.
 - El diseño se ve bien en pantallas pequeñas y grandes, en vertical.
 - La estética MUST NOT alterar la lógica, las llamadas a la API ni el manejo de sesión.
@@ -158,4 +162,4 @@ contradecirla, se MUST señalar la contradicción y solicitar una decisión ante
   estos principios; la complejidad adicional se justifica por escrito.
 - **Guía de trabajo:** `CLAUDE.md`, `docs/project-context.md` y `docs/reglas.md`.
 
-**Versión**: 1.0.0 | **Ratificada**: 2026-11-20 | **Última enmienda**: 2026-11-20
+**Versión**: 1.1.0 | **Ratificada**: 2026-11-20 | **Última enmienda**: 2026-11-20
