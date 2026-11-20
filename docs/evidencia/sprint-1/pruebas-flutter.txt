@@ -1,0 +1,123 @@
+﻿Evidencia generada el 2026-11-20 14:02
+
+=== flutter analyze ===
+Resolving dependencies...
+Downloading packages...
+  code_assets 1.2.1 (2.2.0 available)
+  cupertino_icons 1.0.9 (2.0.0 available)
+  hooks 2.0.2 (2.2.0 available)
+  material_color_utilities 0.13.0 (0.13.1 available)
+  meta 1.18.3 (1.19.0 available)
+  objective_c 9.5.0 (9.6.4 available)
+  petitparser 7.0.2 (7.1.0 available)
+  record_use 0.6.0 (1.1.1 available)
+  test_api 0.7.12 (0.7.15 available)
+  vector_math 2.4.0 (2.4.4 available)
+  xml 7.0.1 (7.1.0 available)
+Got dependencies!
+11 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+Analyzing mobile...                                             
+No issues found! (ran in 21.8s)
+
+
+=== flutter test ===
+Resolving dependencies...
+Downloading packages...
+  code_assets 1.2.1 (2.2.0 available)
+  cupertino_icons 1.0.9 (2.0.0 available)
+  hooks 2.0.2 (2.2.0 available)
+  material_color_utilities 0.13.0 (0.13.1 available)
+  meta 1.18.3 (1.19.0 available)
+  objective_c 9.5.0 (9.6.4 available)
+  petitparser 7.0.2 (7.1.0 available)
+  record_use 0.6.0 (1.1.1 available)
+  test_api 0.7.12 (0.7.15 available)
+  vector_math 2.4.0 (2.4.4 available)
+  xml 7.0.1 (7.1.0 available)
+Got dependencies!
+11 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading C:/Users/moni2/ChekLizz/mobile/test/app_test.dart
+00:00 +0: C:/Users/moni2/ChekLizz/mobile/test/core/auth_interceptor_test.dart: agrega el encabezado Authorization cuando hay token
+00:00 +1: C:/Users/moni2/ChekLizz/mobile/test/core/auth_interceptor_test.dart: agrega el encabezado Authorization cuando hay token
+00:00 +2: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:00 +3: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:00 +4: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:00 +5: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:00 +6: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:00 +7: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:00 +8: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:00 +9: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:00 +10: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:00 +11: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:00 +12: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:00 +13: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:00 +14: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:00 +15: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:00 +16: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:00 +17: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:00 +18: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:00 +19: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:00 +20: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:00 +21: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:00 +22: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:00 +23: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:00 +24: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:00 +25: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:00 +26: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:00 +27: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:00 +28: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:00 +29: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:00 +30: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:00 +31: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:00 +32: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:00 +33: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:00 +34: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:00 +35: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:00 +36: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:00 +37: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:00 +38: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:00 +39: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:00 +40: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:00 +41: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:00 +42: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:00 +43: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:00 +44: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:00 +45: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:00 +46: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:01 +47: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:01 +48: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:01 +49: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:01 +50: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:01 +51: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:01 +52: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:01 +53: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:01 +54: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:01 +55: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:01 +56: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:01 +57: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:01 +58: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:01 +59: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:01 +60: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:01 +61: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:01 +62: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:01 +63: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:01 +64: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:01 +65: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:01 +66: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:01 +67: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:01 +68: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:01 +69: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:01 +70: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:01 +71: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:01 +72: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
+00:02 +73: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con campos vacíos indica qué falta y no entra
+00:02 +74: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con campos vacíos indica qué falta y no entra
+00:02 +75: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con campos vacíos indica qué falta y no entra
+00:02 +76: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con campos vacíos indica qué falta y no entra
+00:02 +77: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con campos vacíos indica qué falta y no entra
+00:02 +78: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con credenciales válidas llega a la pantalla principal
+00:02 +79: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con contraseña incorrecta muestra el mensaje genérico
+00:03 +80: All tests passed!
+
