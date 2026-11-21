@@ -1,6 +1,7 @@
 # CheckLizz - levanta TODO el backend con un solo comando:
 #   docker compose up -d --build
 # Servicios: PostgreSQL + Keycloak + API (Node.js)
+# Opcional:  docker compose --profile tools up -d     (agrega pgAdmin en http://localhost:5050)
 # Las variables vienen de .env (copiar de .env.example); todas tienen valor por defecto.
 
 name: checklizz
@@ -63,11 +64,32 @@ services:
       KEYCLOAK_REALM: checklizz
       KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN:-admin}
       KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD:-admin}
-      # Emisores aceptados en el token (PC, emulador Android, etc.)
-      ALLOWED_ISSUERS: ${ALLOWED_ISSUERS:-http://localhost:8080/realms/checklizz,http://10.0.2.2:8080/realms/checklizz}
+      # Emisores aceptados en el token (PC y emulador Android). Siguen a KEYCLOAK_PORT:
+      # si cambias el puerto de Keycloak (ej. 8180) el emisor del token cambia con el.
+      # Telefono fisico: define ALLOWED_ISSUERS en .env con la IP de la PC (ver .env.example).
+      ALLOWED_ISSUERS: ${ALLOWED_ISSUERS:-http://localhost:${KEYCLOAK_PORT:-8080}/realms/checklizz,http://10.0.2.2:${KEYCLOAK_PORT:-8080}/realms/checklizz}
     ports:
       - "${API_PORT:-3000}:3000"
+
+  # Herramienta opcional (sugerida por el profe). No arranca por defecto: usa --profile tools.
+  # Puerto 5050 porque el 8080 es de Keycloak. En pgAdmin conectate al host "postgres", puerto 5432.
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: checklizz-pgadmin
+    profiles: ["tools"]
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL:-admin@checklizz.com}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD:-admin}
+    ports:
+      - "${PGADMIN_PORT:-5050}:80"
+    volumes:
+      - pgadmindata:/var/lib/pgadmin
 
 volumes:
   pgdata:
   keycloakdata:
+  pgadmindata:
