@@ -1,59 +1,70 @@
+# CheckLizz - levanta TODO el backend con un solo comando:
+#   docker compose up -d --build
+# Servicios: PostgreSQL + Keycloak + API (Node.js)
+# Las variables vienen de .env (copiar de .env.example); todas tienen valor por defecto.
 
+name: checklizz
 
 services:
-  # 1. Base de Datos (PostgreSQL v15+)
-  db-checklizz:
-    image: postgres:15
-    container_name: checklizz_postgres
+  postgres:
+    image: postgres:16-alpine
+    container_name: checklizz-postgres
+    restart: unless-stopped
     environment:
-      POSTGRES_USER: admin_checklizz
-      POSTGRES_PASSWORD: password_seguro
-      POSTGRES_DB: checklizz_db
+      POSTGRES_USER: ${POSTGRES_USER:-checklizz}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-checklizz_dev}
+      POSTGRES_DB: ${POSTGRES_DB:-checklizz}
     ports:
-      - "5433:5433"
+      - "${POSTGRES_PORT:-5432}:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
-      # Aquí se monta tu archivo init.sql para que las tablas se creen solas
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql 
-    networks:
-      - checklizz-network
+      # Los scripts se ejecutan solo la primera vez que se crea el volumen
+      - ./infra/postgres/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-checklizz} -d ${POSTGRES_DB:-checklizz}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
-  # 2. Seguridad e Identidad (Keycloak)
-  keycloak-checklizz:
-    image: quay.io/keycloak/keycloak:latest
-    container_name: checklizz_keycloak
-    command: start-dev # Inicia Keycloak en modo desarrollo
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.0
+    container_name: checklizz-keycloak
+    restart: unless-stopped
+    command: ["start-dev", "--import-realm"]
     environment:
-      KEYCLOAK_ADMIN: admin
-      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_BOOTSTRAP_ADMIN_USERNAME: ${KEYCLOAK_ADMIN:-admin}
+      KC_BOOTSTRAP_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD:-admin}
+      KC_HTTP_PORT: 8080
+      KC_HOSTNAME_STRICT: "false"
     ports:
-      - "8080:8080" # Puerto para acceder al panel web de Keycloak
+      - "${KEYCLOAK_PORT:-8080}:8080"
+    volumes:
+      - keycloakdata:/opt/keycloak/data
+      - ./infra/keycloak/realm-checklizz.json:/opt/keycloak/data/import/realm-checklizz.json:ro
+
+  api:
+    build: ./api
+    container_name: checklizz-api
+    restart: unless-stopped
     depends_on:
-      - db-checklizz
-    networks:
-      - checklizz-network
-
-  
-  api-checklizz:
-    build: ./backend # Busca el Dockerfile dentro de la carpeta /backend
-    container_name: checklizz_node_api
-    ports:
-      - "3001:3000"
+      postgres:
+        condition: service_healthy
     environment:
-      DB_HOST: db-checklizz # Se conecta a Postgres usando el nombre del contenedor
-      DB_USER: admin_checklizz
-      DB_PASSWORD: password_seguro
-      DB_NAME: checklizz_db
+      PORT: 3000
+      DB_HOST: postgres
       DB_PORT: 5432
-    depends_on:
-      - db-checklizz
-      - keycloak-checklizz
-    networks:
-      - checklizz-network
+      DB_USER: ${POSTGRES_USER:-checklizz}
+      DB_PASSWORD: ${POSTGRES_PASSWORD:-checklizz_dev}
+      DB_NAME: ${POSTGRES_DB:-checklizz}
+      KEYCLOAK_INTERNAL_URL: http://keycloak:8080
+      KEYCLOAK_REALM: checklizz
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN:-admin}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD:-admin}
+      # Emisores aceptados en el token (PC, emulador Android, etc.)
+      ALLOWED_ISSUERS: ${ALLOWED_ISSUERS:-http://localhost:8080/realms/checklizz,http://10.0.2.2:8080/realms/checklizz}
+    ports:
+      - "${API_PORT:-3000}:3000"
 
 volumes:
-  pgdata: # Volumen persistente para no perder la base de datos si se apaga el contenedor
-
-networks:
-  checklizz-network:
-    driver: bridge
+  pgdata:
+  keycloakdata:
