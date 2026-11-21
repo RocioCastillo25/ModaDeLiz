@@ -22,9 +22,12 @@ services:
       - ./infra/postgres/init:/docker-entrypoint-initdb.d:ro
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-checklizz} -d ${POSTGRES_DB:-checklizz}"]
-      interval: 5s
+      interval: 10s
       timeout: 5s
-      retries: 10
+      # En una PC lenta el primer arranque llego a tardar ~4 min. Durante start_period
+      # los fallos NO cuentan como intentos; despues se permiten 30 reintentos mas.
+      retries: 30
+      start_period: 300s
 
   keycloak:
     image: quay.io/keycloak/keycloak:26.0
