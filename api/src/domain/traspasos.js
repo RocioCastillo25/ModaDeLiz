@@ -32,4 +32,66 @@ function puedeVer(user, traspaso) {
   return traspaso.usuario_solicita === user.id;
 }
 
-module.exports = { ESTADOS, detalleDuplicado, puedeVer };
+// Transiciones validas: SOLICITADO -> APROBADO | RECHAZADO; APROBADO -> EN_CAMINO; EN_CAMINO -> RECIBIDO.
+// RECHAZADO y RECIBIDO son estados finales.
+const TRANSICIONES = {
+  SOLICITADO: ['APROBADO', 'RECHAZADO'],
+  APROBADO: ['EN_CAMINO'],
+  RECHAZADO: [],
+  EN_CAMINO: ['RECIBIDO'],
+  RECIBIDO: [],
+};
+
+function transicionValida(de, a) {
+  return (TRANSICIONES[de] || []).includes(a);
+}
+
+/**
+ * Quien puede llevar el traspaso al estado `nuevo`:
+ *  - APROBADO / RECHAZADO: gerente de la sucursal de origen o de destino, o administrador;
+ *    nunca el propio solicitante.
+ *  - EN_CAMINO: gerente de la sucursal de origen (la que envia) o administrador.
+ *  - RECIBIDO: gerente de la sucursal de destino (la que recibe) o administrador.
+ *  - El empleado no cambia estados.
+ */
+function puedeCambiarEstado(user, traspaso, nuevo) {
+  if (user.rol !== 'administrador' && user.rol !== 'gerente') return false;
+  const decide = nuevo === 'APROBADO' || nuevo === 'RECHAZADO';
+  if (decide && user.id === traspaso.usuario_solicita) return false;
+  if (user.rol === 'administrador') return ESTADOS.includes(nuevo);
+
+  switch (nuevo) {
+    case 'APROBADO':
+    case 'RECHAZADO':
+      return user.sucursalId === traspaso.id_sucursal_origen || user.sucursalId === traspaso.id_sucursal_destino;
+    case 'EN_CAMINO':
+      return user.sucursalId === traspaso.id_sucursal_origen;
+    case 'RECIBIDO':
+      return user.sucursalId === traspaso.id_sucursal_destino;
+    default:
+      return false;
+  }
+}
+
+// Tipo de aviso que recibe el solicitante en cada cambio de estado
+const TIPO_AVISO = {
+  APROBADO: 'TRASPASO_APROBADO',
+  RECHAZADO: 'TRASPASO_RECHAZADO',
+  EN_CAMINO: 'TRASPASO_EN_CAMINO',
+  RECIBIDO: 'TRASPASO_RECIBIDO',
+};
+
+function mensajeAviso(idTraspaso, estado) {
+  switch (estado) {
+    case 'APROBADO': return `Tu solicitud de traspaso #${idTraspaso} fue aprobada`;
+    case 'RECHAZADO': return `Tu solicitud de traspaso #${idTraspaso} fue rechazada`;
+    case 'EN_CAMINO': return `Tu traspaso #${idTraspaso} va en camino`;
+    case 'RECIBIDO': return `Tu traspaso #${idTraspaso} fue recibido y el inventario ya se actualizo`;
+    default: return `El traspaso #${idTraspaso} cambio a ${estado}`;
+  }
+}
+
+module.exports = {
+  ESTADOS, TRANSICIONES, TIPO_AVISO,
+  detalleDuplicado, puedeVer, transicionValida, puedeCambiarEstado, mensajeAviso,
+};
