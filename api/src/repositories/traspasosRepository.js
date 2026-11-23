@@ -74,6 +74,48 @@ module.exports = {
     return rows[0];
   },
 
+  /** Bloquea la fila del traspaso (FOR UPDATE): dos cambios de estado simultaneos no se pisan. */
+  async bloquear(id, db) {
+    const { rows } = await db.query(
+      `SELECT id, id_sucursal_origen, id_sucursal_destino, usuario_solicita, estado
+       FROM traspasos WHERE id = $1 FOR UPDATE`,
+      [id]
+    );
+    return rows[0];
+  },
+
+  /** Cambia el estado. `idAprueba` solo se guarda al aprobar o rechazar; en los demas casos se conserva. */
+  async cambiarEstado({ id, estado, idAprueba }, db) {
+    await db.query(
+      `UPDATE traspasos
+       SET estado = $2, usuario_aprueba = COALESCE($3, usuario_aprueba), fecha_actualizacion = now()
+       WHERE id = $1`,
+      [id, estado, idAprueba ?? null]
+    );
+  },
+
+  /** Renglones del traspaso, en orden fijo para bloquear siempre en el mismo orden. */
+  async detalle(id, db) {
+    const { rows } = await db.query(
+      `SELECT d.id_prenda AS "idPrenda", d.talla, d.color, d.cantidad, p.descripcion
+       FROM detalle_traspaso d JOIN prendas p ON p.id = d.id_prenda
+       WHERE d.id_traspaso = $1 ORDER BY d.id_prenda, d.talla, d.color`,
+      [id]
+    );
+    return rows;
+  },
+
+  /** Como `existencia`, pero bloqueando la fila para poder sumar o restar con seguridad. */
+  async bloquearExistencia({ idSucursal, idPrenda, talla, color }, db) {
+    const { rows } = await db.query(
+      `SELECT id, talla, color, cantidad FROM inventario_sucursal
+       WHERE id_sucursal = $1 AND id_prenda = $2 AND talla = $3 AND lower(color) = lower($4)
+       FOR UPDATE`,
+      [idSucursal, idPrenda, talla, color]
+    );
+    return rows[0];
+  },
+
   async insertarDetalle(idTraspaso, items, db) {
     for (const it of items) {
       await db.query(
