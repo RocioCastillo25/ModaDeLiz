@@ -7,6 +7,8 @@ const sucursalesRepo = require('../repositories/sucursalesRepository');
 const usuarios = require('../services/usuariosService');
 const prendas = require('../services/prendasService');
 const inventario = require('../services/inventarioService');
+const traspasos = require('../services/traspasosService');
+const { ESTADOS } = require('../domain/traspasos');
 const { forbidden } = require('../errors');
 
 const router = express.Router();
@@ -107,5 +109,26 @@ router.post('/ventas', requireRole('administrador', 'gerente', 'empleado'), wrap
   const body = z.object({ idInventario: id, cantidad: z.number().int().positive() }).parse(req.body);
   res.status(201).json(await inventario.vender(req.user, body));
 }));
+
+// ---------- Traspasos (solicitud y consulta) ----------
+const traspasoNuevo = z.object({
+  idSucursalOrigen: id,
+  idSucursalDestino: id.optional(), // solo lo usa el administrador
+  detalle: z.array(z.object({
+    idPrenda: id,
+    talla: z.string().min(1).max(20),
+    color: z.string().min(1).max(40),
+    cantidad: z.number().int().positive(),
+  })).min(1).max(50),
+});
+
+router.get('/traspasos', wrap(async (req, res) => {
+  const q = z.object({ estado: z.enum(ESTADOS).optional(), sucursalId: id.optional() }).parse(req.query);
+  res.json(await traspasos.listar(req.user, q));
+}));
+router.get('/traspasos/:id', wrap(async (req, res) =>
+  res.json(await traspasos.obtener(req.user, id.parse(req.params.id)))));
+router.post('/traspasos', wrap(async (req, res) =>
+  res.status(201).json(await traspasos.crear(req.user, traspasoNuevo.parse(req.body)))));
 
 module.exports = router;
