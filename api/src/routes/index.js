@@ -8,6 +8,7 @@ const usuarios = require('../services/usuariosService');
 const prendas = require('../services/prendasService');
 const inventario = require('../services/inventarioService');
 const traspasos = require('../services/traspasosService');
+const notificaciones = require('../services/notificacionesService');
 const { ESTADOS } = require('../domain/traspasos');
 const { forbidden } = require('../errors');
 
@@ -130,5 +131,23 @@ router.get('/traspasos/:id', wrap(async (req, res) =>
   res.json(await traspasos.obtener(req.user, id.parse(req.params.id)))));
 router.post('/traspasos', wrap(async (req, res) =>
   res.status(201).json(await traspasos.crear(req.user, traspasoNuevo.parse(req.body)))));
+router.patch('/traspasos/:id/estado', wrap(async (req, res) => {
+  const { estado } = z.object({ estado: z.enum(ESTADOS) }).parse(req.body);
+  res.json(await traspasos.cambiarEstado(req.user, id.parse(req.params.id), estado));
+}));
+
+// ---------- Notificaciones (avisos del usuario autenticado) ----------
+router.get('/notificaciones', wrap(async (req, res) => {
+  const q = z.object({
+    soloNoLeidas: bool.optional(),
+    limite: z.coerce.number().int().min(1).max(100).optional(),
+  }).parse(req.query);
+  res.json(await notificaciones.listar(req.user, q));
+}));
+router.get('/notificaciones/resumen', wrap(async (req, res) => res.json(await notificaciones.resumen(req.user))));
+router.post('/notificaciones/marcar-leidas', wrap(async (req, res) =>
+  res.json(await notificaciones.marcarTodasLeidas(req.user))));
+router.patch('/notificaciones/:id/leida', wrap(async (req, res) =>
+  res.json(await notificaciones.marcarLeida(req.user, id.parse(req.params.id)))));
 
 module.exports = router;
