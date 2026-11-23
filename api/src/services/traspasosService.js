@@ -4,10 +4,51 @@ const repo = require('../repositories/traspasosRepository');
 const notificaciones = require('../repositories/notificacionesRepository');
 const prendasRepo = require('../repositories/prendasRepository');
 const sucursalesRepo = require('../repositories/sucursalesRepository');
-const { detalleDuplicado, puedeVer } = require('../domain/traspasos');
+const inventarioRepo = require('../repositories/inventarioRepository');
+const {
+  detalleDuplicado, puedeVer, transicionValida, puedeCambiarEstado, mensajeAviso, TIPO_AVISO,
+} = require('../domain/traspasos');
 const { AppError, notFound, forbidden, conflict } = require('../errors');
 
 const invalido = (msg) => new AppError(400, 'DATOS_INVALIDOS', msg);
+
+/**
+ * Al recibir: por cada renglon resta del origen y suma al destino, con auditoria `traspaso`.
+ * Corre dentro de la transaccion de cambiarEstado: si algo falla, no se mueve nada.
+ */
+async function moverStock(traspaso, user, db) {
+  for (const it of await repo.detalle(traspaso.id, db)) {
+    const origen = await repo.bloquearExistencia({ idSucursal: traspaso.id_sucursal_origen, ...it }, db);
+    if (!origen || origen.cantidad < it.cantidad) {
+      throw conflict(
+        'STOCK_INSUFICIENTE',
+        `El origen ya no tiene ${it.cantidad} pieza(s) de "${it.descripcion}" talla ${it.talla} color ${it.color} ` +
+        `(tiene ${origen ? origen.cantidad : 0})`
+      );
+    }
+    const restante = origen.cantidad - it.cantidad;
+    await inventarioRepo.setCantidad(origen.id, restante, db);
+    await inventarioRepo.registrarAuditoria(
+      { idInventario: origen.id, tipo: 'traspaso', anterior: origen.cantidad, nueva: restante, idUsuario: user.id }, db
+    );
+
+    const destino = await repo.bloquearExistencia({ idSucursal: traspaso.id_sucursal_destino, ...it }, db);
+    if (destino) {
+      const total = destino.cantidad + it.cantidad;
+      await inventarioRepo.setCantidad(destino.id, total, db);
+      await inventarioRepo.registrarAuditoria(
+        { idInventario: destino.id, tipo: 'traspaso', anterior: destino.cantidad, nueva: total, idUsuario: user.id }, db
+      );
+    } else {
+      const fila = await inventarioRepo.insert({
+        idPrenda: it.idPrenda, idSucursal: traspaso.id_sucursal_destino, talla: origen.talla, color: origen.color, cantidad: it.cantidad,
+      }, db);
+      await inventarioRepo.registrarAuditoria(
+        { idInventario: fila.id, tipo: 'traspaso', anterior: 0, nueva: it.cantidad, idUsuario: user.id }, db
+      );
+    }
+  }
+}
 
 module.exports = {
   /**
@@ -80,5 +121,40 @@ module.exports = {
     if (!traspaso) throw notFound('Traspaso');
     if (!puedeVer(user, traspaso)) throw forbidden('No puedes ver este traspaso');
     return traspaso;
+  },
+
+  /**
+   * Cambia el estado respetando las transiciones validas y los permisos por rol y sucursal.
+   * Al pasar a RECIBIDO mueve el stock en la misma transaccion. Avisa al solicitante.
+   */
+  async cambiarEstado(user, idTraspaso, nuevoEstado) {
+    return withTransaction(async (db) => {
+      const traspaso = await repo.bloquear(idTraspaso, db);
+      if (!traspaso) throw notFound('Traspaso');
+      if (!puedeVer(user, traspaso)) throw forbidden('No puedes ver este traspaso');
+      if (!puedeCambiarEstado(user, traspaso, nuevoEstado)) {
+        throw forbidden(`Tu rol o sucursal no puede marcar este traspaso como ${nuevoEstado}`);
+      }
+      if (!transicionValida(traspaso.estado, nuevoEstado)) {
+        throw conflict('TRANSICION_NO_PERMITIDA', `No se puede pasar de ${traspaso.estado} a ${nuevoEstado}`);
+      }
+
+      if (nuevoEstado === 'RECIBIDO') await moverStock(traspaso, user, db);
+
+      const decide = nuevoEstado === 'APROBADO' || nuevoEstado === 'RECHAZADO';
+      await repo.cambiarEstado({ id: idTraspaso, estado: nuevoEstado, idAprueba: decide ? user.id : null }, db);
+
+      // Aviso al solicitante (si el mismo hizo el cambio, ya lo sabe)
+      if (traspaso.usuario_solicita !== user.id) {
+        await notificaciones.crear({
+          idUsuario: traspaso.usuario_solicita,
+          idTraspaso,
+          tipo: TIPO_AVISO[nuevoEstado],
+          mensaje: mensajeAviso(idTraspaso, nuevoEstado),
+        }, db);
+      }
+
+      return repo.findById(idTraspaso, db);
+    });
   },
 };
