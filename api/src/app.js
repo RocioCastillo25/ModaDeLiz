@@ -5,7 +5,8 @@ const routes = require('./routes');
 const { errorHandler } = require('./middlewares/errorHandler');
 
 const app = express();
-app.use(cors());
+// Content-Disposition se expone para que la web lea el nombre del archivo al descargar un reporte
+app.use(cors({ exposedHeaders: ['Content-Disposition'] }));
 app.use(express.json());
 
 // Publico: sirve para comprobar que la API y la base de datos estan vivas
