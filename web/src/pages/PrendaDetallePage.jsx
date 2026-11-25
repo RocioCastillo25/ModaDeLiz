@@ -3,6 +3,7 @@ import { useRepo } from '../auth/AuthProvider';
 import { useCarga } from '../components/useCarga';
 import { Cargando, ErrorMensaje } from '../components/Estados';
 import Existencia from '../components/Existencia';
+import Aviso from '../components/Aviso';
 
 export default function PrendaDetallePage() {
   const { id } = useParams();
@@ -23,7 +24,9 @@ export default function PrendaDetallePage() {
       <Link to="/" className="volver">← Volver al catálogo</Link>
       <div className="encabezado">
         <h1>{p.descripcion}</h1>
+        <Link to={`/prendas/${p.id}/editar`} className="btn secundario">Editar</Link>
       </div>
+      <Aviso />
 
       <div className="ficha">
         <div className="tarjeta datos">
