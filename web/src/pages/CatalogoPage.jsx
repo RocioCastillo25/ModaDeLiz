@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import Aviso from '../components/Aviso';
 import { useRepo } from '../auth/AuthProvider';
 import { useCarga } from '../components/useCarga';
 import { Cargando, ErrorMensaje, Vacio } from '../components/Estados';
@@ -21,7 +22,9 @@ export default function CatalogoPage() {
     <section>
       <div className="encabezado">
         <h1>Catálogo de prendas</h1>
+        <Link to="/prendas/nueva" className="btn">+ Nueva prenda</Link>
       </div>
+      <Aviso />
 
       <div className="tarjeta filtros" role="search">
         <label className="campo ancho">

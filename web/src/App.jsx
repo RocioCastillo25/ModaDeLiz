@@ -6,6 +6,7 @@ import LoginDemoPage from './pages/LoginDemoPage';
 import CatalogoPage from './pages/CatalogoPage';
 import ExistenciasPage from './pages/ExistenciasPage';
 import PrendaDetallePage from './pages/PrendaDetallePage';
+import PrendaFormPage from './pages/PrendaFormPage';
 
 export default function App() {
   const { cargando, error, demo, usuario } = useAuth();
@@ -30,7 +31,9 @@ export default function App() {
     <Routes>
       <Route element={<Layout />}>
         <Route index element={<CatalogoPage />} />
+        <Route path="prendas/nueva" element={<PrendaFormPage />} />
         <Route path="prendas/:id" element={<PrendaDetallePage />} />
+        <Route path="prendas/:id/editar" element={<PrendaFormPage />} />
         <Route path="existencias" element={<ExistenciasPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
