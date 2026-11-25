@@ -1,7 +1,7 @@
 // Repositorio simulado: misma interfaz que apiRepository, con datos en memoria.
 // Permite usar y presentar la web sin Docker. Replica las reglas básicas de la API
 // (código de barras único, cantidades no negativas, gerente limitado a su sucursal).
-import { ApiError } from '../api/httpClient';
+import { ApiError } from '../api/httpClient.js';
 
 const sucursales = [
   { id: 1, nombre: 'Huauchinango', ubicacion: 'Matriz - Huauchinango, Puebla' },

@@ -17,6 +17,7 @@ export default function Layout() {
         <nav className="nav">
           <NavLink to="/" end>Catálogo</NavLink>
           <NavLink to="/existencias">Existencias</NavLink>
+          <NavLink to="/carga">Carga inicial</NavLink>
         </nav>
         <div className="usuario">
           <span>{usuario.nombre} · {ROL_TEXTO[usuario.rol]}</span>

@@ -1,5 +1,5 @@
 // Repositorio real: habla con la API REST (docs/openapi.yaml). Las páginas nunca llaman a fetch directamente.
-import { toQuery } from '../api/httpClient';
+import { toQuery } from '../api/httpClient.js';
 
 export function createApiRepository(http) {
   return {
