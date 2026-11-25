@@ -3,10 +3,12 @@ import { useAuth } from '../auth/AuthProvider';
 import { useCarga } from '../components/useCarga';
 import { ErrorMensaje } from '../components/Estados';
 import { MODOS, estaVacia, filaVacia, guardarFilas, normalizar, validarFilas } from './cargaInventario';
+import { aFilasDeCarga, leerCsv, plantillaCsv } from './tablaCarga';
 
-const sinAcentos = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').trim().toLowerCase();
+const TAMANO_MAXIMO = 2 * 1024 * 1024; // 2 MB, de sobra para miles de filas
 
-// Carga inicial de inventario por filas: captura manual o pegado desde Excel.
+// Carga inicial de inventario: captura por filas, pegado desde Excel o archivo CSV.
+// El CSV llena la misma tabla, que sirve de vista previa con los errores de cada fila antes de guardar.
 export default function CargaInventarioPage() {
   const { repo, usuario } = useAuth();
   const esAdmin = usuario.rol === 'administrador';
@@ -30,25 +32,54 @@ export default function CargaInventarioPage() {
   const agregar = (n = 1) => setFilas((fs) => [...fs, ...Array.from({ length: n }, () => filaVacia(sucursalInicial))]);
   const quitar = (id) => setFilas((fs) => (fs.length > 1 ? fs.filter((f) => f.id !== id) : fs));
 
+  const convertir = (texto) => aFilasDeCarga(leerCsv(texto), sucursales.datos || [], sucursalInicial);
+
   /** Pegar desde Excel: columnas código, sucursal, talla, color, cantidad (la sucursal es opcional). */
   function pegar(e, idFila) {
     const texto = e.clipboardData.getData('text');
     if (!texto.includes('\t') && !texto.includes('\n')) return; // pegado normal en una celda
     e.preventDefault();
-    const nombres = new Map((sucursales.datos || []).map((s) => [sinAcentos(s.nombre), s.id]));
-    const nuevas = texto.replace(/\r/g, '').split('\n').filter((l) => l.trim()).map((linea) => {
-      const c = linea.split('\t');
-      const conSucursal = c.length >= 5;
-      const [codigo, suc, talla, color, cantidad] = conSucursal ? c : [c[0], '', c[1], c[2], c[3]];
-      const idSucursal = sucursalFija ?? nombres.get(sinAcentos(suc || '')) ?? (/^\d+$/.test((suc || '').trim()) ? Number(suc) : '');
-      return { ...filaVacia(), codigo: codigo || '', idSucursal: String(idSucursal), talla: talla || '', color: color || '', cantidad: cantidad || '' };
-    });
+    const nuevas = convertir(texto);
     setFilas((fs) => {
       const i = fs.findIndex((f) => f.id === idFila);
       const despues = fs.slice(i + 1).filter((f) => !estaVacia(f));
       return [...fs.slice(0, i), ...nuevas, ...despues];
     });
     setResumen(null);
+  }
+
+  /** Subir CSV: las filas del archivo se agregan a la tabla ya validadas (vista previa). */
+  async function subirCsv(e) {
+    const archivo = e.target.files?.[0];
+    e.target.value = ''; // permite volver a elegir el mismo archivo después de corregirlo
+    if (!archivo) return;
+    if (!/\.(csv|txt)$/i.test(archivo.name)) {
+      setResumen({ tipo: 'falla', texto: 'Elige un archivo .csv. En Excel: Archivo → Guardar como → CSV UTF-8.' });
+      return;
+    }
+    if (archivo.size > TAMANO_MAXIMO) {
+      setResumen({ tipo: 'falla', texto: 'El archivo es muy grande (máximo 2 MB). Divídelo en varios archivos.' });
+      return;
+    }
+    const nuevas = convertir(await archivo.text());
+    if (nuevas.length === 0) {
+      setResumen({ tipo: 'falla', texto: `El archivo ${archivo.name} no tiene filas con datos.` });
+      return;
+    }
+    const v = validarFilas(nuevas, sucursalFija, modo);
+    setFilas((fs) => [...fs.filter((f) => !estaVacia(f)), ...nuevas]);
+    setErrores((e0) => ({ ...e0, ...v }));
+    const malas = Object.keys(v).length;
+    setResumen(malas === 0
+      ? { tipo: 'exito', texto: `Se leyeron ${nuevas.length} fila(s) de ${archivo.name}. Revísalas y presiona el botón para guardar.` }
+      : { tipo: 'falla', texto: `Se leyeron ${nuevas.length} fila(s) de ${archivo.name}; ${malas} tienen errores (en rojo). Corrígelas aquí o en el archivo antes de guardar.` });
+  }
+
+  function descargarPlantilla() {
+    const url = URL.createObjectURL(new Blob([plantillaCsv(sucursales.datos || [])], { type: 'text/csv;charset=utf-8' }));
+    const a = Object.assign(document.createElement('a'), { href: url, download: 'plantilla-inventario.csv' });
+    a.click();
+    URL.revokeObjectURL(url);
   }
 
   async function guardar() {
@@ -107,10 +138,22 @@ export default function CargaInventarioPage() {
             <span><strong>Reemplazar</strong> lo que hay <span className="texto-secundario">(para corregir un conteo: si había 6 y capturas 10, quedan 10)</span></span>
           </label>
         </fieldset>
-        <p className="texto-secundario">
-          ¿Lo tienes en Excel? Copia las columnas <em>código, {esAdmin ? 'sucursal, ' : ''}talla, color, cantidad</em> y pégalas en la primera celda de código.
-          {!esAdmin && ' Como gerente, todo se carga a tu sucursal.'}
-        </p>
+        <div className="opciones-carga">
+          <div>
+            <strong>¿Lo tienes en Excel?</strong>
+            <p className="texto-secundario">
+              Sube un CSV con las columnas <em>codigo, sucursal, talla, color, cantidad</em>, o copia esas columnas y pégalas en la primera celda de código.
+              {!esAdmin && ' Como gerente, solo puedes cargar a tu sucursal (si quitas la columna sucursal, se usa la tuya).'}
+            </p>
+          </div>
+          <div className="acciones">
+            <label className={`btn ${guardando || sucursales.cargando ? 'deshabilitado' : ''}`}>
+              Subir CSV
+              <input type="file" accept=".csv,.txt,text/csv" onChange={subirCsv} disabled={guardando || sucursales.cargando} hidden />
+            </label>
+            <button className="btn secundario" onClick={descargarPlantilla} disabled={sucursales.cargando}>Descargar plantilla</button>
+          </div>
+        </div>
       </div>
 
       {resumen && <p className={`mensaje ${resumen.tipo}`} role="status">{resumen.texto}</p>}
