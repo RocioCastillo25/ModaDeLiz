@@ -150,6 +150,30 @@ a.btn { display: inline-block; text-decoration: none; text-align: center; }
 .zona-baja { margin-top: 1rem; }
 .zona-baja p { margin-bottom: .8rem; }
 
+/* Carga inicial por filas */
+.instrucciones { margin-bottom: 1rem; }
+.instrucciones p { margin: 0 0 .4rem; }
+.instrucciones p:last-child { margin: 0; }
+.tabla-captura td { padding: .35rem .5rem; vertical-align: middle; }
+.celda {
+  font: inherit; color: var(--texto); width: 100%; min-width: 120px;
+  padding: .4rem .5rem; border-radius: 8px; border: 1px solid var(--linea); background: #fff;
+}
+.celda.corta { min-width: 70px; width: 80px; }
+.celda:disabled { background: transparent; border-color: transparent; color: var(--texto-2); }
+.celda-prenda { min-width: 160px; white-space: normal; font-size: .9rem; }
+.celda-estado { min-width: 200px; white-space: normal; }
+.fila-ok { background: rgba(230, 246, 236, .6); }
+.fila-error { background: rgba(253, 226, 226, .45); }
+.btn-icono {
+  font: inherit; font-size: 1.2rem; line-height: 1; cursor: pointer; border: none; background: none;
+  color: var(--texto-2); padding: .3rem .5rem; border-radius: 8px;
+}
+.btn-icono:hover:not(:disabled) { background: rgba(249, 168, 212, .35); color: var(--rosa); }
+.btn-icono:disabled { opacity: .3; cursor: default; }
+.barra-acciones { margin-top: 1rem; }
+.espaciador { flex: 1; }
+
 @media (max-width: 760px) {
   .ficha { grid-template-columns: 1fr; }
   .barra { padding: .7rem 1rem; }
