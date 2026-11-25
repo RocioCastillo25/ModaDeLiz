@@ -154,6 +154,10 @@ a.btn { display: inline-block; text-decoration: none; text-align: center; }
 .instrucciones { margin-bottom: 1rem; }
 .instrucciones p { margin: 0 0 .4rem; }
 .instrucciones p:last-child { margin: 0; }
+.modo { border: 1px solid var(--linea); border-radius: 10px; padding: .5rem .9rem .2rem; margin: .4rem 0 .8rem; }
+.modo legend { font-size: .8rem; font-weight: 600; color: var(--texto-2); padding: 0 .3rem; }
+.modo .check { padding-bottom: .35rem; align-items: flex-start; }
+.modo input { margin-top: .2rem; accent-color: var(--rosa); }
 .tabla-captura td { padding: .35rem .5rem; vertical-align: middle; }
 .celda {
   font: inherit; color: var(--texto); width: 100%; min-width: 120px;

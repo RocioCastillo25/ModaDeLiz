@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { useAuth } from '../auth/AuthProvider';
 import { useCarga } from '../components/useCarga';
 import { ErrorMensaje } from '../components/Estados';
-import { estaVacia, filaVacia, guardarFilas, normalizar, validarFilas } from './cargaInventario';
+import { MODOS, estaVacia, filaVacia, guardarFilas, normalizar, validarFilas } from './cargaInventario';
 
 const sinAcentos = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').trim().toLowerCase();
 
@@ -21,6 +21,7 @@ export default function CargaInventarioPage() {
   const [errores, setErrores] = useState({});
   const [guardando, setGuardando] = useState(false);
   const [resumen, setResumen] = useState(null);
+  const [modo, setModo] = useState(MODOS.sumar);
 
   const editar = (id, campo, valor) => {
     setFilas((fs) => fs.map((f) => (f.id === id ? { ...f, [campo]: valor, estado: null } : f)));
@@ -59,7 +60,7 @@ export default function CargaInventarioPage() {
     }
     // Mostrar los valores normalizados (talla en mayúsculas, etc.)
     setFilas((fs) => fs.map((f) => pendientes.find((p) => p.id === f.id) || f));
-    const v = validarFilas(pendientes, sucursalFija);
+    const v = validarFilas(pendientes, sucursalFija, modo);
     setErrores(v);
     if (Object.keys(v).length) {
       setResumen({ tipo: 'falla', texto: `Corrige ${Object.keys(v).length} fila(s) marcadas antes de guardar. No se guardó nada.` });
@@ -68,7 +69,7 @@ export default function CargaInventarioPage() {
 
     setGuardando(true);
     const r = await guardarFilas(repo, pendientes, (id, estado) =>
-      setFilas((fs) => fs.map((f) => (f.id === id ? { ...f, estado } : f))));
+      setFilas((fs) => fs.map((f) => (f.id === id ? { ...f, estado } : f))), modo);
     setGuardando(false);
     setResumen(r.errores === 0
       ? { tipo: 'exito', texto: `Listo: se guardaron ${r.ok} fila(s).` }
@@ -94,7 +95,18 @@ export default function CargaInventarioPage() {
       <div className="encabezado"><h1>Carga inicial de inventario</h1></div>
 
       <div className="tarjeta instrucciones">
-        <p>Captura una fila por cada combinación de <strong>prenda, sucursal, talla y color</strong>. La cantidad <strong>reemplaza</strong> la existencia actual (no se suma).</p>
+        <p>Captura una fila por cada combinación de <strong>prenda, sucursal, talla y color</strong>.</p>
+        <fieldset className="modo" disabled={guardando}>
+          <legend>¿Qué hacer con la cantidad?</legend>
+          <label className="check">
+            <input type="radio" name="modo" checked={modo === MODOS.sumar} onChange={() => setModo(MODOS.sumar)} />
+            <span><strong>Sumar</strong> a lo que ya hay <span className="texto-secundario">(si había 6 y capturas 10, quedan 16)</span></span>
+          </label>
+          <label className="check">
+            <input type="radio" name="modo" checked={modo === MODOS.reemplazar} onChange={() => setModo(MODOS.reemplazar)} />
+            <span><strong>Reemplazar</strong> lo que hay <span className="texto-secundario">(para corregir un conteo: si había 6 y capturas 10, quedan 10)</span></span>
+          </label>
+        </fieldset>
         <p className="texto-secundario">
           ¿Lo tienes en Excel? Copia las columnas <em>código, {esAdmin ? 'sucursal, ' : ''}talla, color, cantidad</em> y pégalas en la primera celda de código.
           {!esAdmin && ' Como gerente, todo se carga a tu sucursal.'}
@@ -137,7 +149,7 @@ export default function CargaInventarioPage() {
                   <td><input className="celda corta num" value={f.cantidad} inputMode="numeric" aria-label={`Cantidad, fila ${i + 1}`} disabled={guardada || guardando}
                     onChange={(e) => editar(f.id, 'cantidad', e.target.value)} /></td>
                   <td className="celda-estado">
-                    {guardada && <span className="badge ok">✓ Guardada</span>}
+                    {guardada && <span className="badge ok" title={f.estado.mensaje}>✓ {f.estado.mensaje.split(': ').pop()}</span>}
                     {error && <span className="error-campo">{error}</span>}
                   </td>
                   <td>
@@ -161,7 +173,9 @@ export default function CargaInventarioPage() {
         <button className="btn secundario" onClick={() => agregar(10)} disabled={guardando}>+ 10 filas</button>
         {hayGuardadas && <button className="btn secundario" onClick={quitarGuardadas} disabled={guardando}>Quitar las ya guardadas</button>}
         <span className="espaciador" />
-        <button className="btn" onClick={guardar} disabled={guardando}>{guardando ? 'Guardando…' : 'Guardar inventario'}</button>
+        <button className="btn" onClick={guardar} disabled={guardando}>
+          {guardando ? 'Guardando…' : modo === MODOS.sumar ? 'Sumar al inventario' : 'Reemplazar existencias'}
+        </button>
       </div>
     </section>
   );
