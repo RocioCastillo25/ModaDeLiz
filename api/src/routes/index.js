@@ -9,7 +9,9 @@ const prendas = require('../services/prendasService');
 const inventario = require('../services/inventarioService');
 const traspasos = require('../services/traspasosService');
 const notificaciones = require('../services/notificacionesService');
+const reportes = require('../services/reportesService');
 const { ESTADOS } = require('../domain/traspasos');
+const { FORMATOS, esFechaIso } = require('../domain/reportes');
 const { forbidden } = require('../errors');
 
 const router = express.Router();
@@ -149,5 +151,40 @@ router.post('/notificaciones/marcar-leidas', wrap(async (req, res) =>
   res.json(await notificaciones.marcarTodasLeidas(req.user))));
 router.patch('/notificaciones/:id/leida', wrap(async (req, res) =>
   res.json(await notificaciones.marcarLeida(req.user, id.parse(req.params.id)))));
+
+// ---------- Reportes (JSON, PDF o Excel segun ?formato=) ----------
+const formato = z.enum(FORMATOS).default('json');
+const fecha = z.string().refine(esFechaIso, 'Usa el formato AAAA-MM-DD con una fecha real');
+
+// JSON se responde tal cual; PDF y Excel salen como descarga con el nombre del archivo
+async function responderReporte(res, reporte, formatoPedido, base) {
+  if (formatoPedido === 'json') return res.json(reporte.datos);
+  const archivo = await reportes.exportar(reporte, formatoPedido, base);
+  res.set({
+    'Content-Type': archivo.tipo,
+    'Content-Disposition': `attachment; filename="${archivo.nombre}"`,
+    'Cache-Control': 'no-store',
+  });
+  return res.send(archivo.cuerpo);
+}
+
+router.get('/reportes/existencias', requireRole('administrador', 'gerente'), wrap(async (req, res) => {
+  const { formato: f, ...q } = z.object({ sucursalId: id.optional(), formato }).parse(req.query);
+  await responderReporte(res, await reportes.existencias(req.user, q), f, 'existencias');
+}));
+router.get('/reportes/mas-vendidos', requireRole('administrador'), wrap(async (req, res) => {
+  const { formato: f, ...q } = z.object({
+    sucursalId: id.optional(),
+    desde: fecha.optional(),
+    hasta: fecha.optional(),
+    limite: z.coerce.number().int().min(1).max(100).optional(),
+    formato,
+  }).parse(req.query);
+  await responderReporte(res, await reportes.masVendidos(req.user, q), f, 'mas-vendidos');
+}));
+router.get('/reportes/stock-bajo', requireRole('administrador', 'gerente'), wrap(async (req, res) => {
+  const { formato: f, ...q } = z.object({ sucursalId: id.optional(), formato }).parse(req.query);
+  await responderReporte(res, await reportes.stockBajo(req.user, q), f, 'stock-bajo');
+}));
 
 module.exports = router;
