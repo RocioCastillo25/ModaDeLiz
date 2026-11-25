@@ -7,6 +7,7 @@ import CatalogoPage from './pages/CatalogoPage';
 import ExistenciasPage from './pages/ExistenciasPage';
 import PrendaDetallePage from './pages/PrendaDetallePage';
 import PrendaFormPage from './pages/PrendaFormPage';
+import CargaInventarioPage from './pages/CargaInventarioPage';
 
 export default function App() {
   const { cargando, error, demo, usuario } = useAuth();
@@ -35,6 +36,7 @@ export default function App() {
         <Route path="prendas/:id" element={<PrendaDetallePage />} />
         <Route path="prendas/:id/editar" element={<PrendaFormPage />} />
         <Route path="existencias" element={<ExistenciasPage />} />
+        <Route path="carga" element={<CargaInventarioPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
     </Routes>
