@@ -303,7 +303,7 @@ paths:
         - Marcar recibido: el gerente de la sucursal de destino o el administrador. **Al pasar a RECIBIDO se mueve el stock
           en una transacción** (resta en el origen, suma en el destino, con auditoría `traspaso`).
         Cada cambio avisa al solicitante (ver /notificaciones).
-      x-estado: planeado (Sprint 3)
+      x-estado: implementado
       requestBody:
         required: true
         content: { application/json: { schema: { type: object, required: [estado], properties: { estado: { $ref: '#/components/schemas/EstadoTraspaso' } } } } }
@@ -319,7 +319,7 @@ paths:
       tags: [Notificaciones]
       summary: Avisos del usuario autenticado (RF-07)
       description: La app y la web la consultan periódicamente (por ejemplo cada 30 s). Más recientes primero.
-      x-estado: planeado (Sprint 3)
+      x-estado: implementado
       parameters:
         - { name: soloNoLeidas, in: query, schema: { type: boolean, default: false } }
         - { name: limite, in: query, schema: { type: integer, minimum: 1, maximum: 100, default: 50 } }
@@ -331,7 +331,7 @@ paths:
     get:
       tags: [Notificaciones]
       summary: Cuántos avisos no leídos tiene el usuario (para el indicador de la barra)
-      x-estado: planeado (Sprint 3)
+      x-estado: implementado
       responses:
         '200': { description: Resumen, content: { application/json: { schema: { type: object, properties: { no_leidas: { type: integer } } } } } }
         '401': { $ref: '#/components/responses/NoAutenticado' }
@@ -341,7 +341,7 @@ paths:
     patch:
       tags: [Notificaciones]
       summary: Marca un aviso como leído
-      x-estado: planeado (Sprint 3)
+      x-estado: implementado
       responses:
         '200': { description: Aviso actualizado, content: { application/json: { schema: { $ref: '#/components/schemas/Notificacion' } } } }
         '401': { $ref: '#/components/responses/NoAutenticado' }
@@ -351,7 +351,7 @@ paths:
     post:
       tags: [Notificaciones]
       summary: Marca todos los avisos del usuario como leídos
-      x-estado: planeado (Sprint 3)
+      x-estado: implementado
       responses:
         '200': { description: Resultado, content: { application/json: { schema: { type: object, properties: { marcadas: { type: integer } } } } } }
         '401': { $ref: '#/components/responses/NoAutenticado' }
