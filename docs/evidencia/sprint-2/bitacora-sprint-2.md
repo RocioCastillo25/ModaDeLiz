@@ -66,7 +66,7 @@ Las historias 1 y 2 tienen código y pruebas automáticas terminados. Todavía n
 | Cobertura de líneas | **85,2 %** (1402 de 1645) |
 | Cobertura de los ViewModels | Búsqueda 97,4 %, ficha 89,1 %, sesión 97,8 %, pantalla principal 100 % |
 | Compilación del APK | Correcta (versión de depuración con datos de ejemplo, con el paquete del escáner) |
-| Dispositivo | Pendiente (ver sección 7) |
+| Dispositivo | Teléfono Android RMX3890 (Android 15), versión de depuración con datos de ejemplo: búsqueda, filtros, estado vacío y ficha validados (ver capturas) |
 
 ### APK de prueba (avance del sprint)
 
@@ -75,7 +75,7 @@ Las historias 1 y 2 tienen código y pruebas automáticas terminados. Todavía n
 | Archivo | `app-debug.apk` (222,8 MB, depuración, datos de ejemplo) |
 | SHA-256 | `F3730318E9EED55419293F0073D0C7E69C89531FE4F5A81F0F1A2DE02510AF8D` |
 | Compilación | 23 minutos la primera vez, por el paquete del escáner |
-| Instalación | Pendiente: el teléfono todavía no está en modo de depuración USB |
+| Instalación | Correcta en el teléfono Android RMX3890 (Android 15). Abre, inicia sesión como empleado (Zacatlán), busca, filtra y abre la ficha |
 
 Pruebas nuevas del sprint (95): ViewModels de búsqueda (15) y ficha (14), modelos y DTO (16), servicio y repositorios reales del catálogo (18), renovación de sesión en el repositorio (9) y en el interceptor (9), sesión con token de renovación (6), registro de dependencias (3), pantalla principal (2) y recorrido de pantallas (3).
 
@@ -145,9 +145,12 @@ Detalle en `pruebas-flutter.txt`, `analisis-flutter.txt` y `cobertura-resumen.tx
 | `pruebas-flutter.txt` | Resultado de `flutter test` (191 pruebas) | Listo |
 | `analisis-flutter.txt` | Resultado de `flutter analyze` (sin avisos) | Listo |
 | `cobertura-resumen.txt` | Cobertura de líneas por carpeta (85,2 %) | Listo |
-| `01-busqueda.png` | Búsqueda con resultados y existencia | Pendiente (teléfono) |
-| `02-filtros.png` | Hoja de filtros de talla, color y sucursal | Pendiente (teléfono) |
-| `03-ficha-matriz.png` | Ficha con la matriz de existencias y la sucursal propia destacada | Pendiente (teléfono) |
-| `04-existencia-baja-agotada.png` | Existencia baja y agotada con ícono y texto | Pendiente (teléfono) |
-| `05-sin-resultados.png` | Búsqueda sin resultados | Pendiente (teléfono) |
+| `00-pantalla-principal.png` | Pantalla principal con el acceso a "Buscar prendas" | Listo |
+| `01-busqueda.png` | Búsqueda con resultados y existencia (incluye una prenda agotada) | Listo |
+| `02-filtros.png` | Hoja de filtros de talla, color y sucursal | Listo |
+| `03-filtros-seleccionados.png` | Filtros llenos: talla M, color rosa y sucursal Zacatlán | Listo |
+| `04-busqueda-filtrada.png` | Resultado con los 3 filtros activos | Listo |
+| `05-sin-resultados.png` | Búsqueda sin resultados | Listo |
+| `06-ficha.png` | Ficha de la prenda: foto, marca, categoría, temporada y código | Listo |
+| `07-ficha-matriz.png` | Matriz de existencias por sucursal, "Tu sucursal" destacada, existencia baja ("Pocas piezas") y agotada con ícono y texto, y botón de traspaso deshabilitado | Listo |
 | Documentos de Spec Kit | `specs/002-busqueda-escaner-venta/` (especificación, plan, investigación, modelo de datos, contratos, guía y tareas) | Listo, subido a la rama |

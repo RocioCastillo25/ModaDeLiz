@@ -62,7 +62,7 @@ Un filtro vacío no se envía. `SearchFilters` es inmutable y comparable para ev
 | Campo | Tipo | Regla |
 |-------|------|-------|
 | `stockId` | entero | el `id` de la existencia elegida |
-| `quantity` | entero | mayor que 0 y no mayor que la existencia mostrada (aviso; la API decide) |
+| `quantity` | entero | mayor que 0. Si supera la existencia mostrada solo se avisa, sin bloquear: la existencia mostrada puede estar desactualizada y la API decide (409) |
 
 La sucursal no viaja: la API la toma del token del usuario.
 

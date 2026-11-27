@@ -120,14 +120,14 @@
 
 ### Pruebas de la historia 4 (escribir primero)
 
-- [ ] T035 [P] [US4] Prueba de `VentaViewModel` en `mobile/test/features/venta/venta_view_model_test.dart`: cantidad vacía, cero, negativa, decimal o mayor a la mostrada no se envía (`SaleRequest.quantity`); confirmación con prenda, talla, color y cantidad; envío correcto con la existencia devuelta; 409 con la existencia vigente tras recargar; 403; sin conexión; doble envío bloqueado; y el 401 repetido una sola vez sin doble descuento
-- [ ] T036 [P] [US4] Prueba de `ApiInventarioRepository` en `mobile/test/data/api_inventario_repository_test.dart`: envía solo `idInventario` y `cantidad`, nunca la sucursal, y traduce 201, 403, 409 y 400
+- [X] T035 [P] [US4] Prueba de `VentaViewModel` en `mobile/test/features/venta/venta_view_model_test.dart`: cantidad vacía, cero, negativa, decimal o mayor a la mostrada no se envía (`SaleRequest.quantity`); confirmación con prenda, talla, color y cantidad; envío correcto con la existencia devuelta; 409 con la existencia vigente tras recargar; 403; sin conexión; doble envío bloqueado; y el 401 repetido una sola vez sin doble descuento
+- [X] T036 [P] [US4] Prueba de `ApiInventarioRepository` en `mobile/test/data/api_inventario_repository_test.dart`: envía solo `idInventario` y `cantidad`, nunca la sucursal, y traduce 201, 403, 409 y 400
 
 ### Implementación de la historia 4
 
-- [ ] T037 [US4] Crear `VentaViewModel` en `mobile/lib/features/venta/venta_view_model.dart` con estados `editing`, `confirming`, `submitting`, `done` y `error`; valida entero positivo (`SaleRequest.quantity`), consulta `ConnectivityService` antes de enviar, bloquea el doble envío y, ante `insufficientStock`, pide la existencia vigente a `PrendaRepository` para el mensaje "Solo quedan N pieza(s)"
-- [ ] T038 [US4] Crear la hoja de venta en `mobile/lib/features/venta/venta_sheet.dart`: elección de talla y color solo entre existencias de la sucursal propia, campo de cantidad numérico, paso de confirmación, botón deshabilitado en curso y mensajes en español
-- [ ] T039 [US4] Mostrar en `FichaView` la acción "Descontar piezas" solo sobre las existencias de la sucursal del usuario y actualizar la fila con la existencia devuelta (`FichaViewModel.applySale`); registrar `VentaViewModel` en `mobile/lib/core/di/service_locator.dart`
+- [X] T037 [US4] Crear `VentaViewModel` en `mobile/lib/features/venta/venta_view_model.dart` con estados `editing`, `confirming`, `submitting`, `done` y `error`; valida entero positivo (`SaleRequest.quantity`), consulta `ConnectivityService` antes de enviar, bloquea el doble envío y, ante `insufficientStock`, pide la existencia vigente a `PrendaRepository` para el mensaje "Solo quedan N pieza(s)"
+- [X] T038 [US4] Crear la hoja de venta en `mobile/lib/features/venta/venta_sheet.dart`: elección de talla y color solo entre existencias de la sucursal propia, campo de cantidad numérico, paso de confirmación, botón deshabilitado en curso y mensajes en español
+- [X] T039 [US4] Mostrar en `FichaView` la acción "Descontar piezas" solo sobre las existencias de la sucursal del usuario y actualizar la fila con la existencia devuelta (`FichaViewModel.applySale`); registrar `VentaViewModel` en `mobile/lib/core/di/service_locator.dart`
 
 **Punto de control**: el flujo búsqueda, ficha y venta funciona completo con datos de ejemplo.
 
@@ -141,15 +141,15 @@
 
 ### Pruebas de la historia 3 (escribir primero)
 
-- [ ] T040 [P] [US3] Prueba de `EscanerViewModel` en `mobile/test/features/escaner/escaner_view_model_test.dart` con `FakeBarcodeScannerService`: explicación antes del permiso, código registrado abre una sola ficha aunque se repita, código desconocido muestra "prenda no encontrada" y permite escanear de nuevo, permiso negado y cámara no disponible ofrecen la búsqueda manual, y la búsqueda manual por código
+- [X] T040 [P] [US3] Prueba de `EscanerViewModel` en `mobile/test/features/escaner/escaner_view_model_test.dart` con `FakeBarcodeScannerService`: explicación antes del permiso, código registrado abre una sola ficha aunque se repita, código desconocido muestra "prenda no encontrada" y permite escanear de nuevo, permiso negado y cámara no disponible ofrecen la búsqueda manual, y la búsqueda manual por código
 
 ### Implementación de la historia 3
 
-- [ ] T041 [P] [US3] Crear la interfaz `BarcodeScannerService`, `ScannerError` y `ScannerException` en `mobile/lib/data/services/barcode_scanner_service.dart` según `contracts/internal-interfaces.md`, y `FakeBarcodeScannerService` para pruebas en `mobile/test/helpers/fake_barcode_scanner_service.dart`
-- [ ] T042 [US3] Crear `MobileScannerService` en `mobile/lib/data/services/mobile_scanner_service.dart` (Adapter; único archivo que importa `mobile_scanner`): códigos de barras y QR, sin repeticiones consecutivas del mismo valor, vista previa, linterna y traducción del error de permiso (`research.md` D1 y D2)
-- [ ] T043 [US3] Crear `EscanerViewModel` en `mobile/lib/features/escaner/escaner_view_model.dart` con estados `explaining`, `scanning`, `resolving`, `notFound`, `permissionDenied` y `unavailable`; resuelve el código con `PrendaRepository.getByBarcode` y evita abrir dos fichas
-- [ ] T044 [US3] Crear `EscanerView` en `mobile/lib/features/escaner/escaner_view.dart`: explicación breve con botón "Activar cámara", vista previa, botón de linterna, aviso "Prenda no encontrada" con "Escanear otra vez", y campo de búsqueda manual por código cuando se niega el permiso
-- [ ] T045 [US3] Registrar `BarcodeScannerService` y `EscanerViewModel` en `mobile/lib/core/di/service_locator.dart` (el servicio se libera al salir de la pantalla)
+- [X] T041 [P] [US3] Crear la interfaz `BarcodeScannerService`, `ScannerError` y `ScannerException` en `mobile/lib/data/services/barcode_scanner_service.dart` según `contracts/internal-interfaces.md`, y `FakeBarcodeScannerService` para pruebas en `mobile/test/helpers/fake_barcode_scanner_service.dart`
+- [X] T042 [US3] Crear `MobileScannerService` en `mobile/lib/data/services/mobile_scanner_service.dart` (Adapter; único archivo que importa `mobile_scanner`): códigos de barras y QR, sin repeticiones consecutivas del mismo valor, vista previa, linterna y traducción del error de permiso (`research.md` D1 y D2)
+- [X] T043 [US3] Crear `EscanerViewModel` en `mobile/lib/features/escaner/escaner_view_model.dart` con estados `explaining`, `scanning`, `resolving`, `notFound`, `permissionDenied` y `unavailable`; resuelve el código con `PrendaRepository.getByBarcode` y evita abrir dos fichas
+- [X] T044 [US3] Crear `EscanerView` en `mobile/lib/features/escaner/escaner_view.dart`: explicación breve con botón "Activar cámara", vista previa, botón de linterna, aviso "Prenda no encontrada" con "Escanear otra vez", y campo de búsqueda manual por código cuando se niega el permiso
+- [X] T045 [US3] Registrar `BarcodeScannerService` y `EscanerViewModel` en `mobile/lib/core/di/service_locator.dart` (el servicio se libera al salir de la pantalla)
 
 **Punto de control**: el escáner abre la ficha en el teléfono.
 
@@ -161,10 +161,10 @@
 
 **Prueba independiente**: recorrer pantalla principal, búsqueda, ficha y regreso; forzar un 401 y un 403.
 
-- [ ] T046 [P] [US5] Prueba de `HomeViewModel` y de la navegación en `mobile/test/features/home/home_view_model_test.dart` y `mobile/test/app_test.dart`: accesos a "Buscar" y "Escanear", regreso a donde se vino, 401 sin renovar vuelve al inicio de sesión con aviso, 403 muestra aviso sin cerrar la sesión
-- [ ] T047 [US5] Agregar a `HomeView` en `mobile/lib/features/home/home_view.dart` los accesos "Buscar" y "Escanear" con botones grandes y el estilo glass, sin mover el botón "Cerrar sesión" fijo al pie
-- [ ] T048 [US5] Definir las rutas hacia búsqueda, ficha y escáner en `mobile/lib/app.dart` con `Navigator`, conservando la compuerta de sesión (`research.md` D3)
-- [ ] T049 [US5] Mostrar el aviso de falta de permisos (403) en las pantallas nuevas y limpiar los ViewModels del sprint al cerrar sesión (`SessionViewModel.addCleanup`)
+- [X] T046 [P] [US5] Prueba de `HomeViewModel` y de la navegación en `mobile/test/features/home/home_view_model_test.dart` y `mobile/test/app_test.dart`: accesos a "Buscar" y "Escanear", regreso a donde se vino, 401 sin renovar vuelve al inicio de sesión con aviso, 403 muestra aviso sin cerrar la sesión
+- [X] T047 [US5] Agregar a `HomeView` en `mobile/lib/features/home/home_view.dart` los accesos "Buscar" y "Escanear" con botones grandes y el estilo glass, sin mover el botón "Cerrar sesión" fijo al pie
+- [X] T048 [US5] Definir las rutas hacia búsqueda, ficha y escáner en `mobile/lib/app.dart` con `Navigator`, conservando la compuerta de sesión (`research.md` D3)
+- [X] T049 [US5] Mostrar el aviso de falta de permisos (403) en las pantallas nuevas y limpiar los ViewModels del sprint al cerrar sesión (`SessionViewModel.addCleanup`)
 
 **Punto de control**: la app completa se recorre con datos de ejemplo.
 
@@ -175,8 +175,8 @@
 **Propósito**: calidad, prueba real, evidencia y cierre del sprint
 
 - [ ] T050 [P] Ejecutar `flutter analyze` y `flutter test`; corregir avisos y fallas
-- [ ] T051 [P] Revisar que ninguna pantalla importe `mobile_scanner`, `dio` ni un Service, que no haya colores sueltos y que no aparezcan precios ni mensajes técnicos (SC-007)
-- [ ] T052 [P] Revisar con `MediaQuery.disableAnimations` las animaciones nuevas y la lectura en pantallas pequeñas y grandes
+- [X] T051 [P] Revisar que ninguna pantalla importe `mobile_scanner`, `dio` ni un Service, que no haya colores sueltos y que no aparezcan precios ni mensajes técnicos (SC-007)
+- [X] T052 [P] Revisar con `MediaQuery.disableAnimations` las animaciones nuevas y la lectura en pantallas pequeñas y grandes
 - [ ] T053 Probar en el teléfono con datos de ejemplo los escenarios de `quickstart.md` secciones 2 y 3 (incluida la cámara) y anotar el resultado
 - [ ] T054 Probar contra Keycloak y la API reales según `quickstart.md` sección 4: búsqueda, ficha, escáner, venta, renovación de sesión, sesión no renovable y 403; confirmar con los Integrantes 1 y 2 los puntos abiertos de `contracts/catalog-api.md`
 - [ ] T055 [P] Actualizar `specs/002-busqueda-escaner-venta/contracts/catalog-api.md` y `research.md` con lo que resulte de la prueba real (mayúsculas, `existencia_total` por sucursal, fotos, `refresh_token`)
