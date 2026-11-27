@@ -64,12 +64,38 @@ services:
       KEYCLOAK_REALM: checklizz
       KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN:-admin}
       KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD:-admin}
+      UPLOADS_DIR: /app/uploads
       # Emisores aceptados en el token (PC y emulador Android). Siguen a KEYCLOAK_PORT:
       # si cambias el puerto de Keycloak (ej. 8180) el emisor del token cambia con el.
       # Telefono fisico: define ALLOWED_ISSUERS en .env con la IP de la PC (ver .env.example).
       ALLOWED_ISSUERS: ${ALLOWED_ISSUERS:-http://localhost:${KEYCLOAK_PORT:-8080}/realms/checklizz,http://10.0.2.2:${KEYCLOAK_PORT:-8080}/realms/checklizz}
     ports:
       - "${API_PORT:-3000}:3000"
+    volumes:
+      # Fotos de prendas subidas con POST /prendas/{id}/foto: sobreviven a recrear el contenedor
+      - uploads:/app/uploads
+
+  # Respaldo diario de la base con pg_dump (RNF-08): 10:00 pm hora de Puebla, a la carpeta ./backups.
+  # Detalles, restauracion y ajustes en infra/backup/README.md.
+  backup:
+    image: postgres:16-alpine
+    container_name: checklizz-backup
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      PGHOST: postgres
+      PGPORT: 5432
+      PGUSER: ${POSTGRES_USER:-checklizz}
+      PGPASSWORD: ${POSTGRES_PASSWORD:-checklizz_dev}
+      PGDATABASE: ${POSTGRES_DB:-checklizz}
+      RETENCION_DIAS: ${BACKUP_RETENCION_DIAS:-14}
+      BACKUP_CRON: ${BACKUP_CRON:-0 4 * * *}
+    volumes:
+      - ./infra/backup:/scripts:ro
+      - ./backups:/backups
+    entrypoint: ["/bin/sh", "/scripts/entrypoint.sh"]
 
   # Herramienta opcional (sugerida por el profe). No arranca por defecto: usa --profile tools.
   # Puerto 5050 porque el 8080 es de Keycloak. En pgAdmin conectate al host "postgres", puerto 5432.
@@ -93,3 +119,4 @@ volumes:
   pgdata:
   keycloakdata:
   pgadmindata:
+  uploads:

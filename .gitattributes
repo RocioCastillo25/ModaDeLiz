@@ -1,0 +1,2 @@
+# Los scripts de shell deben llegar con saltos de linea LF, o fallan dentro de los contenedores Linux
+*.sh text eol=lf
