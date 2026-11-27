@@ -3,6 +3,8 @@ const env = process.env;
 
 module.exports = {
   port: Number(env.PORT || 3000),
+  // Carpeta de fotos subidas. En Docker es un volumen (UPLOADS_DIR=/app/uploads).
+  uploadsDir: env.UPLOADS_DIR || require('node:path').join(__dirname, '..', '..', 'uploads'),
   db: {
     host: env.DB_HOST || 'localhost',
     port: Number(env.DB_PORT || 5432),
