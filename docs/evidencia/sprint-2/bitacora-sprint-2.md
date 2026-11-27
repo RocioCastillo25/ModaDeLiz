@@ -3,7 +3,7 @@
 **Integrante:** 3 — Frontend móvil y escaneo (Flutter)
 **Sprint:** 2, "Consulta de inventario, escáner y venta" (23 al 28 de noviembre de 2026)
 **Fecha de esta entrada:** 27 de noviembre de 2026 (avance casi completo)
-**Ramas:** `feature/mobile-busqueda-escaner-venta` (fusionada en `develop`, [PR #46](https://github.com/RocioCastillo25/ModaDeLiz/pull/46)) y `feature/mobile-venta-escaner` (venta, escáner y navegación, subida a GitHub; pendiente su Pull Request)
+**Ramas:** `feature/mobile-busqueda-escaner-venta` (fusionada en `develop`, [PR #46](https://github.com/RocioCastillo25/ModaDeLiz/pull/46)) y `feature/mobile-venta-escaner` (venta, escáner y navegación, [PR #49](https://github.com/RocioCastillo25/ModaDeLiz/pull/49), abierto y en espera de revisión)
 **Evidencia en el repositorio:** `docs/evidencia/sprint-2/` (esta bitácora, resultados de pruebas y capturas)
 
 ## Resumen
@@ -142,7 +142,7 @@ Las pruebas automáticas cubren: búsqueda y filtros, carga por bloques, ficha y
 - [ ] Probar contra Keycloak y la API reales, con los Integrantes 1 y 2 (tarea T054): búsqueda, ficha, escáner, venta, renovación de sesión y 403.
 - [ ] Actualizar el contrato y la investigación con lo que resulte de esa prueba (T055).
 - [ ] Entregar el APK a la dueña y que lo pruebe (T057).
-- [ ] Abrir el Pull Request de `feature/mobile-venta-escaner` a `develop` y conseguir la aprobación de otra persona (T058).
+- [ ] Conseguir la aprobación de otra persona para el [PR #49](https://github.com/RocioCastillo25/ModaDeLiz/pull/49) (venta, escáner y navegación) y fusionarlo (T058).
 - [ ] Etiqueta `v0.2.0`, coordinada con el Integrante 4.
 - [ ] Restos del Sprint 1: escenario de sesión vencida en el teléfono y etiqueta `v0.1.0`.
 
