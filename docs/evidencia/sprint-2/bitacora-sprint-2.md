@@ -174,4 +174,5 @@ Las pruebas automáticas cubren: búsqueda y filtros, carga por bloques, ficha y
 | `09-venta-hoja.png` a `15-ficha-existencia-actualizada.png` | Hoja de venta, aviso de cantidad, existencia insuficiente, confirmación, venta registrada y ficha actualizada |
 | `16-escaner-explicacion.png` a `22-escaner-permiso-negado-busqueda-manual.png` | Explicación, cámara activa, prenda no encontrada, búsqueda manual y permiso de cámara |
 | `codigos-de-prueba.html` | Página con códigos EAN-13 de las prendas de ejemplo para probar el escáner |
+| `codigos-de-barras-prueba.docx` | Documento para imprimir con los 7 códigos EAN-13 de prueba (6 prendas de ejemplo y un código inexistente), con instrucciones de uso |
 | Documentos de Spec Kit | `specs/002-busqueda-escaner-venta/` (especificación, plan, investigación, modelo de datos, contratos, guía y tareas) |
