@@ -1,5 +1,5 @@
 00:00 +0: loading C:/Users/moni2/ChekLizz/mobile/test/app_test.dart
-00:00 +0: C:/Users/moni2/ChekLizz/mobile/test/core/auth_interceptor_test.dart: agrega el encabezado Authorization cuando hay token
+00:00 +0: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
 00:00 +1: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
 00:00 +2: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
 00:00 +3: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
@@ -19,175 +19,233 @@
 00:00 +17: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
 00:00 +18: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
 00:00 +19: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
-00:02 +20: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
-00:02 +21: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
-00:02 +22: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
-00:02 +23: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
-00:02 +24: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
-00:02 +25: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
-00:02 +26: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
-00:02 +27: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
-00:02 +28: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
-00:02 +29: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
-00:02 +30: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
-00:02 +31: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
-00:02 +32: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
-00:02 +33: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
-00:02 +34: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
-00:02 +35: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
-00:02 +36: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
-00:02 +37: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
-00:02 +38: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
-00:02 +39: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
-00:02 +40: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
-00:02 +41: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
-00:02 +42: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
-00:02 +43: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
-00:02 +44: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
-00:02 +45: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
-00:02 +46: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
-00:02 +47: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
-00:02 +48: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
-00:02 +49: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
-00:02 +50: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
-00:02 +51: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
-00:02 +52: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
-00:02 +53: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
-00:02 +54: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
-00:02 +55: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: muestra el inicio de sesión con el nombre CheckLizz
-00:02 +56: C:/Users/moni2/ChekLizz/mobile/test/core/service_locator_test.dart: una venta simulada se ve después en la ficha
-00:02 +57: C:/Users/moni2/ChekLizz/mobile/test/core/service_locator_test.dart: una venta simulada se ve después en la ficha
-00:02 +58: C:/Users/moni2/ChekLizz/mobile/test/core/service_locator_test.dart: una venta simulada se ve después en la ficha
-00:02 +59: C:/Users/moni2/ChekLizz/mobile/test/core/service_locator_test.dart: una venta simulada se ve después en la ficha
-00:02 +60: C:/Users/moni2/ChekLizz/mobile/test/core/service_locator_test.dart: una venta simulada se ve después en la ficha
-00:02 +61: C:/Users/moni2/ChekLizz/mobile/test/core/service_locator_test.dart: una venta simulada se ve después en la ficha
-00:02 +62: C:/Users/moni2/ChekLizz/mobile/test/core/service_locator_test.dart: una venta simulada se ve después en la ficha
-00:02 +63: C:/Users/moni2/ChekLizz/mobile/test/core/service_locator_test.dart: una venta simulada se ve después en la ficha
-00:02 +64: C:/Users/moni2/ChekLizz/mobile/test/core/service_locator_test.dart: una venta simulada se ve después en la ficha
-00:02 +65: C:/Users/moni2/ChekLizz/mobile/test/core/service_locator_test.dart: una venta simulada se ve después en la ficha
-00:02 +66: C:/Users/moni2/ChekLizz/mobile/test/core/service_locator_test.dart: una venta simulada se ve después en la ficha
-00:02 +67: C:/Users/moni2/ChekLizz/mobile/test/core/service_locator_test.dart: una venta simulada se ve después en la ficha
-00:02 +68: C:/Users/moni2/ChekLizz/mobile/test/core/service_locator_test.dart: una venta simulada se ve después en la ficha
-00:02 +69: C:/Users/moni2/ChekLizz/mobile/test/core/service_locator_test.dart: una venta simulada se ve después en la ficha
-00:02 +70: C:/Users/moni2/ChekLizz/mobile/test/core/service_locator_test.dart: una venta simulada se ve después en la ficha
-00:02 +71: C:/Users/moni2/ChekLizz/mobile/test/core/service_locator_test.dart: una venta simulada se ve después en la ficha
-00:02 +72: C:/Users/moni2/ChekLizz/mobile/test/core/service_locator_test.dart: una venta simulada se ve después en la ficha
-00:02 +73: C:/Users/moni2/ChekLizz/mobile/test/core/service_locator_test.dart: una venta simulada se ve después en la ficha
-00:02 +74: C:/Users/moni2/ChekLizz/mobile/test/core/service_locator_test.dart: una venta simulada se ve después en la ficha
-00:02 +75: C:/Users/moni2/ChekLizz/mobile/test/core/service_locator_test.dart: una venta simulada se ve después en la ficha
-00:02 +76: C:/Users/moni2/ChekLizz/mobile/test/core/service_locator_test.dart: una venta simulada se ve después en la ficha
-00:02 +77: C:/Users/moni2/ChekLizz/mobile/test/core/service_locator_test.dart: una venta simulada se ve después en la ficha
-00:02 +78: C:/Users/moni2/ChekLizz/mobile/test/core/service_locator_test.dart: una venta simulada se ve después en la ficha
-00:02 +79: C:/Users/moni2/ChekLizz/mobile/test/core/service_locator_test.dart: una venta simulada se ve después en la ficha
-00:02 +80: C:/Users/moni2/ChekLizz/mobile/test/core/service_locator_test.dart: una venta simulada se ve después en la ficha
-00:02 +81: C:/Users/moni2/ChekLizz/mobile/test/core/service_locator_test.dart: una venta simulada se ve después en la ficha
-00:03 +82: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con campos vacíos indica qué falta y no entra
-00:03 +83: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con campos vacíos indica qué falta y no entra
-00:03 +84: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con credenciales válidas llega a la pantalla principal
-00:03 +85: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con credenciales válidas llega a la pantalla principal
-00:03 +86: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con credenciales válidas llega a la pantalla principal
-00:03 +87: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con credenciales válidas llega a la pantalla principal
-00:03 +88: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con credenciales válidas llega a la pantalla principal
-00:03 +89: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con credenciales válidas llega a la pantalla principal
-00:03 +90: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con credenciales válidas llega a la pantalla principal
-00:03 +91: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con credenciales válidas llega a la pantalla principal
-00:03 +92: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con credenciales válidas llega a la pantalla principal
-00:03 +93: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con credenciales válidas llega a la pantalla principal
-00:03 +94: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con credenciales válidas llega a la pantalla principal
-00:03 +95: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con credenciales válidas llega a la pantalla principal
-00:03 +96: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con credenciales válidas llega a la pantalla principal
-00:03 +97: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con credenciales válidas llega a la pantalla principal
-00:03 +98: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con credenciales válidas llega a la pantalla principal
-00:03 +99: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con credenciales válidas llega a la pantalla principal
-00:03 +100: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con credenciales válidas llega a la pantalla principal
-00:03 +101: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con credenciales válidas llega a la pantalla principal
-00:03 +102: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con credenciales válidas llega a la pantalla principal
-00:03 +103: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con credenciales válidas llega a la pantalla principal
-00:04 +104: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con credenciales válidas llega a la pantalla principal
-00:04 +105: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con credenciales válidas llega a la pantalla principal
-00:04 +106: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con credenciales válidas llega a la pantalla principal
-00:04 +107: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con credenciales válidas llega a la pantalla principal
-00:04 +108: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con credenciales válidas llega a la pantalla principal
-00:04 +109: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con credenciales válidas llega a la pantalla principal
-00:04 +110: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con credenciales válidas llega a la pantalla principal
-00:04 +111: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con credenciales válidas llega a la pantalla principal
-00:04 +112: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con credenciales válidas llega a la pantalla principal
-00:04 +113: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con credenciales válidas llega a la pantalla principal
-00:04 +114: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con credenciales válidas llega a la pantalla principal
-00:04 +115: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con credenciales válidas llega a la pantalla principal
-00:04 +116: C:/Users/moni2/ChekLizz/mobile/test/data/stock_item_test.dart: DTO de existencias y fichas la ficha suma las existencias y usa el umbral de la prenda
-00:04 +117: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
-00:04 +118: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
-00:04 +119: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
-00:04 +120: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
-00:04 +121: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
-00:04 +122: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
-00:04 +123: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
-00:04 +124: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
-00:04 +125: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
-00:04 +126: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
-00:05 +127: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: una búsqueda sin resultados muestra un mensaje claro
-00:05 +128: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: al cerrar sesión se cierran las pantallas abiertas
-00:06 +129: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: al cerrar sesión se cierran las pantallas abiertas
-00:06 +130: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: al cerrar sesión se cierran las pantallas abiertas
-00:06 +131: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: al cerrar sesión se cierran las pantallas abiertas
-00:06 +132: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: al cerrar sesión se cierran las pantallas abiertas
-00:06 +133: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: al cerrar sesión se cierran las pantallas abiertas
-00:06 +134: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: al cerrar sesión se cierran las pantallas abiertas
-00:06 +135: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: al cerrar sesión se cierran las pantallas abiertas
-00:06 +136: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: al cerrar sesión se cierran las pantallas abiertas
-00:06 +137: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: al cerrar sesión se cierran las pantallas abiertas
-00:06 +138: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: al cerrar sesión se cierran las pantallas abiertas
-00:06 +139: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: al cerrar sesión se cierran las pantallas abiertas
-00:06 +140: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: al cerrar sesión se cierran las pantallas abiertas
-00:06 +141: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: al cerrar sesión se cierran las pantallas abiertas
-00:06 +142: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: al cerrar sesión se cierran las pantallas abiertas
-00:06 +143: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: al cerrar sesión se cierran las pantallas abiertas
-00:06 +144: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: al cerrar sesión se cierran las pantallas abiertas
-00:06 +145: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: al cerrar sesión se cierran las pantallas abiertas
-00:06 +146: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: al cerrar sesión se cierran las pantallas abiertas
-00:06 +147: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: al cerrar sesión se cierran las pantallas abiertas
-00:06 +148: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: al cerrar sesión se cierran las pantallas abiertas
-00:06 +149: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: al cerrar sesión se cierran las pantallas abiertas
-00:06 +150: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con contraseña incorrecta muestra el mensaje genérico
-00:07 +151: C:/Users/moni2/ChekLizz/mobile/test/features/busqueda/busqueda_view_model_test.dart: Búsqueda al abrir muestra las prendas y carga las sucursales
-00:07 +152: C:/Users/moni2/ChekLizz/mobile/test/features/busqueda/busqueda_view_model_test.dart: Búsqueda muestra "cargando" mientras espera la respuesta
-00:07 +153: C:/Users/moni2/ChekLizz/mobile/test/features/busqueda/busqueda_view_model_test.dart: Búsqueda busca por parte del nombre, sin importar mayúsculas ni espacios
-00:07 +154: C:/Users/moni2/ChekLizz/mobile/test/features/busqueda/busqueda_view_model_test.dart: Búsqueda combina los filtros de talla, color y sucursal
-00:07 +155: C:/Users/moni2/ChekLizz/mobile/test/features/auth/session_view_model_test.dart: Cierre de sesión borra el token guardado y pasa a no autenticado
-00:07 +156: C:/Users/moni2/ChekLizz/mobile/test/features/auth/session_view_model_test.dart: Cierre de sesión borra el token guardado y pasa a no autenticado
-00:07 +157: C:/Users/moni2/ChekLizz/mobile/test/features/auth/session_view_model_test.dart: Cierre de sesión borra el token guardado y pasa a no autenticado
-00:07 +158: C:/Users/moni2/ChekLizz/mobile/test/features/auth/session_view_model_test.dart: Cierre de sesión borra el token guardado y pasa a no autenticado
-00:07 +159: C:/Users/moni2/ChekLizz/mobile/test/features/auth/session_view_model_test.dart: Cierre de sesión borra el token guardado y pasa a no autenticado
-00:07 +160: C:/Users/moni2/ChekLizz/mobile/test/features/auth/session_view_model_test.dart: Cierre de sesión borra el token guardado y pasa a no autenticado
-00:07 +161: C:/Users/moni2/ChekLizz/mobile/test/features/busqueda/busqueda_view_model_test.dart: Búsqueda una búsqueda lenta no pisa a una más reciente
-00:07 +162: C:/Users/moni2/ChekLizz/mobile/test/features/auth/session_view_model_test.dart: Cierre de sesión limpia el estado del inicio de sesión
-00:07 +163: C:/Users/moni2/ChekLizz/mobile/test/features/auth/session_view_model_test.dart: Cierre de sesión limpia el estado del inicio de sesión
-00:07 +164: C:/Users/moni2/ChekLizz/mobile/test/features/busqueda/busqueda_view_model_test.dart: Carga por bloques muestra 20 resultados y carga más al llegar al final
-00:07 +165: C:/Users/moni2/ChekLizz/mobile/test/features/busqueda/busqueda_view_model_test.dart: Carga por bloques muestra 20 resultados y carga más al llegar al final
-00:07 +166: C:/Users/moni2/ChekLizz/mobile/test/features/auth/session_view_model_test.dart: Cierre de sesión al reabrir la app tras cerrar sesión se pide iniciar sesión
-00:07 +167: C:/Users/moni2/ChekLizz/mobile/test/features/auth/session_view_model_test.dart: Cierre de sesión al reabrir la app tras cerrar sesión se pide iniciar sesión
-00:07 +168: C:/Users/moni2/ChekLizz/mobile/test/features/busqueda/busqueda_view_model_test.dart: Escritura con espera varias letras seguidas disparan una sola búsqueda
-00:07 +169: C:/Users/moni2/ChekLizz/mobile/test/features/busqueda/busqueda_view_model_test.dart: Escritura con espera varias letras seguidas disparan una sola búsqueda
-00:07 +170: C:/Users/moni2/ChekLizz/mobile/test/features/busqueda/busqueda_view_model_test.dart: Escritura con espera varias letras seguidas disparan una sola búsqueda
-00:07 +171: C:/Users/moni2/ChekLizz/mobile/test/features/busqueda/busqueda_view_model_test.dart: Escritura con espera varias letras seguidas disparan una sola búsqueda
-00:07 +172: C:/Users/moni2/ChekLizz/mobile/test/features/busqueda/busqueda_view_model_test.dart: Escritura con espera varias letras seguidas disparan una sola búsqueda
-00:07 +173: C:/Users/moni2/ChekLizz/mobile/test/features/busqueda/busqueda_view_model_test.dart: Escritura con espera varias letras seguidas disparan una sola búsqueda
-00:07 +174: C:/Users/moni2/ChekLizz/mobile/test/features/busqueda/busqueda_view_model_test.dart: Escritura con espera varias letras seguidas disparan una sola búsqueda
-00:07 +175: C:/Users/moni2/ChekLizz/mobile/test/features/busqueda/busqueda_view_model_test.dart: Escritura con espera varias letras seguidas disparan una sola búsqueda
-00:07 +176: C:/Users/moni2/ChekLizz/mobile/test/features/busqueda/busqueda_view_model_test.dart: Escritura con espera varias letras seguidas disparan una sola búsqueda
-00:07 +177: C:/Users/moni2/ChekLizz/mobile/test/features/busqueda/busqueda_view_model_test.dart: Escritura con espera varias letras seguidas disparan una sola búsqueda
-00:07 +178: C:/Users/moni2/ChekLizz/mobile/test/features/busqueda/busqueda_view_model_test.dart: Escritura con espera varias letras seguidas disparan una sola búsqueda
-00:07 +179: C:/Users/moni2/ChekLizz/mobile/test/features/busqueda/busqueda_view_model_test.dart: Escritura con espera varias letras seguidas disparan una sola búsqueda
-00:07 +180: C:/Users/moni2/ChekLizz/mobile/test/features/busqueda/busqueda_view_model_test.dart: Escritura con espera varias letras seguidas disparan una sola búsqueda
-00:07 +181: C:/Users/moni2/ChekLizz/mobile/test/features/busqueda/busqueda_view_model_test.dart: Escritura con espera varias letras seguidas disparan una sola búsqueda
-00:07 +182: C:/Users/moni2/ChekLizz/mobile/test/features/busqueda/busqueda_view_model_test.dart: Escritura con espera varias letras seguidas disparan una sola búsqueda
-00:07 +183: C:/Users/moni2/ChekLizz/mobile/test/features/busqueda/busqueda_view_model_test.dart: Escritura con espera varias letras seguidas disparan una sola búsqueda
-00:07 +184: C:/Users/moni2/ChekLizz/mobile/test/features/busqueda/busqueda_view_model_test.dart: al cerrar sesión se limpia el estado
-00:08 +185: C:/Users/moni2/ChekLizz/mobile/test/features/home/home_view_model_test.dart: muestra nombre, rol y sucursal de un empleado
-00:08 +186: C:/Users/moni2/ChekLizz/mobile/test/features/home/home_view_model_test.dart: muestra el rol y la sucursal de un gerente
-00:08 +187: C:/Users/moni2/ChekLizz/mobile/test/features/home/home_view_model_test.dart: ofrece buscar, escanear y traspasos
-00:08 +188: C:/Users/moni2/ChekLizz/mobile/test/features/home/home_view_model_test.dart: la búsqueda está disponible
-00:08 +189: C:/Users/moni2/ChekLizz/mobile/test/features/home/home_view_model_test.dart: los traspasos aparecen como "próximamente" hasta el Sprint 3
-00:08 +190: C:/Users/moni2/ChekLizz/mobile/test/features/home/home_view_model_test.dart: avisa a la vista cuando cambia la sesión
-00:08 +191: All tests passed!
+00:01 +20: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con campos vacíos indica qué falta y no entra
+00:04 +21: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con credenciales válidas llega a la pantalla principal
+00:07 +22: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con credenciales válidas llega a la pantalla principal
+00:07 +23: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con credenciales válidas llega a la pantalla principal
+00:07 +24: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con credenciales válidas llega a la pantalla principal
+00:07 +25: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con credenciales válidas llega a la pantalla principal
+00:07 +26: C:/Users/moni2/ChekLizz/mobile/test/core/service_locator_test.dart: con USE_MOCK desactivado, el catálogo, las ventas y las sucursales son reales
+00:07 +27: C:/Users/moni2/ChekLizz/mobile/test/core/service_locator_test.dart: una venta simulada se ve después en la ficha
+00:08 +28: C:/Users/moni2/ChekLizz/mobile/test/core/service_locator_test.dart: una venta simulada se ve después en la ficha
+00:08 +29: C:/Users/moni2/ChekLizz/mobile/test/core/service_locator_test.dart: una venta simulada se ve después en la ficha
+00:08 +30: C:/Users/moni2/ChekLizz/mobile/test/core/service_locator_test.dart: una venta simulada se ve después en la ficha
+00:08 +31: C:/Users/moni2/ChekLizz/mobile/test/core/service_locator_test.dart: una venta simulada se ve después en la ficha
+00:08 +32: C:/Users/moni2/ChekLizz/mobile/test/core/service_locator_test.dart: una venta simulada se ve después en la ficha
+00:08 +33: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
+00:08 +34: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
+00:08 +35: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
+00:08 +36: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
+00:08 +37: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
+00:08 +38: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
+00:08 +39: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
+00:08 +40: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
+00:08 +41: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
+00:08 +42: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
+00:08 +43: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
+00:08 +44: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
+00:08 +45: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
+00:08 +46: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
+00:08 +47: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
+00:08 +48: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
+00:08 +49: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
+00:08 +50: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
+00:08 +51: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
+00:08 +52: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
+00:08 +53: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
+00:08 +54: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
+00:08 +55: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
+00:08 +56: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
+00:08 +57: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
+00:08 +58: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
+00:08 +59: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
+00:08 +60: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
+00:08 +61: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
+00:08 +62: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
+00:08 +63: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
+00:08 +64: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
+00:08 +65: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
+00:08 +66: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
+00:08 +67: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
+00:08 +68: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
+00:08 +69: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
+00:08 +70: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
+00:09 +71: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
+00:09 +72: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
+00:09 +73: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
+00:09 +74: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
+00:09 +75: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: desde la pantalla principal se busca y se abre la ficha
+00:09 +76: C:/Users/moni2/ChekLizz/mobile/test/data/catalog_service_test.dart: ApiPrendaRepository: errores sin conexión es error de red
+00:09 +77: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: vende piezas de la sucursal propia y la ficha muestra la existencia nueva
+00:09 +78: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: vende piezas de la sucursal propia y la ficha muestra la existencia nueva
+00:09 +79: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: vende piezas de la sucursal propia y la ficha muestra la existencia nueva
+00:09 +80: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: vende piezas de la sucursal propia y la ficha muestra la existencia nueva
+00:09 +81: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: vende piezas de la sucursal propia y la ficha muestra la existencia nueva
+00:09 +82: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: vende piezas de la sucursal propia y la ficha muestra la existencia nueva
+00:09 +83: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: vende piezas de la sucursal propia y la ficha muestra la existencia nueva
+00:09 +84: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: vende piezas de la sucursal propia y la ficha muestra la existencia nueva
+00:09 +85: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: vende piezas de la sucursal propia y la ficha muestra la existencia nueva
+00:09 +86: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: vende piezas de la sucursal propia y la ficha muestra la existencia nueva
+00:10 +87: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: vende piezas de la sucursal propia y la ficha muestra la existencia nueva
+00:10 +88: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: vende piezas de la sucursal propia y la ficha muestra la existencia nueva
+00:10 +89: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: vende piezas de la sucursal propia y la ficha muestra la existencia nueva
+00:10 +90: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: vende piezas de la sucursal propia y la ficha muestra la existencia nueva
+00:10 +91: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: vende piezas de la sucursal propia y la ficha muestra la existencia nueva
+00:10 +92: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: vende piezas de la sucursal propia y la ficha muestra la existencia nueva
+00:10 +93: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: vende piezas de la sucursal propia y la ficha muestra la existencia nueva
+00:10 +94: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: vende piezas de la sucursal propia y la ficha muestra la existencia nueva
+00:10 +95: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: vende piezas de la sucursal propia y la ficha muestra la existencia nueva
+00:10 +96: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: vende piezas de la sucursal propia y la ficha muestra la existencia nueva
+00:10 +97: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: vende piezas de la sucursal propia y la ficha muestra la existencia nueva
+00:10 +98: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: vende piezas de la sucursal propia y la ficha muestra la existencia nueva
+00:10 +99: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: vende piezas de la sucursal propia y la ficha muestra la existencia nueva
+00:10 +100: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: vende piezas de la sucursal propia y la ficha muestra la existencia nueva
+00:10 +101: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: vende piezas de la sucursal propia y la ficha muestra la existencia nueva
+00:10 +102: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: vende piezas de la sucursal propia y la ficha muestra la existencia nueva
+00:10 +103: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: vende piezas de la sucursal propia y la ficha muestra la existencia nueva
+00:10 +104: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: vende piezas de la sucursal propia y la ficha muestra la existencia nueva
+00:10 +105: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: vende piezas de la sucursal propia y la ficha muestra la existencia nueva
+00:10 +106: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: vende piezas de la sucursal propia y la ficha muestra la existencia nueva
+00:10 +107: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: vende piezas de la sucursal propia y la ficha muestra la existencia nueva
+00:10 +108: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: vende piezas de la sucursal propia y la ficha muestra la existencia nueva
+00:10 +109: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: vende piezas de la sucursal propia y la ficha muestra la existencia nueva
+00:10 +110: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: vende piezas de la sucursal propia y la ficha muestra la existencia nueva
+00:10 +111: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: vende piezas de la sucursal propia y la ficha muestra la existencia nueva
+00:10 +112: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: vende piezas de la sucursal propia y la ficha muestra la existencia nueva
+00:10 +113: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: vende piezas de la sucursal propia y la ficha muestra la existencia nueva
+00:10 +114: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: vende piezas de la sucursal propia y la ficha muestra la existencia nueva
+00:11 +115: C:/Users/moni2/ChekLizz/mobile/test/data/stock_item_test.dart: DTO de existencias y fichas convierte una existencia y usa el id de sucursal como texto
+00:11 +116: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: pedir más piezas de las que hay muestra la existencia actual
+00:11 +117: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: pedir más piezas de las que hay muestra la existencia actual
+00:11 +118: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: pedir más piezas de las que hay muestra la existencia actual
+00:11 +119: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: pedir más piezas de las que hay muestra la existencia actual
+00:11 +120: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: pedir más piezas de las que hay muestra la existencia actual
+00:11 +121: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: pedir más piezas de las que hay muestra la existencia actual
+00:11 +122: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: pedir más piezas de las que hay muestra la existencia actual
+00:11 +123: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: pedir más piezas de las que hay muestra la existencia actual
+00:11 +124: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: pedir más piezas de las que hay muestra la existencia actual
+00:11 +125: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: pedir más piezas de las que hay muestra la existencia actual
+00:11 +126: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: pedir más piezas de las que hay muestra la existencia actual
+00:11 +127: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: pedir más piezas de las que hay muestra la existencia actual
+00:11 +128: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: pedir más piezas de las que hay muestra la existencia actual
+00:12 +129: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: sin escribir una cantidad no se puede continuar
+00:13 +130: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: Escáner antes de pedir la cámara explica para qué se usa
+00:13 +131: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: Escáner antes de pedir la cámara explica para qué se usa
+00:13 +132: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: Escáner antes de pedir la cámara explica para qué se usa
+00:13 +133: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: Escáner antes de pedir la cámara explica para qué se usa
+00:13 +134: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: Escáner antes de pedir la cámara explica para qué se usa
+00:13 +135: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: Escáner antes de pedir la cámara explica para qué se usa
+00:13 +136: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: Escáner antes de pedir la cámara explica para qué se usa
+00:13 +137: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: Escáner antes de pedir la cámara explica para qué se usa
+00:13 +138: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: Escáner antes de pedir la cámara explica para qué se usa
+00:13 +139: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: Escáner antes de pedir la cámara explica para qué se usa
+00:13 +140: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: Escáner antes de pedir la cámara explica para qué se usa
+00:13 +141: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: Escáner antes de pedir la cámara explica para qué se usa
+00:13 +142: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: Escáner antes de pedir la cámara explica para qué se usa
+00:13 +143: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: Escáner antes de pedir la cámara explica para qué se usa
+00:13 +144: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: Escáner al leer una etiqueta registrada abre la ficha y al volver sigue escaneando
+00:14 +145: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: Escáner un código desconocido avisa y permite escanear otra vez
+00:14 +146: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: Escáner un código desconocido avisa y permite escanear otra vez
+00:14 +147: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: Escáner un código desconocido avisa y permite escanear otra vez
+00:14 +148: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: Escáner un código desconocido avisa y permite escanear otra vez
+00:14 +149: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: Escáner un código desconocido avisa y permite escanear otra vez
+00:14 +150: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: Escáner un código desconocido avisa y permite escanear otra vez
+00:14 +151: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: Escáner un código desconocido avisa y permite escanear otra vez
+00:14 +152: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: Escáner un código desconocido avisa y permite escanear otra vez
+00:14 +153: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: Escáner un código desconocido avisa y permite escanear otra vez
+00:14 +154: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: Escáner con el permiso negado ofrece buscar el código a mano
+00:15 +155: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: Escáner la búsqueda manual con el código vacío pide escribirlo
+00:15 +156: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: Escáner la búsqueda manual con el código vacío pide escribirlo
+00:15 +157: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: Escáner la búsqueda manual con el código vacío pide escribirlo
+00:15 +158: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: Escáner la búsqueda manual con el código vacío pide escribirlo
+00:15 +159: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: Escáner la búsqueda manual con el código vacío pide escribirlo
+00:15 +160: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: Escáner la búsqueda manual con el código vacío pide escribirlo
+00:15 +161: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: Escáner la búsqueda manual con el código vacío pide escribirlo
+00:15 +162: C:/Users/moni2/ChekLizz/mobile/test/features/busqueda/busqueda_view_model_test.dart: Búsqueda muestra "cargando" mientras espera la respuesta
+00:15 +163: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: una búsqueda sin resultados muestra un mensaje claro
+00:15 +164: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: una búsqueda sin resultados muestra un mensaje claro
+00:15 +165: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: una búsqueda sin resultados muestra un mensaje claro
+00:15 +166: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: una búsqueda sin resultados muestra un mensaje claro
+00:15 +167: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: una búsqueda sin resultados muestra un mensaje claro
+00:15 +168: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: una búsqueda sin resultados muestra un mensaje claro
+00:15 +169: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: una búsqueda sin resultados muestra un mensaje claro
+00:15 +170: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: una búsqueda sin resultados muestra un mensaje claro
+00:15 +171: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: una búsqueda sin resultados muestra un mensaje claro
+00:15 +172: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: una búsqueda sin resultados muestra un mensaje claro
+00:15 +173: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: una búsqueda sin resultados muestra un mensaje claro
+00:15 +174: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: una búsqueda sin resultados muestra un mensaje claro
+00:16 +175: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: una búsqueda sin resultados muestra un mensaje claro
+00:16 +176: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: una búsqueda sin resultados muestra un mensaje claro
+00:16 +177: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: un 403 en una pantalla del catálogo avisa sin cerrar la sesión
+00:16 +178: C:/Users/moni2/ChekLizz/mobile/test/features/escaner/escaner_view_model_test.dart: Permiso de cámara al abrir solo explica; no pide la cámara todavía
+00:16 +179: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: al cerrar sesión se cierran las pantallas abiertas
+00:16 +180: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: al cerrar sesión se cierran las pantallas abiertas
+00:16 +181: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: al cerrar sesión se cierran las pantallas abiertas
+00:16 +182: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: al cerrar sesión se cierran las pantallas abiertas
+00:16 +183: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: al cerrar sesión se cierran las pantallas abiertas
+00:16 +184: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: al cerrar sesión se cierran las pantallas abiertas
+00:16 +185: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: al cerrar sesión se cierran las pantallas abiertas
+00:16 +186: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: al cerrar sesión se cierran las pantallas abiertas
+00:16 +187: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: al cerrar sesión se cierran las pantallas abiertas
+00:16 +188: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: al cerrar sesión se cierran las pantallas abiertas
+00:16 +189: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: al cerrar sesión se cierran las pantallas abiertas
+00:16 +190: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: al cerrar sesión se cierran las pantallas abiertas
+00:16 +191: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: al cerrar sesión se cierran las pantallas abiertas
+00:16 +192: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: al cerrar sesión se cierran las pantallas abiertas
+00:17 +193: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: al cerrar sesión se cierran las pantallas abiertas
+00:17 +194: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: al cerrar sesión se cierran las pantallas abiertas
+00:17 +195: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: al cerrar sesión se cierran las pantallas abiertas
+00:17 +196: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: al cerrar sesión se cierran las pantallas abiertas
+00:17 +197: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: al cerrar sesión se cierran las pantallas abiertas
+00:17 +198: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: al cerrar sesión se cierran las pantallas abiertas
+00:17 +199: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: al cerrar sesión se cierran las pantallas abiertas
+00:17 +200: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: al cerrar sesión se cierran las pantallas abiertas
+00:17 +201: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con contraseña incorrecta muestra el mensaje genérico
+00:17 +202: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con contraseña incorrecta muestra el mensaje genérico
+00:17 +203: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con contraseña incorrecta muestra el mensaje genérico
+00:17 +204: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con contraseña incorrecta muestra el mensaje genérico
+00:17 +205: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con contraseña incorrecta muestra el mensaje genérico
+00:17 +206: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con contraseña incorrecta muestra el mensaje genérico
+00:17 +207: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con contraseña incorrecta muestra el mensaje genérico
+00:17 +208: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con contraseña incorrecta muestra el mensaje genérico
+00:17 +209: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con contraseña incorrecta muestra el mensaje genérico
+00:17 +210: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con contraseña incorrecta muestra el mensaje genérico
+00:17 +211: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con contraseña incorrecta muestra el mensaje genérico
+00:17 +212: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con contraseña incorrecta muestra el mensaje genérico
+00:17 +213: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con contraseña incorrecta muestra el mensaje genérico
+00:17 +214: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con contraseña incorrecta muestra el mensaje genérico
+00:17 +215: C:/Users/moni2/ChekLizz/mobile/test/app_test.dart: con contraseña incorrecta muestra el mensaje genérico
+00:18 +216: C:/Users/moni2/ChekLizz/mobile/test/features/home/home_view_model_test.dart: muestra nombre, rol y sucursal de un empleado
+00:18 +217: C:/Users/moni2/ChekLizz/mobile/test/features/home/home_view_model_test.dart: muestra el rol y la sucursal de un gerente
+00:18 +218: C:/Users/moni2/ChekLizz/mobile/test/features/home/home_view_model_test.dart: ofrece buscar, escanear y traspasos
+00:18 +219: C:/Users/moni2/ChekLizz/mobile/test/features/home/home_view_model_test.dart: la búsqueda y el escáner están disponibles
+00:18 +220: C:/Users/moni2/ChekLizz/mobile/test/features/home/home_view_model_test.dart: los traspasos aparecen como "próximamente" hasta el Sprint 3
+00:18 +221: C:/Users/moni2/ChekLizz/mobile/test/features/home/home_view_model_test.dart: avisa a la vista cuando cambia la sesión
+00:18 +222: C:/Users/moni2/ChekLizz/mobile/test/features/venta/venta_view_model_test.dart: Elección y validación de la cantidad empieza con la primera existencia que tiene piezas
+00:18 +223: C:/Users/moni2/ChekLizz/mobile/test/features/venta/venta_view_model_test.dart: Elección y validación de la cantidad una existencia agotada no se puede elegir
+00:18 +224: C:/Users/moni2/ChekLizz/mobile/test/features/venta/venta_view_model_test.dart: Elección y validación de la cantidad sin ninguna existencia con piezas no hay nada que vender
+00:18 +225: C:/Users/moni2/ChekLizz/mobile/test/features/venta/venta_view_model_test.dart: Elección y validación de la cantidad la cantidad "" no se puede enviar
+00:18 +226: C:/Users/moni2/ChekLizz/mobile/test/features/venta/venta_view_model_test.dart: Elección y validación de la cantidad la cantidad "   " no se puede enviar
+00:18 +227: C:/Users/moni2/ChekLizz/mobile/test/features/venta/venta_view_model_test.dart: Elección y validación de la cantidad la cantidad "0" no se puede enviar
+00:18 +228: C:/Users/moni2/ChekLizz/mobile/test/features/venta/venta_view_model_test.dart: Elección y validación de la cantidad la cantidad "-3" no se puede enviar
+00:18 +229: C:/Users/moni2/ChekLizz/mobile/test/features/venta/venta_view_model_test.dart: Elección y validación de la cantidad la cantidad "1.5" no se puede enviar
+00:18 +230: C:/Users/moni2/ChekLizz/mobile/test/features/venta/venta_view_model_test.dart: Elección y validación de la cantidad la cantidad "2,5" no se puede enviar
+00:18 +231: C:/Users/moni2/ChekLizz/mobile/test/features/venta/venta_view_model_test.dart: Elección y validación de la cantidad la cantidad "abc" no se puede enviar
+00:18 +232: C:/Users/moni2/ChekLizz/mobile/test/features/venta/venta_view_model_test.dart: Elección y validación de la cantidad un entero positivo es válido
+00:18 +233: C:/Users/moni2/ChekLizz/mobile/test/features/venta/venta_view_model_test.dart: Elección y validación de la cantidad pedir más de lo que se ve avisa, pero la decisión es de la API
+00:18 +234: C:/Users/moni2/ChekLizz/mobile/test/features/venta/venta_view_model_test.dart: Elección y validación de la cantidad cambiar de existencia revalida la cantidad
+00:18 +235: C:/Users/moni2/ChekLizz/mobile/test/features/venta/venta_view_model_test.dart: Elección y validación de la cantidad solo se pueden elegir las existencias que se ofrecieron
+00:18 +236: C:/Users/moni2/ChekLizz/mobile/test/features/venta/venta_view_model_test.dart: Confirmación y envío pide confirmar mostrando prenda, talla, color y cantidad
+00:18 +237: C:/Users/moni2/ChekLizz/mobile/test/features/venta/venta_view_model_test.dart: Confirmación y envío se puede volver a editar desde la confirmación
+00:18 +238: C:/Users/moni2/ChekLizz/mobile/test/features/venta/venta_view_model_test.dart: Confirmación y envío una venta aceptada muestra la existencia que devolvió la API
+00:18 +239: C:/Users/moni2/ChekLizz/mobile/test/features/venta/venta_view_model_test.dart: Confirmación y envío envía solo el inventario y la cantidad, nunca la sucursal
+00:18 +240: C:/Users/moni2/ChekLizz/mobile/test/features/venta/venta_view_model_test.dart: Confirmación y envío un doble toque genera una sola venta
+00:18 +241: C:/Users/moni2/ChekLizz/mobile/test/features/venta/venta_view_model_test.dart: Confirmación y envío sin conexión avisa y no intenta la venta
+00:18 +242: C:/Users/moni2/ChekLizz/mobile/test/features/venta/venta_view_model_test.dart: Confirmación y envío un error del servicio no muestra detalles técnicos y permite reintentar
+00:18 +243: C:/Users/moni2/ChekLizz/mobile/test/features/venta/venta_view_model_test.dart: Confirmación y envío un 403 avisa que no tiene permiso
+00:18 +244: C:/Users/moni2/ChekLizz/mobile/test/features/venta/venta_view_model_test.dart: Existencia insuficiente (409) muestra la existencia actual y no modifica nada
+00:18 +245: C:/Users/moni2/ChekLizz/mobile/test/features/venta/venta_view_model_test.dart: Existencia insuficiente (409) si otra persona vendió mientras tanto, informa la existencia vigente
+00:18 +246: C:/Users/moni2/ChekLizz/mobile/test/features/venta/venta_view_model_test.dart: Existencia insuficiente (409) si ya no quedan piezas lo dice con claridad
+00:18 +247: C:/Users/moni2/ChekLizz/mobile/test/features/venta/venta_view_model_test.dart: Existencia insuficiente (409) tras el aviso se puede corregir la cantidad y vender
+00:18 +248: C:/Users/moni2/ChekLizz/mobile/test/features/venta/venta_view_model_test.dart: al cerrar sesión se limpia el estado
+00:19 +249: All tests passed!

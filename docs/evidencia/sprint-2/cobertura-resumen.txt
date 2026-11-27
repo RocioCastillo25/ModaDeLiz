@@ -1,19 +1,21 @@
-﻿Cobertura de líneas (flutter test --coverage), 26/11/2026
-Total: 1402/1645 líneas = 85.2 %
+﻿Cobertura de líneas (flutter test --coverage), 27/11/2026
+Total: 1862/2154 líneas = 86.4 %
 
 core/config                       2/3      66.7 %
-core/di                          40/53     75.5 %
+core/di                          43/61     70.5 %
 core/network                     75/81     92.6 %
 core/security                     7/15     46.7 %
 core/theme                       19/22     86.4 %
 data/dto                        110/114    96.5 %
-data/models                     110/125    88.0 %
-data/repositories               221/239    92.5 %
-data/services                    28/51     54.9 %
-otros (app/main)                 62/66     93.9 %
-Pantallas (features)            404/531    76.1 %
-shared (widgets)                 91/101    90.1 %
+data/models                     117/125    93.6 %
+data/repositories               222/239    92.9 %
+data/services                    28/92     30.4 %
+otros (app/main)                 82/87     94.3 %
+Pantallas (features)            646/780    82.8 %
+shared (widgets)                 92/101    91.1 %
 ViewModels (auth)                89/91     97.8 %
 ViewModels (busqueda)            75/77     97.4 %
-ViewModels (ficha_prenda)        57/64     89.1 %
+ViewModels (escaner)             70/72     97.2 %
+ViewModels (ficha_prenda)        65/72     90.3 %
 ViewModels (home)                12/12    100.0 %
+ViewModels (venta)              108/110    98.2 %
