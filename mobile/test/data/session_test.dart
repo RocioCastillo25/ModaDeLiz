@@ -118,5 +118,81 @@ void main() {
     test('rechaza datos guardados dañados', () {
       expect(() => Session.fromJson({'accessToken': ''}), throwsFormatException);
     });
+
+    test('guarda y recupera el token de renovación y su vigencia', () {
+      final original = Session(
+        accessToken: 'token',
+        expiresAt: DateTime.utc(2026, 11, 26, 10),
+        user: seller,
+        refreshToken: 'renovacion',
+        refreshExpiresAt: DateTime.utc(2026, 11, 26, 18),
+      );
+      final restored = Session.fromJson(original.toJson());
+      expect(restored.refreshToken, 'renovacion');
+      expect(
+        restored.refreshExpiresAt!.isAtSameMomentAs(original.refreshExpiresAt!),
+        isTrue,
+      );
+    });
+
+    test('lee una sesión guardada por el Sprint 1, sin token de renovación', () {
+      final restored = Session.fromJson({
+        'accessToken': 'token',
+        'expiresAt': DateTime.utc(2026, 11, 20, 18).toIso8601String(),
+        'user': seller.toJson(),
+      });
+      expect(restored.refreshToken, isNull);
+      expect(restored.canRefresh(now: now), isFalse);
+    });
+
+    test('se puede renovar mientras el token de renovación esté vigente', () {
+      final session = Session(
+        accessToken: 't',
+        expiresAt: now.subtract(const Duration(minutes: 1)),
+        user: seller,
+        refreshToken: 'r',
+        refreshExpiresAt: now.add(const Duration(minutes: 30)),
+      );
+      expect(session.isValid(now: now), isFalse);
+      expect(session.canRefresh(now: now), isTrue);
+      expect(session.canRefresh(now: now.add(const Duration(hours: 1))), isFalse);
+    });
+
+    test('sin fecha de vigencia del token de renovación se asume vigente', () {
+      final session = Session(
+        accessToken: 't',
+        expiresAt: now,
+        user: seller,
+        refreshToken: 'r',
+      );
+      expect(session.canRefresh(now: now), isTrue);
+    });
+
+    test('no se puede renovar sin token de renovación o con uno vacío', () {
+      expect(Session(accessToken: 't', expiresAt: now, user: seller).canRefresh(now: now), isFalse);
+      expect(
+        Session(accessToken: 't', expiresAt: now, user: seller, refreshToken: '')
+            .canRefresh(now: now),
+        isFalse,
+      );
+    });
+
+    test('withTokens conserva al usuario y el token de renovación anterior', () {
+      final original = Session(
+        accessToken: 'viejo',
+        expiresAt: now,
+        user: seller,
+        refreshToken: 'r1',
+        refreshExpiresAt: now.add(const Duration(hours: 1)),
+      );
+      final renewed = original.withTokens(
+        accessToken: 'nuevo',
+        expiresAt: now.add(const Duration(minutes: 5)),
+      );
+      expect(renewed.accessToken, 'nuevo');
+      expect(renewed.user, seller);
+      expect(renewed.refreshToken, 'r1');
+      expect(renewed.refreshExpiresAt, original.refreshExpiresAt);
+    });
   });
 }

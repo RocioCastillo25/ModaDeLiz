@@ -91,4 +91,16 @@ class MockAuthRepository implements AuthRepository {
 
   @override
   Future<void> logout() => _storage.clear();
+
+  @override
+  Future<String?> refresh() async {
+    final current = await _storage.read();
+    if (current == null) return null;
+    final renewed = current.withTokens(
+      accessToken: current.accessToken,
+      expiresAt: _clock().add(tokenLifetime),
+    );
+    await _storage.save(renewed);
+    return renewed.accessToken;
+  }
 }

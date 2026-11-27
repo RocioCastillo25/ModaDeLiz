@@ -39,6 +39,9 @@ class _CountingRepository implements AuthRepository {
 
   @override
   Future<void> logout() => _inner.logout();
+
+  @override
+  Future<String?> refresh() => _inner.refresh();
 }
 
 void main() {
