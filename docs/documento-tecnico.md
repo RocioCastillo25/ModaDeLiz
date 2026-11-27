@@ -196,7 +196,7 @@ flowchart LR
 | `auth/AuthProvider.jsx` | Inicia sesión con Keycloak (PKCE), obtiene el perfil y decide qué repositorio usa toda la app |
 | `api/httpClient.js` | Envuelve `fetch`, agrega el token y traduce errores HTTP a mensajes para el usuario |
 | `repositories/` | `apiRepository` (real) y `mockRepository` (datos en memoria), intercambiables con `VITE_USE_MOCK` |
-| `pages/*.js` | Lógica sin interfaz (validación, carga CSV), probada aparte |
+| `pages/*.js` | Lógica sin interfaz (validación, carga CSV), probada aparte en `web/test/` (`npm test`) |
 | `pages/*.jsx` | Pantallas: catálogo, ficha, existencias, formulario de prenda y carga inicial |
 
 ---
@@ -487,5 +487,7 @@ cd mobile && flutter run                 # emulador o teléfono
 - Modelo relacional: [`docs/modelo-relacional.md`](modelo-relacional.md)
 - Contexto del proyecto: [`docs/project-context.md`](project-context.md)
 - Reglas técnicas: [`docs/reglas.md`](reglas.md)
-- Bitácoras: [`docs/sprint-1.md`](sprint-1.md) a [`docs/sprint-4.md`](sprint-4.md)
+- Insumos de cada sprint: [`docs/sprint-1.md`](sprint-1.md) a [`docs/sprint-4.md`](sprint-4.md)
+- Bitácora del proyecto: [`docs/bitacora.md`](bitacora.md)
+- Pruebas de aceptación por requerimiento: [`docs/pruebas-aceptacion.md`](pruebas-aceptacion.md)
 - Tablero: GitHub Projects, *CheckLizz · Sprint 1*
