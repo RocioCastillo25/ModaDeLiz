@@ -19,6 +19,7 @@ class ApiClient {
                headers: {'Content-Type': 'application/json'},
              ),
            ) {
+    interceptor.attach(_dio);
     _dio.interceptors.add(interceptor);
   }
 
@@ -54,23 +55,31 @@ class ApiClient {
   Future<Map<String, dynamic>> get(
     String path, {
     Map<String, String>? headers,
+    Map<String, dynamic>? query,
   }) async {
     final body = await _send(
       () => _dio.get<Map<String, dynamic>>(
         path,
+        queryParameters: query,
         options: Options(headers: headers),
       ),
     );
     return body ?? <String, dynamic>{};
   }
 
-  /// Envía un GET y devuelve el cuerpo JSON (una lista).
+  /// Envía un GET y devuelve el cuerpo JSON (una lista). Con [query] se
+  /// agregan parámetros de consulta.
   Future<List<dynamic>> getList(
     String path, {
     Map<String, String>? headers,
+    Map<String, dynamic>? query,
   }) async {
     final body = await _send(
-      () => _dio.get<List<dynamic>>(path, options: Options(headers: headers)),
+      () => _dio.get<List<dynamic>>(
+        path,
+        queryParameters: query,
+        options: Options(headers: headers),
+      ),
     );
     return body ?? <dynamic>[];
   }

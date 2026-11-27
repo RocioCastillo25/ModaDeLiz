@@ -1,13 +1,21 @@
 import 'package:get_it/get_it.dart';
 
 import '../../data/repositories/api_auth_repository.dart';
+import '../../data/repositories/api_catalog_repositories.dart';
 import '../../data/repositories/auth_repository.dart';
+import '../../data/repositories/branch_repository.dart';
+import '../../data/repositories/inventario_repository.dart';
 import '../../data/repositories/mock_auth_repository.dart';
+import '../../data/repositories/mock_catalog_repositories.dart';
+import '../../data/repositories/prenda_repository.dart';
 import '../../data/services/auth_service.dart';
+import '../../data/services/catalog_service.dart';
 import '../../data/services/connectivity_plus_service.dart';
 import '../../data/services/connectivity_service.dart';
 import '../../features/auth/login_view_model.dart';
 import '../../features/auth/session_view_model.dart';
+import '../../features/busqueda/busqueda_view_model.dart';
+import '../../features/ficha_prenda/ficha_view_model.dart';
 import '../../features/home/home_view_model.dart';
 import '../config/app_config.dart';
 import '../network/api_client.dart';
@@ -37,6 +45,8 @@ void registerDependencies(
           readToken: () async =>
               (await getIt<TokenStorage>().read())?.accessToken,
           events: getIt<SessionEvents>(),
+          // Se resuelve al usarse, para no crear una dependencia circular.
+          refreshSession: () => getIt<AuthRepository>().refresh(),
         ),
       ),
     )
@@ -51,6 +61,26 @@ void registerDependencies(
       () => useMock
           ? MockAuthRepository(getIt<TokenStorage>())
           : ApiAuthRepository(getIt<AuthService>(), getIt<TokenStorage>()),
+    )
+    // Catálogo, inventario y ventas: real o simulado según la configuración.
+    ..registerLazySingleton<CatalogService>(
+      () => CatalogService(getIt<ApiClient>()),
+    )
+    ..registerLazySingleton<MockCatalogStore>(MockCatalogStore.new)
+    ..registerLazySingleton<PrendaRepository>(
+      () => useMock
+          ? MockPrendaRepository(getIt<MockCatalogStore>())
+          : ApiPrendaRepository(getIt<CatalogService>()),
+    )
+    ..registerLazySingleton<InventarioRepository>(
+      () => useMock
+          ? MockInventarioRepository(getIt<MockCatalogStore>())
+          : ApiInventarioRepository(getIt<CatalogService>()),
+    )
+    ..registerLazySingleton<BranchRepository>(
+      () => useMock
+          ? MockBranchRepository(getIt<MockCatalogStore>())
+          : ApiBranchRepository(getIt<CatalogService>()),
     )
     // ViewModels.
     ..registerLazySingleton<SessionViewModel>(() {
@@ -72,5 +102,15 @@ void registerDependencies(
     })
     ..registerLazySingleton<HomeViewModel>(
       () => HomeViewModel(getIt<SessionViewModel>()),
+    )
+    // Uno por pantalla abierta: la pantalla lo descarta al cerrarse.
+    ..registerFactory<BusquedaViewModel>(
+      () => BusquedaViewModel(
+        getIt<PrendaRepository>(),
+        getIt<BranchRepository>(),
+      ),
+    )
+    ..registerFactory<FichaViewModel>(
+      () => FichaViewModel(getIt<PrendaRepository>(), getIt<SessionViewModel>()),
     );
 }

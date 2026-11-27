@@ -40,16 +40,24 @@ void main() {
     expect(home.branchName, 'Huauchinango');
   });
 
-  test('ofrece buscar, escanear y traspasos deshabilitados como "próximamente"', () {
+  test('ofrece buscar, escanear y traspasos', () {
     expect(home.sections.map((s) => s.id), [
       HomeSectionId.search,
       HomeSectionId.scanner,
       HomeSectionId.transfers,
     ]);
-    for (final section in home.sections) {
-      expect(section.enabled, isFalse, reason: '${section.title} aún no está disponible');
-      expect(section.hint, 'Próximamente');
-    }
+  });
+
+  test('la búsqueda está disponible', () {
+    final search = home.sections.firstWhere((s) => s.id == HomeSectionId.search);
+    expect(search.enabled, isTrue);
+    expect(search.hint, isNull);
+  });
+
+  test('los traspasos aparecen como "próximamente" hasta el Sprint 3', () {
+    final transfers = home.sections.firstWhere((s) => s.id == HomeSectionId.transfers);
+    expect(transfers.enabled, isFalse);
+    expect(transfers.hint, 'Próximamente');
   });
 
   test('avisa a la vista cuando cambia la sesión', () async {

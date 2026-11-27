@@ -48,10 +48,15 @@ class ApiAuthRepository implements AuthRepository {
         }
       }
 
+      final now = _clock();
       session = Session(
         accessToken: token.accessToken,
-        expiresAt: _clock().add(Duration(seconds: token.expiresIn)),
+        expiresAt: now.add(Duration(seconds: token.expiresIn)),
         user: profile.toUser(branch),
+        refreshToken: token.refreshToken,
+        refreshExpiresAt: token.refreshExpiresIn == null
+            ? null
+            : now.add(Duration(seconds: token.refreshExpiresIn!)),
       );
     } on ApiException catch (error) {
       throw AuthFailure(_mapError(error, step));
@@ -68,6 +73,37 @@ class ApiAuthRepository implements AuthRepository {
 
   @override
   Future<void> logout() => _storage.clear();
+
+  @override
+  Future<String?> refresh() async {
+    final current = await _storage.read();
+    final now = _clock();
+    if (current == null || !current.canRefresh(now: now)) return null;
+    try {
+      final token = await _service.refreshToken(current.refreshToken!);
+      final renewed = current.withTokens(
+        accessToken: token.accessToken,
+        expiresAt: now.add(Duration(seconds: token.expiresIn)),
+        refreshToken: token.refreshToken,
+        refreshExpiresAt: token.refreshExpiresIn == null
+            ? null
+            : now.add(Duration(seconds: token.refreshExpiresIn!)),
+      );
+      await _storage.save(renewed);
+      return renewed.accessToken;
+    } on ApiException catch (error) {
+      // Un fallo de conexión o del servicio no invalida la sesión: se avisa
+      // para que el usuario reintente. Cualquier otro rechazo (invalid_grant,
+      // cuenta desactivada, token vencido) significa que no se puede renovar.
+      if (error.kind == ApiErrorKind.network) {
+        throw const AuthFailure(AuthFailureType.network);
+      }
+      if (error.kind == ApiErrorKind.server) {
+        throw const AuthFailure(AuthFailureType.server);
+      }
+      return null;
+    }
+  }
 
   AuthFailureType _mapError(ApiException error, _Step step) {
     if (error.kind == ApiErrorKind.network) return AuthFailureType.network;

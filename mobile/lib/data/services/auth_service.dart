@@ -27,6 +27,17 @@ class AuthService {
     return TokenResponseDto.fromJson(json);
   }
 
+  /// Renueva el token con el `refresh_token` de Keycloak. Lanza
+  /// `ApiException` si responde con error.
+  Future<TokenResponseDto> refreshToken(String refreshToken) async {
+    final json = await _client.postForm(_tokenUrl, {
+      'grant_type': 'refresh_token',
+      'client_id': AppConfig.keycloakClientId,
+      'refresh_token': refreshToken,
+    });
+    return TokenResponseDto.fromJson(json);
+  }
+
   /// `GET /me` con el token recién emitido.
   Future<ProfileDto> fetchProfile(String accessToken) async {
     final json = await _client.get('/me', headers: _bearer(accessToken));

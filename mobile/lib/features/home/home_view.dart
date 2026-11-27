@@ -8,9 +8,12 @@ import 'home_view_model.dart';
 
 /// Pantalla principal: confirma quién entró y muestra los accesos futuros.
 class HomeView extends StatefulWidget {
-  const HomeView({super.key, required this.viewModel});
+  const HomeView({super.key, required this.viewModel, this.onOpenSection});
 
   final HomeViewModel viewModel;
+
+  /// Se llama al tocar una sección disponible (búsqueda, escáner...).
+  final void Function(HomeSectionId id)? onOpenSection;
 
   @override
   State<HomeView> createState() => _HomeViewState();
@@ -148,7 +151,12 @@ class _HomeViewState extends State<HomeView> {
         ),
         const SizedBox(height: 8),
         for (final section in vm.sections) ...[
-          _SectionTile(section: section),
+          _SectionTile(
+            section: section,
+            onTap: widget.onOpenSection == null
+                ? null
+                : () => widget.onOpenSection!(section.id),
+          ),
           const SizedBox(height: 12),
         ],
       ],
@@ -189,9 +197,10 @@ class _InfoRow extends StatelessWidget {
 }
 
 class _SectionTile extends StatelessWidget {
-  const _SectionTile({required this.section});
+  const _SectionTile({required this.section, this.onTap});
 
   final HomeSection section;
+  final VoidCallback? onTap;
 
   IconData get _icon {
     switch (section.id) {
@@ -212,10 +221,14 @@ class _SectionTile extends StatelessWidget {
           ? section.title
           : '${section.title}, ${hint.toLowerCase()}, no disponible',
       enabled: section.enabled,
+      button: section.enabled,
       excludeSemantics: true,
       child: Opacity(
         opacity: section.enabled ? 1 : 0.6,
-        child: GlassCard(
+        child: InkWell(
+          borderRadius: BorderRadius.circular(24),
+          onTap: section.enabled ? onTap : null,
+          child: GlassCard(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
           child: Row(
             children: [
@@ -241,6 +254,7 @@ class _SectionTile extends StatelessWidget {
                 ),
             ],
           ),
+        ),
         ),
       ),
     );

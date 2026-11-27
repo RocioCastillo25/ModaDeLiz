@@ -18,7 +18,18 @@ class _FakeAuthService implements AuthService {
     this.tokenError,
     this.profileError,
     this.branchesError,
+    this.tokenResponse = const TokenResponseDto(
+      accessToken: 'token-x',
+      expiresIn: 3600,
+    ),
+    this.refreshResponse,
+    this.refreshError,
   });
+
+  final TokenResponseDto tokenResponse;
+  final TokenResponseDto? refreshResponse;
+  final ApiException? refreshError;
+  String? refreshedWith;
 
   final ProfileDto? profile;
   final List<BranchDto> branches;
@@ -33,7 +44,14 @@ class _FakeAuthService implements AuthService {
   @override
   Future<TokenResponseDto> requestToken(String username, String password) async {
     if (tokenError != null) throw tokenError!;
-    return const TokenResponseDto(accessToken: 'token-x', expiresIn: 3600);
+    return tokenResponse;
+  }
+
+  @override
+  Future<TokenResponseDto> refreshToken(String refreshToken) async {
+    refreshedWith = refreshToken;
+    if (refreshError != null) throw refreshError!;
+    return refreshResponse!;
   }
 
   @override
@@ -245,6 +263,132 @@ void main() {
       );
       expect(await failureOf(build(service)), AuthFailureType.network);
       expect(await storage.read(), isNull, reason: 'no guarda una sesión a medias');
+    });
+  });
+
+  group('Renovación de la sesión', () {
+    const userJson = {'id': 7, 'nombre': 'Ana', 'rol': 'empleado', 'sucursalId': 2};
+
+    Future<_FakeAuthService> loggedIn({
+      TokenResponseDto? refreshResponse,
+      ApiException? refreshError,
+      TokenResponseDto? tokenResponse,
+    }) async {
+      final service = _FakeAuthService(
+        profile: ProfileDto.fromJson(userJson),
+        branches: _sucursales,
+        refreshResponse: refreshResponse,
+        refreshError: refreshError,
+        tokenResponse:
+            tokenResponse ??
+            const TokenResponseDto(
+              accessToken: 'viejo',
+              expiresIn: 300,
+              refreshToken: 'renovacion-1',
+              refreshExpiresIn: 1800,
+            ),
+      );
+      await build(service).login('ana', 'clave');
+      return service;
+    }
+
+    test('el inicio de sesión guarda el token de renovación y su vigencia', () async {
+      await loggedIn();
+      final saved = await storage.read();
+      expect(saved?.refreshToken, 'renovacion-1');
+      expect(saved?.refreshExpiresAt, now.add(const Duration(seconds: 1800)));
+    });
+
+    test('renueva y guarda la sesión nueva conservando al usuario', () async {
+      final service = await loggedIn(
+        refreshResponse: const TokenResponseDto(
+          accessToken: 'nuevo',
+          expiresIn: 300,
+          refreshToken: 'renovacion-2',
+          refreshExpiresIn: 1800,
+        ),
+      );
+      final token = await build(service).refresh();
+
+      expect(token, 'nuevo');
+      expect(service.refreshedWith, 'renovacion-1');
+      final saved = await storage.read();
+      expect(saved?.accessToken, 'nuevo');
+      expect(saved?.refreshToken, 'renovacion-2');
+      expect(saved?.user.name, 'Ana');
+      expect(saved?.user.branch?.name, 'Zacatlán');
+    });
+
+    test('conserva el token de renovación anterior si Keycloak no envía uno nuevo', () async {
+      final service = await loggedIn(
+        refreshResponse: const TokenResponseDto(accessToken: 'nuevo', expiresIn: 300),
+      );
+      await build(service).refresh();
+      expect((await storage.read())?.refreshToken, 'renovacion-1');
+    });
+
+    test('devuelve null si no hay sesión guardada', () async {
+      final service = _FakeAuthService();
+      expect(await build(service).refresh(), isNull);
+      expect(service.refreshedWith, isNull, reason: 'no hay nada que renovar');
+    });
+
+    test('devuelve null si Keycloak no entregó token de renovación', () async {
+      final service = await loggedIn(
+        tokenResponse: const TokenResponseDto(accessToken: 'viejo', expiresIn: 300),
+      );
+      expect(await build(service).refresh(), isNull);
+      expect(service.refreshedWith, isNull);
+    });
+
+    test('devuelve null si el token de renovación ya venció', () async {
+      final service = await loggedIn(
+        tokenResponse: const TokenResponseDto(
+          accessToken: 'viejo',
+          expiresIn: 300,
+          refreshToken: 'renovacion-1',
+          refreshExpiresIn: 60,
+        ),
+      );
+      final later = ApiAuthRepository(
+        service,
+        storage,
+        clock: () => now.add(const Duration(minutes: 5)),
+      );
+      expect(await later.refresh(), isNull);
+      expect(service.refreshedWith, isNull);
+    });
+
+    test('devuelve null si Keycloak rechaza la renovación (invalid_grant)', () async {
+      final service = await loggedIn(
+        refreshError: const ApiException(
+          ApiErrorKind.badRequest,
+          statusCode: 400,
+          code: 'invalid_grant',
+        ),
+      );
+      expect(await build(service).refresh(), isNull);
+    });
+
+    test('un fallo de conexión no descarta la sesión guardada', () async {
+      final service = await loggedIn(
+        refreshError: const ApiException(ApiErrorKind.network),
+      );
+      await expectLater(
+        build(service).refresh(),
+        throwsA(
+          isA<AuthFailure>().having((f) => f.type, 'tipo', AuthFailureType.network),
+        ),
+      );
+      expect((await storage.read())?.refreshToken, 'renovacion-1');
+    });
+
+    test('un administrador no conserva sesión, así que no hay nada que renovar', () async {
+      final service = _FakeAuthService(
+        profile: ProfileDto.fromJson({...userJson, 'rol': 'administrador', 'sucursalId': null}),
+      );
+      await build(service).login('dueña', 'clave');
+      expect(await build(service).refresh(), isNull);
     });
   });
 

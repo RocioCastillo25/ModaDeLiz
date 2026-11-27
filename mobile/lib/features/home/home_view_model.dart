@@ -34,13 +34,13 @@ class HomeViewModel extends ChangeNotifier {
   String get roleLabel => _session.session?.user.role.label ?? '';
   String get branchName => _session.session?.user.branch?.name ?? 'Sin sucursal';
 
-  /// En este sprint las secciones aparecen deshabilitadas como "próximamente".
+  /// Búsqueda y escáner están disponibles desde el Sprint 2; los traspasos
+  /// aparecen como "próximamente" hasta el Sprint 3.
   List<HomeSection> get sections => const [
     HomeSection(
       id: HomeSectionId.search,
       title: 'Buscar prendas',
-      enabled: false,
-      hint: 'Próximamente',
+      enabled: true,
     ),
     HomeSection(
       id: HomeSectionId.scanner,
