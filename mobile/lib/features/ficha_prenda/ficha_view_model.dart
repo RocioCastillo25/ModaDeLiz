@@ -53,6 +53,18 @@ class FichaViewModel extends ChangeNotifier {
   StockLevel levelOf(StockItem item) =>
       item.levelFor(_ficha?.prenda.alertThreshold ?? 2);
 
+  /// Muestra una ficha que ya se consultó (por ejemplo, la del escáner) sin
+  /// volver a pedirla. Actualizar sí la vuelve a pedir.
+  void showLoaded(PrendaFicha ficha) {
+    _requestId++;
+    _ficha = ficha;
+    _errorMessage = null;
+    _refreshError = null;
+    _source = () => _prendas.getById(ficha.prenda.id);
+    _status = FichaStatus.data;
+    _notify();
+  }
+
   /// Carga la ficha por identificador.
   Future<void> load(int id) => _fetch(() => _prendas.getById(id));
 

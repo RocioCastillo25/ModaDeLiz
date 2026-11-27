@@ -29,6 +29,9 @@ class AppColors {
   static const Color textSecondary = Color(0xFF6E4C62);
   static const Color onPrimary = Color(0xFFFFFFFF);
 
+  // Velo oscuro translúcido sobre la cámara mientras se busca la prenda.
+  static const Color scrim = Color(0x66000000);
+
   // Estados.
   static const Color danger = Color(0xFFC0264F);
   static const Color disabled = Color(0xFFEAD7E2);

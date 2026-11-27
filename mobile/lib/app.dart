@@ -11,6 +11,13 @@ import 'features/busqueda/busqueda_view.dart';
 import 'features/busqueda/busqueda_view_model.dart';
 import 'features/ficha_prenda/ficha_view.dart';
 import 'features/ficha_prenda/ficha_view_model.dart';
+import 'data/models/prenda_ficha.dart';
+import 'data/models/stock_item.dart';
+import 'data/services/barcode_scanner_service.dart';
+import 'features/escaner/escaner_view.dart';
+import 'features/escaner/escaner_view_model.dart';
+import 'features/venta/venta_sheet.dart';
+import 'features/venta/venta_view_model.dart';
 import 'features/home/home_view.dart';
 import 'features/home/home_view_model.dart';
 import 'shared/brand_logo.dart';
@@ -19,10 +26,24 @@ import 'shared/gradient_background.dart';
 /// Fábricas de los ViewModels de las pantallas del catálogo. Cada pantalla
 /// abierta recibe el suyo y lo descarta al salir.
 class FeatureFactory {
-  const FeatureFactory({required this.createSearch, required this.createFicha});
+  const FeatureFactory({
+    required this.createSearch,
+    required this.createFicha,
+    required this.createSale,
+    required this.createScannerService,
+    required this.createScanner,
+  });
 
   final BusquedaViewModel Function() createSearch;
   final FichaViewModel Function() createFicha;
+
+  /// Crea el escáner (adaptador de la cámara) y su ViewModel.
+  final BarcodeScannerService Function() createScannerService;
+  final EscanerViewModel Function(BarcodeScannerService scanner) createScanner;
+
+  /// Crea el ViewModel de la venta con las existencias que se pueden vender.
+  final VentaViewModel Function(int prendaId, List<StockItem> options)
+  createSale;
 }
 
 /// Aplicación CheckLizz. Recibe sus ViewModels ya construidos (inyección por
@@ -110,9 +131,26 @@ class _SessionGateState extends State<SessionGate> {
       case HomeSectionId.search:
         _openSearch(features);
       case HomeSectionId.scanner:
+        _openScanner(features);
       case HomeSectionId.transfers:
         break;
     }
+  }
+
+  Future<void> _openScanner(FeatureFactory features) async {
+    final scanner = features.createScannerService();
+    final viewModel = features.createScanner(scanner);
+    await Navigator.of(context).push<void>(
+      MaterialPageRoute(
+        builder: (context) => EscanerView(
+          viewModel: viewModel,
+          scanner: scanner,
+          onOpenFicha: (ficha) => _openFicha(features, initial: ficha),
+        ),
+      ),
+    );
+    // Libera la cámara al salir del escáner.
+    viewModel.dispose();
   }
 
   Future<void> _openSearch(FeatureFactory features) async {
@@ -128,15 +166,56 @@ class _SessionGateState extends State<SessionGate> {
     search.dispose();
   }
 
-  Future<void> _openFicha(FeatureFactory features, {int? id, String? barcode}) async {
+  Future<void> _openFicha(
+    FeatureFactory features, {
+    int? id,
+    String? barcode,
+    PrendaFicha? initial,
+  }) async {
     final ficha = features.createFicha();
     await Navigator.of(context).push<void>(
       MaterialPageRoute(
-        builder: (context) =>
-            FichaView(viewModel: ficha, prendaId: id, barcode: barcode),
+        builder: (context) => FichaView(
+          viewModel: ficha,
+          prendaId: id,
+          barcode: barcode,
+          initial: initial,
+          onSell: (sheetContext, viewModel) =>
+              _openSale(features, sheetContext, viewModel),
+        ),
       ),
     );
     ficha.dispose();
+  }
+
+  /// Abre la hoja de venta y, al cerrarla, actualiza la ficha con la
+  /// existencia que devolvió la API (o la recarga si hubo un rechazo).
+  Future<void> _openSale(
+    FeatureFactory features,
+    BuildContext context,
+    FichaViewModel ficha,
+  ) async {
+    final current = ficha.ficha;
+    if (current == null) return;
+    final sale = features.createSale(current.prenda.id, ficha.ownStock);
+    await showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      showDragHandle: true,
+      backgroundColor: AppColors.backgroundEnd,
+      builder: (_) => VentaSheet(
+        viewModel: sale,
+        prendaName: current.prenda.description,
+      ),
+    );
+    final result = sale.result;
+    final latest = sale.latestFicha;
+    if (result != null) {
+      ficha.applySale(result);
+    } else if (latest != null) {
+      await ficha.refresh();
+    }
+    sale.dispose();
   }
 
   @override

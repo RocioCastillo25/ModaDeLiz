@@ -1,4 +1,4 @@
-import '../models/branch.dart';
+﻿import '../models/branch.dart';
 import '../models/prenda.dart';
 import '../models/prenda_ficha.dart';
 import '../models/search_filters.dart';
@@ -30,7 +30,7 @@ class MockCatalogStore {
   static const List<Prenda> prendas = [
     Prenda(
       id: 1,
-      barcode: '7501000000011',
+      barcode: '7501000000012',
       description: 'Blusa floral manga corta',
       brand: 'Lizz',
       category: 'Blusas',
@@ -38,7 +38,7 @@ class MockCatalogStore {
     ),
     Prenda(
       id: 2,
-      barcode: '7501000000028',
+      barcode: '7501000000029',
       description: 'Vestido midi negro',
       brand: 'Lizz',
       category: 'Vestidos',
@@ -46,7 +46,7 @@ class MockCatalogStore {
     ),
     Prenda(
       id: 3,
-      barcode: '7501000000035',
+      barcode: '7501000000036',
       description: 'Jeans skinny azul',
       brand: 'Denim Co',
       category: 'Pantalones',
@@ -55,7 +55,7 @@ class MockCatalogStore {
     ),
     Prenda(
       id: 4,
-      barcode: '7501000000042',
+      barcode: '7501000000043',
       description: 'Chamarra de mezclilla',
       brand: 'Denim Co',
       category: 'Chamarras',
@@ -63,7 +63,7 @@ class MockCatalogStore {
     ),
     Prenda(
       id: 5,
-      barcode: '7501000000059',
+      barcode: '7501000000050',
       description: 'Falda plisada rosa',
       brand: 'Lizz',
       category: 'Faldas',
@@ -72,7 +72,7 @@ class MockCatalogStore {
     // Agotada en todas las sucursales.
     Prenda(
       id: 6,
-      barcode: '7501000000066',
+      barcode: '7501000000067',
       description: 'Playera básica blanca',
       brand: 'Basics',
       category: 'Playeras',

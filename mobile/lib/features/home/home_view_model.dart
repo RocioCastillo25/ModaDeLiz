@@ -45,8 +45,7 @@ class HomeViewModel extends ChangeNotifier {
     HomeSection(
       id: HomeSectionId.scanner,
       title: 'Escanear código',
-      enabled: false,
-      hint: 'Próximamente',
+      enabled: true,
     ),
     HomeSection(
       id: HomeSectionId.transfers,

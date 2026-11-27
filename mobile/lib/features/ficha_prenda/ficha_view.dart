@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/theme/app_colors.dart';
 import '../../data/models/prenda.dart';
+import '../../data/models/prenda_ficha.dart';
 import '../../shared/error_message.dart';
 import '../../shared/glass_card.dart';
 import '../../shared/gradient_background.dart';
@@ -18,18 +19,23 @@ class FichaView extends StatefulWidget {
     required this.viewModel,
     this.prendaId,
     this.barcode,
+    this.initial,
     this.onSell,
   }) : assert(
-         prendaId != null || barcode != null,
-         'Se necesita un identificador o un código de barras',
+         prendaId != null || barcode != null || initial != null,
+         'Se necesita un identificador, un código de barras o una ficha',
        );
 
   final FichaViewModel viewModel;
   final int? prendaId;
   final String? barcode;
 
+  /// Ficha ya consultada (la del escáner): se muestra sin pedirla otra vez.
+  final PrendaFicha? initial;
+
   /// Abre el descuento de piezas. Si es `null`, la acción no se ofrece.
-  final Future<void> Function(FichaViewModel viewModel)? onSell;
+  final Future<void> Function(BuildContext context, FichaViewModel viewModel)?
+  onSell;
 
   @override
   State<FichaView> createState() => _FichaViewState();
@@ -42,7 +48,9 @@ class _FichaViewState extends State<FichaView> {
   void initState() {
     super.initState();
     _vm.addListener(_showRefreshError);
-    if (widget.prendaId != null) {
+    if (widget.initial != null) {
+      _vm.showLoaded(widget.initial!);
+    } else if (widget.prendaId != null) {
       _vm.load(widget.prendaId!);
     } else {
       _vm.loadByBarcode(widget.barcode!);
@@ -155,7 +163,7 @@ class _FichaViewState extends State<FichaView> {
           if (widget.onSell != null && _vm.canSell) ...[
             PrimaryButton(
               label: 'Descontar piezas',
-              onPressed: () => widget.onSell!(_vm),
+              onPressed: () => widget.onSell!(context, _vm),
             ),
             const SizedBox(height: 12),
           ],
