@@ -1,0 +1,13 @@
+
+> checklizz-web@0.1.0 build
+> vite build
+
+vite v6.3.5 building for production...
+transforming...
+✓ 60 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.47 kB │ gzip:  0.31 kB
+dist/assets/index-BoXGMqsX.css    7.76 kB │ gzip:  2.45 kB
+dist/assets/index-B3o7xNJ9.js   282.81 kB │ gzip: 89.72 kB
+✓ built in 752ms

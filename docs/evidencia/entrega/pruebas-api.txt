@@ -1,0 +1,179 @@
+
+> checklizz-api@0.1.0 test
+> node --test
+
+▶ tipoImagen (por contenido, no por nombre)
+  ✔ reconoce JPG, PNG y WebP (1.4414ms)
+  ✔ rechaza otros formatos aunque el cliente diga que es una imagen (0.1523ms)
+  ✔ RIFF que no es WebP (por ejemplo un WAV) se rechaza (0.0828ms)
+  ✔ archivos vacios, cortos o que no son Buffer (0.0785ms)
+  ✔ el limite es de 5 MB (0.0548ms)
+✔ tipoImagen (por contenido, no por nombre) (2.4823ms)
+▶ nombreDeFotoPropia
+  ✔ devuelve el nombre del archivo de una foto subida (0.1224ms)
+  ✔ ignora enlaces externos y rutas que no son nuestras (0.0711ms)
+  ✔ no permite salirse de la carpeta (path traversal) (0.1249ms)
+✔ nombreDeFotoPropia (0.4563ms)
+▶ esFotoUrl
+  ✔ acepta URL http/https completas y la ruta de una foto subida (0.1538ms)
+  ✔ rechaza lo demas, incluidos esquemas peligrosos (0.1312ms)
+✔ esFotoUrl (0.4093ms)
+▶ guardar foto de una prenda
+  ﹣ guarda el archivo y deja la ruta publica en foto_url (0.491ms) # Sin base de datos: levanta docker compose
+  ﹣ al subir otra, reemplaza la anterior y borra el archivo viejo (0.0811ms) # Sin base de datos: levanta docker compose
+  ﹣ un archivo que no es imagen se rechaza y no cambia nada (0.0503ms) # Sin base de datos: levanta docker compose
+  ﹣ una prenda que no existe da 404 y no escribe nada (0.0533ms) # Sin base de datos: levanta docker compose
+  ﹣ si la foto anterior era un enlace externo, no intenta borrar nada y la reemplaza (0.056ms) # Sin base de datos: levanta docker compose
+  ﹣ una ruta manipulada en foto_url no borra archivos fuera de la carpeta (0.0498ms) # Sin base de datos: levanta docker compose
+✔ guardar foto de una prenda (9.0113ms)
+▶ notificaciones del usuario
+  ﹣ sin avisos: lista vacia y cero no leidas (0.5835ms) # Sin base de datos: levanta docker compose y aplica 03_notificaciones.sql
+  ﹣ lista solo los avisos propios, los mas recientes primero (0.1708ms) # Sin base de datos: levanta docker compose y aplica 03_notificaciones.sql
+  ﹣ respeta el limite (0.0987ms) # Sin base de datos: levanta docker compose y aplica 03_notificaciones.sql
+  ﹣ el resumen cuenta las no leidas (0.1358ms) # Sin base de datos: levanta docker compose y aplica 03_notificaciones.sql
+  ﹣ marcar leida un aviso propio (0.0889ms) # Sin base de datos: levanta docker compose y aplica 03_notificaciones.sql
+  ﹣ un aviso ajeno o inexistente da 404 y no se toca (0.0857ms) # Sin base de datos: levanta docker compose y aplica 03_notificaciones.sql
+  ﹣ marcar todas solo afecta al usuario y devuelve cuantas marco (0.0913ms) # Sin base de datos: levanta docker compose y aplica 03_notificaciones.sql
+✔ notificaciones del usuario (9.9341ms)
+▶ fechas y nombres
+  ✔ esFechaIso acepta solo dias reales con formato AAAA-MM-DD (1.3929ms)
+  ✔ rangoValido: desde no puede ser posterior a hasta; cada extremo es opcional (0.178ms)
+  ✔ nombreArchivo usa la fecha de generacion (0.1039ms)
+  ✔ hay un tipo de contenido por cada formato (0.1989ms)
+✔ fechas y nombres (2.5795ms)
+▶ agruparExistencias
+  ✔ cuenta productos distintos (no renglones) y piezas por sucursal (0.1935ms)
+  ✔ una sucursal sin piezas aparece en cero (0.685ms)
+  ✔ el detalle solo lleva los campos del contrato (0.1766ms)
+✔ agruparExistencias (1.3126ms)
+▶ reporteExistencias
+  ✔ datos siguen el contrato y el documento trae resumen + una seccion por sucursal (0.2796ms)
+  ✔ con una sola sucursal el subtitulo la nombra (0.1389ms)
+✔ reporteExistencias (0.573ms)
+▶ reporteMasVendidos
+  ✔ datos: periodo y items tal cual; sin periodo van en null (0.3769ms)
+  ✔ el ranking se numera y, sin sucursal, muestra la columna Sucursal como "Todas" (0.2913ms)
+  ✔ con sucursal se omite la columna y el subtitulo la nombra con el periodo (0.1268ms)
+  ✔ periodos abiertos se describen (0.1056ms)
+✔ reporteMasVendidos (1.0586ms)
+▶ reporteStockBajo
+  ✔ datos con generado_en e items; el subtitulo cuenta los registros (0.2207ms)
+✔ reporteStockBajo (0.297ms)
+▶ exportadores
+  ✔ PDF: es un PDF valido y se reparte en varias paginas con muchas filas (71.2912ms)
+  ✔ PDF: un reporte vacio tambien se genera (6.1424ms)
+  ✔ Excel: una hoja por seccion, numeros como numeros y encabezado antes de los datos (58.5176ms)
+  ✔ Excel: un reporte sin filas deja solo el encabezado (8.3654ms)
+  ✔ nombreHoja: quita caracteres invalidos, corta a 31 y evita repetidos (0.5781ms)
+✔ exportadores (145.1673ms)
+▶ reporte de existencias
+  ﹣ el administrador ve todas las sucursales con productos distintos y piezas (0.3941ms) # Sin base de datos: levanta docker compose
+  ﹣ no incluye prendas inactivas (0.0658ms) # Sin base de datos: levanta docker compose
+  ﹣ el administrador puede filtrar una sucursal (0.05ms) # Sin base de datos: levanta docker compose
+  ﹣ los totales coinciden con el detalle (0.0529ms) # Sin base de datos: levanta docker compose
+  ﹣ el gerente solo ve su sucursal, aunque no mande filtro (0.0406ms) # Sin base de datos: levanta docker compose
+  ﹣ el gerente no puede pedir otra sucursal y el empleado no puede pedir nada (0.0371ms) # Sin base de datos: levanta docker compose
+  ﹣ una sucursal que no existe da 404 (0.0433ms) # Sin base de datos: levanta docker compose
+✔ reporte de existencias (8.3802ms)
+▶ reporte de lo mas vendido
+  ﹣ solo el administrador (0.1308ms) # Sin base de datos: levanta docker compose
+  ﹣ suma toda la cadena y ordena de mayor a menor; sin sucursal los campos van en null (0.0566ms) # Sin base de datos: levanta docker compose
+  ﹣ con sucursal reporta solo esa y trae su nombre (0.0593ms) # Sin base de datos: levanta docker compose
+  ﹣ "hasta" incluye ese dia completo en hora local (la venta de las 23:30 cuenta) (0.032ms) # Sin base de datos: levanta docker compose
+  ﹣ "desde" excluye lo anterior: la venta del dia 10 a las 23:30 no entra al dia 11 (0.0248ms) # Sin base de datos: levanta docker compose
+  ﹣ sin periodo ni sucursal tambien funciona (todo el historial) (0.0276ms) # Sin base de datos: levanta docker compose
+  ﹣ respeta el limite (0.0185ms) # Sin base de datos: levanta docker compose
+  ﹣ un periodo al reves da 400 y una sucursal inexistente 404 (0.0204ms) # Sin base de datos: levanta docker compose
+  ﹣ un periodo sin ventas devuelve lista vacia (0.0135ms) # Sin base de datos: levanta docker compose
+✔ reporte de lo mas vendido (0.5862ms)
+▶ reporte de stock bajo
+  ﹣ el administrador ve lo que esta en o bajo el umbral, con los campos del contrato (0.0326ms) # Sin base de datos: levanta docker compose
+  ﹣ el gerente solo ve su sucursal (0.0282ms) # Sin base de datos: levanta docker compose
+  ﹣ el administrador puede filtrar una sucursal y una inexistente da 404 (0.0149ms) # Sin base de datos: levanta docker compose
+✔ reporte de stock bajo (0.1428ms)
+▶ exportar
+  ﹣ PDF y Excel salen con tipo, nombre con fecha y contenido valido (0.0196ms) # Sin base de datos: levanta docker compose
+✔ exportar (0.0485ms)
+▶ subirFoto
+  ✔ acepta una foto en el campo "foto" y la deja en memoria (39.4927ms)
+  ✔ acepta una foto de exactamente 5 MB (15.3871ms)
+  ✔ rechaza mas de 5 MB con 400 (23.6991ms)
+  ✔ rechaza si falta el archivo (2.503ms)
+  ✔ rechaza un archivo en un campo con otro nombre (2.5438ms)
+  ✔ rechaza campos de texto extra (2.9297ms)
+  ✔ rechaza una peticion que no es multipart (3.2347ms)
+✔ subirFoto (90.7072ms)
+▶ estados de traspaso
+  ✔ son los 5 definidos con los clientes (0.8364ms)
+✔ estados de traspaso (1.5344ms)
+▶ detalleDuplicado
+  ✔ detecta la misma prenda, talla y color aunque cambien mayusculas y espacios (0.2032ms)
+  ✔ misma prenda en otra talla o color no es duplicado (0.1297ms)
+✔ detalleDuplicado (0.4761ms)
+▶ puedeVer
+  ✔ el administrador ve todos (0.1391ms)
+  ✔ el gerente ve los de su sucursal como origen o como destino (0.0828ms)
+  ✔ el gerente no ve los de otras sucursales (0.0668ms)
+  ✔ el empleado solo ve las solicitudes que creo (0.0916ms)
+✔ puedeVer (0.5503ms)
+▶ transicionValida
+  ✔ acepta solo el flujo SOLICITADO -> APROBADO/RECHAZADO -> EN_CAMINO -> RECIBIDO (0.1117ms)
+  ✔ rechaza saltos, retrocesos y repetir el mismo estado (0.0814ms)
+  ✔ RECHAZADO y RECIBIDO son finales (0.1517ms)
+✔ transicionValida (0.5091ms)
+▶ puedeCambiarEstado
+  ✔ aprobar y rechazar: gerente de origen o destino y administrador (0.1635ms)
+  ✔ el solicitante nunca aprueba ni rechaza lo suyo, ni siquiera siendo gerente o administrador (0.0907ms)
+  ✔ marcar en camino: solo el gerente de origen o el administrador (0.1096ms)
+  ✔ marcar recibido: solo el gerente de destino o el administrador (0.0508ms)
+  ✔ el empleado no cambia estados (0.0398ms)
+✔ puedeCambiarEstado (1.0205ms)
+▶ avisos de cambio de estado
+  ✔ hay un tipo de aviso por cada estado salvo SOLICITADO (0.0683ms)
+  ✔ el mensaje menciona el numero del traspaso (0.0735ms)
+✔ avisos de cambio de estado (0.2518ms)
+▶ flujo completo de un traspaso
+  ﹣ el empleado no puede cambiar estados (0.4866ms) # Sin base de datos: levanta docker compose y aplica 03_notificaciones.sql
+  ﹣ un gerente de otra sucursal ni siquiera lo ve (0.0614ms) # Sin base de datos: levanta docker compose y aplica 03_notificaciones.sql
+  ﹣ un traspaso que no existe da 404 (0.048ms) # Sin base de datos: levanta docker compose y aplica 03_notificaciones.sql
+  ﹣ el gerente de origen aprueba, queda registrado quien aprobo y se avisa al solicitante (0.0468ms) # Sin base de datos: levanta docker compose y aplica 03_notificaciones.sql
+  ﹣ no se puede saltar a RECIBIDO desde APROBADO (0.066ms) # Sin base de datos: levanta docker compose y aplica 03_notificaciones.sql
+  ﹣ solo el origen marca EN_CAMINO (el destino no) (0.0547ms) # Sin base de datos: levanta docker compose y aplica 03_notificaciones.sql
+  ﹣ solo el destino marca RECIBIDO (el origen no) (0.0592ms) # Sin base de datos: levanta docker compose y aplica 03_notificaciones.sql
+  ﹣ al recibir resta en el origen, suma en el destino (creando la fila) y audita (0.0549ms) # Sin base de datos: levanta docker compose y aplica 03_notificaciones.sql
+  ﹣ avisa al solicitante en cada paso (0.0847ms) # Sin base de datos: levanta docker compose y aplica 03_notificaciones.sql
+  ﹣ un traspaso recibido ya no cambia (0.0877ms) # Sin base de datos: levanta docker compose y aplica 03_notificaciones.sql
+  ﹣ una segunda recepcion suma a la fila existente del destino (0.0378ms) # Sin base de datos: levanta docker compose y aplica 03_notificaciones.sql
+✔ flujo completo de un traspaso (9.0695ms)
+▶ rechazo y casos limite
+  ﹣ rechazar no mueve stock, guarda quien rechazo y avisa (0.0974ms) # Sin base de datos: levanta docker compose y aplica 03_notificaciones.sql
+  ﹣ el solicitante gerente no aprueba su propia solicitud (0.0342ms) # Sin base de datos: levanta docker compose y aplica 03_notificaciones.sql
+  ﹣ si el origen se quedo sin piezas, recibir falla completo y no cambia nada (0.0312ms) # Sin base de datos: levanta docker compose y aplica 03_notificaciones.sql
+  ﹣ dos recepciones simultaneas solo mueven el stock una vez (0.0521ms) # Sin base de datos: levanta docker compose y aplica 03_notificaciones.sql
+✔ rechazo y casos limite (0.3232ms)
+▶ crear traspaso
+  ﹣ el empleado solicita y nace SOLICITADO hacia su propia sucursal (0.4007ms) # Sin base de datos: levanta docker compose y aplica 03_notificaciones.sql
+  ﹣ no mueve el stock al solicitar (0.0883ms) # Sin base de datos: levanta docker compose y aplica 03_notificaciones.sql
+  ﹣ avisa a los gerentes de la sucursal de origen (0.0606ms) # Sin base de datos: levanta docker compose y aplica 03_notificaciones.sql
+  ﹣ rechaza pedir a la misma sucursal (0.0495ms) # Sin base de datos: levanta docker compose y aplica 03_notificaciones.sql
+  ﹣ rechaza si el origen no tiene piezas suficientes y no crea nada (0.0424ms) # Sin base de datos: levanta docker compose y aplica 03_notificaciones.sql
+  ﹣ rechaza un detalle con renglones repetidos (0.0583ms) # Sin base de datos: levanta docker compose y aplica 03_notificaciones.sql
+  ﹣ rechaza una prenda que no existe (0.0662ms) # Sin base de datos: levanta docker compose y aplica 03_notificaciones.sql
+  ﹣ el empleado no puede pedir para otra sucursal (0.0681ms) # Sin base de datos: levanta docker compose y aplica 03_notificaciones.sql
+  ﹣ el administrador debe indicar la sucursal destino (0.071ms) # Sin base de datos: levanta docker compose y aplica 03_notificaciones.sql
+✔ crear traspaso (8.1757ms)
+▶ listar y consultar traspasos
+  ﹣ el empleado ve solo lo que solicito (0.1902ms) # Sin base de datos: levanta docker compose y aplica 03_notificaciones.sql
+  ﹣ el gerente ve los de su sucursal (origen o destino) y no los ajenos (0.0692ms) # Sin base de datos: levanta docker compose y aplica 03_notificaciones.sql
+  ﹣ el administrador ve todos (0.0681ms) # Sin base de datos: levanta docker compose y aplica 03_notificaciones.sql
+  ﹣ filtra por estado (0.0502ms) # Sin base de datos: levanta docker compose y aplica 03_notificaciones.sql
+  ﹣ obtener respeta la visibilidad (0.0677ms) # Sin base de datos: levanta docker compose y aplica 03_notificaciones.sql
+✔ listar y consultar traspasos (0.667ms)
+ℹ tests 115
+ℹ suites 26
+ℹ pass 53
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 62
+ℹ todo 0
+ℹ duration_ms 5832.3053

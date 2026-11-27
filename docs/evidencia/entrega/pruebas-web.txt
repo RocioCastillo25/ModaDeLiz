@@ -1,0 +1,39 @@
+
+> checklizz-web@0.1.0 test
+> node --test
+
+▶ WEB-01 · Lista de prendas y existencias por sucursal
+  ✔ el catálogo muestra solo prendas activas con su existencia total (268.168ms)
+  ✔ la búsqueda filtra por texto, talla y sucursal (530.379ms)
+  ✔ la ficha de una prenda trae la existencia de cada sucursal (264.1939ms)
+  ✔ la administradora ve las 5 sucursales; el gerente solo la suya (519.8474ms)
+  ✔ el filtro de stock bajo devuelve solo existencias en o por debajo del umbral (252.6531ms)
+✔ WEB-01 · Lista de prendas y existencias por sucursal (1836.3938ms)
+▶ Alta y edición de prendas (formulario web)
+  ✔ rechaza datos incompletos antes de llamar a la API (0.2419ms)
+  ✔ una prenda válida se da de alta y no se permite repetir el código de barras (264.0159ms)
+  ✔ editar cambia los datos sin tocar el código de barras (265.8676ms)
+✔ Alta y edición de prendas (formulario web) (530.6672ms)
+▶ WEB-02 · Carga inicial de inventario por filas
+  ✔ en modo sumar, la cantidad cargada se suma a la existencia actual (1270.699ms)
+  ✔ en modo reemplazar, la cantidad queda fija (se admite 0) (780.3178ms)
+  ✔ valida cada fila y explica el problema (0.3648ms)
+  ✔ el gerente solo puede cargar a su sucursal (en la página y en la API) (0.323ms)
+  ✔ una fila con un código inexistente se reporta y no detiene las demás (756.7538ms)
+✔ WEB-02 · Carga inicial de inventario por filas (2809.0161ms)
+▶ WEB-02 · Carga inicial de inventario por CSV
+  ✔ lee un CSV con encabezado, sucursal por nombre y acentos (0.614ms)
+  ✔ acepta lo pegado desde Excel (tabuladores) y el punto y coma (0.1326ms)
+  ✔ respeta comillas y usa la sucursal por defecto si el archivo no la trae (0.0751ms)
+  ✔ una sucursal desconocida queda vacía y la validación la señala (0.0672ms)
+  ✔ la plantilla descargable se puede volver a leer sin errores (0.1337ms)
+  ✔ un CSV completo se guarda de principio a fin (1255.0319ms)
+✔ WEB-02 · Carga inicial de inventario por CSV (1256.3522ms)
+ℹ tests 19
+ℹ suites 4
+ℹ pass 19
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 7130.3017
