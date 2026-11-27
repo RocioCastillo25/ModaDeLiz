@@ -411,7 +411,10 @@ paths:
       description: |
         `multipart/form-data` con el campo `foto` (JPG, PNG o WebP, máximo 5 MB). Se guarda en un volumen y se sirve
         desde `/uploads/prendas/<archivo>`; el valor queda en `foto_url` de la prenda.
-      x-estado: planeado (Sprint 4)
+        **`foto_url` es una ruta relativa** (por ejemplo `/uploads/prendas/prenda-3-ab12.png`): el cliente le antepone el
+        origen de la API (la URL base sin `/api/v1`). El archivo se descarga sin token. Al subir otra foto se borra la anterior.
+        Se valida el contenido real del archivo, no su nombre: 400 si no es JPG, PNG o WebP o si pesa más de 5 MB.
+      x-estado: implementado
       requestBody:
         required: true
         content:
@@ -501,7 +504,7 @@ components:
         marca: { type: string }
         categoria: { type: string }
         temporada: { type: string }
-        foto_url: { type: string, format: uri }
+        foto_url: { type: string, nullable: true, description: 'URL completa de una foto externa, o ruta relativa /uploads/prendas/<archivo> de una foto subida a la API (POST /prendas/{id}/foto)' }
         umbral_alerta: { type: integer, minimum: 0, default: 2 }
     PrendaResumen:
       allOf:

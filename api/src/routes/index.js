@@ -10,6 +10,9 @@ const inventario = require('../services/inventarioService');
 const traspasos = require('../services/traspasosService');
 const notificaciones = require('../services/notificacionesService');
 const reportes = require('../services/reportesService');
+const fotos = require('../services/fotosService');
+const { subirFoto } = require('../middlewares/subirFoto');
+const { esFotoUrl } = require('../domain/fotos');
 const { ESTADOS } = require('../domain/traspasos');
 const { FORMATOS, esFechaIso } = require('../domain/reportes');
 const { forbidden } = require('../errors');
@@ -66,7 +69,8 @@ const prendaNueva = z.object({
   marca: z.string().max(80).optional(),
   categoria: z.string().max(80).optional(),
   temporada: z.string().max(40).optional(),
-  foto_url: z.string().url().optional(),
+  // URL completa (foto externa) o la ruta de una foto subida (/uploads/prendas/...), que la web reenvia al editar
+  foto_url: z.string().refine(esFotoUrl, 'Debe ser una URL completa o una foto subida a la API').optional(),
   umbral_alerta: z.number().int().min(0).optional(),
 });
 
@@ -85,6 +89,11 @@ router.put('/prendas/:id', requireRole('administrador', 'gerente'), wrap(async (
   res.json(await prendas.actualizar(id.parse(req.params.id), prendaNueva.partial().omit({ codigo_barras: true }).parse(req.body)))));
 router.delete('/prendas/:id', requireRole('administrador', 'gerente'), wrap(async (req, res) =>
   res.json(await prendas.desactivar(id.parse(req.params.id)))));
+// El id se valida antes de recibir el archivo, para no leer hasta 5 MB de una peticion que ya es invalida
+router.post('/prendas/:id/foto', requireRole('administrador', 'gerente'),
+  (req, _res, next) => { try { req.idPrenda = id.parse(req.params.id); next(); } catch (e) { next(e); } },
+  subirFoto,
+  wrap(async (req, res) => res.json(await fotos.guardar(req.idPrenda, req.file))));
 
 // ---------- Inventario ----------
 router.get('/inventario', wrap(async (req, res) => {

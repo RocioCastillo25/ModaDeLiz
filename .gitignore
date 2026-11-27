@@ -34,3 +34,7 @@ Thumbs.db
 *.njsproj
 *.sln
 *.sw?
+
+# Fotos subidas y respaldos generados en local (no van al repositorio)
+api/uploads/
+backups/
