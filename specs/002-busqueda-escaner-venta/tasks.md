@@ -1,4 +1,4 @@
-﻿# Tareas: Consulta de inventario, escáner y venta
+# Tareas: Consulta de inventario, escáner y venta
 
 **Entrada**: Documentos de diseño en `specs/002-busqueda-escaner-venta/`
 
@@ -177,7 +177,7 @@
 - [X] T050 [P] Ejecutar `flutter analyze` y `flutter test`; corregir avisos y fallas
 - [X] T051 [P] Revisar que ninguna pantalla importe `mobile_scanner`, `dio` ni un Service, que no haya colores sueltos y que no aparezcan precios ni mensajes técnicos (SC-007)
 - [X] T052 [P] Revisar con `MediaQuery.disableAnimations` las animaciones nuevas y la lectura en pantallas pequeñas y grandes
-- [ ] T053 Probar en el teléfono con datos de ejemplo los escenarios de `quickstart.md` secciones 2 y 3 (incluida la cámara) y anotar el resultado
+- [X] T053 Probar en el teléfono con datos de ejemplo los escenarios de `quickstart.md` secciones 2 y 3 (incluida la cámara) y anotar el resultado
 - [ ] T054 Probar contra Keycloak y la API reales según `quickstart.md` sección 4: búsqueda, ficha, escáner, venta, renovación de sesión, sesión no renovable y 403; confirmar con los Integrantes 1 y 2 los puntos abiertos de `contracts/catalog-api.md`
 - [ ] T055 [P] Actualizar `specs/002-busqueda-escaner-venta/contracts/catalog-api.md` y `research.md` con lo que resulte de la prueba real (mayúsculas, `existencia_total` por sucursal, fotos, `refresh_token`)
 - [X] T056 [P] Tomar las capturas de búsqueda, ficha, escáner y venta (sin datos personales en la barra de estado) y actualizar la bitácora del Sprint 2 en `docs/evidencia/sprint-2/`

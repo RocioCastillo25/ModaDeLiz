@@ -8,9 +8,9 @@
 
 ## Resumen
 
-El Sprint 2 de la app móvil está **casi completo: 53 de 58 tareas (91 %)**. Un empleado ya puede **buscar prendas con filtros, abrir su ficha con la existencia de las 5 sucursales, escanear una etiqueta y descontar piezas vendidas de su sucursal**. Todo está probado en un teléfono Android con datos de ejemplo. Hay **249 pruebas automáticas en verde**, análisis sin avisos y **86,4 % de cobertura de líneas**.
+El Sprint 2 de la app móvil está **casi completo: 54 de 58 tareas (93 %)**. Un empleado ya puede **buscar prendas con filtros, abrir su ficha con la existencia de las 5 sucursales, escanear una etiqueta y descontar piezas vendidas de su sucursal**. Todo está probado en un teléfono Android con datos de ejemplo. Hay **249 pruebas automáticas en verde**, análisis sin avisos y **86,4 % de cobertura de líneas**.
 
-El primer tramo (búsqueda, ficha y renovación de sesión) se fusionó en `develop` con la aprobación de otra persona (PR #46). El segundo tramo (venta, escáner y navegación) está subido a la rama `feature/mobile-venta-escaner`. Falta la prueba contra los servicios reales (Keycloak y API), la lectura de un código físico con la cámara, la entrega del APK a la dueña y la etiqueta `v0.2.0`.
+El primer tramo (búsqueda, ficha y renovación de sesión) se fusionó en `develop` con la aprobación de otra persona (PR #46). El segundo tramo (venta, escáner y navegación) está subido a la rama `feature/mobile-venta-escaner`. Falta la prueba contra los servicios reales (Keycloak y API), la entrega del APK a la dueña y la etiqueta `v0.2.0`.
 
 ## 1. Objetivo del sprint
 
@@ -43,7 +43,7 @@ Que un empleado busque prendas por varios criterios, escanee una etiqueta para a
 
 ## 3. Avance
 
-**53 de 58 tareas completadas (91 %).**
+**54 de 58 tareas completadas (93 %).**
 
 | Fase | Hechas | Total |
 |---|---|---|
@@ -54,7 +54,7 @@ Que un empleado busque prendas por varios criterios, escanee una etiqueta para a
 | US4 — Descontar piezas vendidas | 5 | 5 |
 | US3 — Escáner de códigos | 6 | 6 |
 | US5 — Navegación | 4 | 4 |
-| Pulido y entrega | 4 | 9 |
+| Pulido y entrega | 5 | 9 |
 
 Todas las historias tienen código, pruebas automáticas y validación en el teléfono con datos de ejemplo.
 
@@ -96,7 +96,7 @@ Todas las historias tienen código, pruebas automáticas y validación en el tel
 | 12 | Búsqueda manual por código abre la ficha correcta | Aprobado | `19-escaner-ficha-por-codigo.png` |
 | 13 | Solicitud de permiso de cámara del sistema | Aprobado | `20-escaner-permiso-camara-sistema.png` |
 | 14 | Permiso negado: aviso y búsqueda manual por código | Aprobado | `21` y `22` |
-| 15 | Lectura de un código de barras físico o en pantalla con la cámara | Pendiente (hay que apuntar la cámara a `codigos-de-prueba.html`) | — |
+| 15 | Lectura real de códigos de barras EAN-13 de prueba con la cámara: la cámara los lee y abre la ficha correcta (por ejemplo, la playera agotada) | Aprobado | `23`, `24` y `25` |
 
 ### APK de prueba
 
@@ -138,7 +138,6 @@ Las pruebas automáticas cubren: búsqueda y filtros, carga por bloques, ficha y
 
 ## 7. Pendientes para cerrar el sprint
 
-- [ ] Leer con la cámara un código de `codigos-de-prueba.html` (escenario 15).
 - [ ] Probar contra Keycloak y la API reales, con los Integrantes 1 y 2 (tarea T054): búsqueda, ficha, escáner, venta, renovación de sesión y 403.
 - [ ] Actualizar el contrato y la investigación con lo que resulte de esa prueba (T055).
 - [ ] Entregar el APK a la dueña y que lo pruebe (T057).
@@ -173,6 +172,7 @@ Las pruebas automáticas cubren: búsqueda y filtros, carga por bloques, ficha y
 | `06-ficha.png`, `07-ficha-matriz.png` | Ficha y matriz de existencias |
 | `09-venta-hoja.png` a `15-ficha-existencia-actualizada.png` | Hoja de venta, aviso de cantidad, existencia insuficiente, confirmación, venta registrada y ficha actualizada |
 | `16-escaner-explicacion.png` a `22-escaner-permiso-negado-busqueda-manual.png` | Explicación, cámara activa, prenda no encontrada, búsqueda manual y permiso de cámara |
+| `23-escaner-lectura-codigo-barras.png`, `24-escaner-codigo-en-la-guia.png`, `25-escaner-lectura-abre-ficha.png` | Lectura real con la cámara: los códigos de prueba a la vista, el código dentro de la guía y la ficha que se abre (Playera básica blanca, agotada) |
 | `codigos-de-prueba.html` | Página con códigos EAN-13 de las prendas de ejemplo para probar el escáner |
 | `codigos-de-barras-prueba.docx` | Documento para imprimir con los 7 códigos EAN-13 de prueba (6 prendas de ejemplo y un código inexistente), con instrucciones de uso |
 | Documentos de Spec Kit | `specs/002-busqueda-escaner-venta/` (especificación, plan, investigación, modelo de datos, contratos, guía y tareas) |
