@@ -16,6 +16,8 @@
 	<string>6.0</string>
 	<key>CFBundleName</key>
 	<string>checklizz</string>
+	<key>NSCameraUsageDescription</key>
+	<string>CheckLizz usa la cámara para leer el código de barras de las etiquetas de las prendas.</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
