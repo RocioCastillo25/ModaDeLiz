@@ -1,0 +1,108 @@
+{
+  "realm": "checklizz",
+  "enabled": true,
+  "sslRequired": "none",
+  "registrationAllowed": false,
+  "loginWithEmailAllowed": true,
+  "accessTokenLifespan": 3600,
+  "roles": {
+    "realm": [
+      {
+        "name": "administrador",
+        "description": "Administrador (ROLE_ADMIN). Duena y Product Owner. Web: reportes, inventario de las 5 sucursales, usuarios y roles, aprueba cualquier traspaso"
+      },
+      {
+        "name": "gerente",
+        "description": "Gerente de tienda (ROLE_ENCARGADO). Un gerente por sucursal. Web: productos e inventario de su sucursal, aprueba traspasos de su sucursal, reporte de su sucursal"
+      },
+      {
+        "name": "empleado",
+        "description": "Empleado (ROLE_VENDEDOR). App movil: consulta el inventario de las 5 sucursales, descuenta stock de su sucursal y solicita traspasos"
+      }
+    ]
+  },
+  "clients": [
+    {
+      "clientId": "checklizz-app",
+      "name": "CheckLizz (movil y web)",
+      "enabled": true,
+      "publicClient": true,
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": true,
+      "redirectUris": [
+        "com.modadelizz.checklizz:/oauthredirect",
+        "http://localhost:5173/*",
+        "http://localhost:5174/*",
+        "http://127.0.0.1:5173/*",
+        "http://127.0.0.1:5174/*"
+      ],
+      "webOrigins": [
+        "+"
+      ],
+      "attributes": {
+        "pkce.code.challenge.method": "S256",
+        "post.logout.redirect.uris": "+"
+      },
+      "description": "Cliente publico. Movil: password grant hoy, PKCE (flutter_appauth) a futuro. Web: codigo de autorizacion con PKCE."
+    }
+  ],
+  "users": [
+    {
+      "id": "11111111-1111-1111-1111-111111111111",
+      "username": "admin.lizz",
+      "email": "admin@checklizz.local",
+      "firstName": "Duena",
+      "lastName": "Moda de Lizz",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Admin123!",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "administrador"
+      ]
+    },
+    {
+      "id": "22222222-2222-2222-2222-222222222222",
+      "username": "gerente.huauchinango",
+      "email": "gerente@checklizz.local",
+      "firstName": "Gerente",
+      "lastName": "Huauchinango",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Gerente123!",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "gerente"
+      ]
+    },
+    {
+      "id": "33333333-3333-3333-3333-333333333333",
+      "username": "empleado.huauchinango",
+      "email": "empleado@checklizz.local",
+      "firstName": "Empleado",
+      "lastName": "Huauchinango",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Empleado123!",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "empleado"
+      ]
+    }
+  ]
+}

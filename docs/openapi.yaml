@@ -1,0 +1,637 @@
+openapi: 3.0.3
+info:
+  title: CheckLizz API
+  version: 0.1.0
+  description: |
+    Contrato de la API REST de CheckLizz. Lo usan la app móvil (Flutter) y las webs (React).
+    **Estado:** los endpoints marcados `x-estado: implementado` ya funcionan; los `x-estado: planeado`
+    son el contrato acordado para el Sprint 3 y 4 (se pueden simular mientras tanto).
+servers:
+  - url: http://localhost:3000/api/v1
+    description: Local (Docker Compose)
+  - url: http://10.0.2.2:3000/api/v1
+    description: Emulador Android
+security:
+  - bearerAuth: []
+
+tags:
+  - name: Perfil
+  - name: Sucursales
+  - name: Usuarios
+  - name: Prendas
+  - name: Inventario
+  - name: Ventas
+  - name: Traspasos
+  - name: Reportes
+
+paths:
+  /me:
+    get:
+      tags: [Perfil]
+      summary: Datos del usuario autenticado
+      x-estado: implementado
+      responses:
+        '200': { description: Usuario, content: { application/json: { schema: { $ref: '#/components/schemas/Perfil' } } } }
+        '401': { $ref: '#/components/responses/NoAutenticado' }
+
+  /sucursales:
+    get:
+      tags: [Sucursales]
+      summary: Lista las 5 sucursales
+      x-estado: implementado
+      responses:
+        '200': { description: Lista, content: { application/json: { schema: { type: array, items: { $ref: '#/components/schemas/Sucursal' } } } } }
+
+  /usuarios:
+    get:
+      tags: [Usuarios]
+      summary: Lista usuarios (solo administrador)
+      x-estado: implementado
+      parameters:
+        - { name: sucursalId, in: query, schema: { type: integer } }
+        - { name: activo, in: query, schema: { type: boolean } }
+      responses:
+        '200': { description: Lista, content: { application/json: { schema: { type: array, items: { $ref: '#/components/schemas/Usuario' } } } } }
+        '403': { $ref: '#/components/responses/Prohibido' }
+    post:
+      tags: [Usuarios]
+      summary: Crea un usuario en Keycloak y en la base de datos (solo administrador)
+      x-estado: implementado
+      requestBody:
+        required: true
+        content: { application/json: { schema: { $ref: '#/components/schemas/UsuarioNuevo' } } }
+      responses:
+        '201': { description: Creado, content: { application/json: { schema: { $ref: '#/components/schemas/Usuario' } } } }
+        '400': { $ref: '#/components/responses/DatosInvalidos' }
+        '409': { description: Usuario o correo duplicado }
+
+  /usuarios/{id}:
+    parameters: [ { $ref: '#/components/parameters/Id' } ]
+    get:
+      tags: [Usuarios]
+      summary: Detalle de un usuario (solo administrador)
+      x-estado: implementado
+      responses:
+        '200': { description: Usuario, content: { application/json: { schema: { $ref: '#/components/schemas/Usuario' } } } }
+        '404': { $ref: '#/components/responses/NoEncontrado' }
+    put:
+      tags: [Usuarios]
+      summary: Edita nombre, correo, rol o sucursal (solo administrador)
+      x-estado: implementado
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nombre: { type: string }
+                email: { type: string, format: email }
+                rol: { $ref: '#/components/schemas/Rol' }
+                sucursalId: { type: integer }
+      responses:
+        '200': { description: Actualizado, content: { application/json: { schema: { $ref: '#/components/schemas/Usuario' } } } }
+
+  /usuarios/{id}/activo:
+    parameters: [ { $ref: '#/components/parameters/Id' } ]
+    patch:
+      tags: [Usuarios]
+      summary: Activa o desactiva una cuenta (solo administrador)
+      x-estado: implementado
+      requestBody:
+        required: true
+        content: { application/json: { schema: { type: object, required: [activo], properties: { activo: { type: boolean } } } } }
+      responses:
+        '200': { description: Actualizado, content: { application/json: { schema: { $ref: '#/components/schemas/Usuario' } } } }
+
+  /prendas:
+    get:
+      tags: [Prendas]
+      summary: Búsqueda universal (MOV-01)
+      x-estado: implementado
+      parameters:
+        - { name: q, in: query, description: Texto en descripción o marca, schema: { type: string } }
+        - { name: codigo, in: query, schema: { type: string } }
+        - { name: categoria, in: query, schema: { type: string } }
+        - { name: talla, in: query, schema: { type: string } }
+        - { name: color, in: query, schema: { type: string } }
+        - { name: sucursalId, in: query, schema: { type: integer } }
+      responses:
+        '200': { description: Resultados, content: { application/json: { schema: { type: array, items: { $ref: '#/components/schemas/PrendaResumen' } } } } }
+    post:
+      tags: [Prendas]
+      summary: Registra una prenda en el catálogo (administrador, gerente)
+      x-estado: implementado
+      requestBody:
+        required: true
+        content: { application/json: { schema: { $ref: '#/components/schemas/PrendaNueva' } } }
+      responses:
+        '201': { description: Creada }
+        '409': { description: Código de barras duplicado }
+
+  /prendas/codigo/{codigo}:
+    get:
+      tags: [Prendas]
+      summary: Ficha por código de barras — resultado del escáner (MOV-03)
+      x-estado: implementado
+      parameters: [ { name: codigo, in: path, required: true, schema: { type: string } } ]
+      responses:
+        '200': { description: Ficha, content: { application/json: { schema: { $ref: '#/components/schemas/PrendaFicha' } } } }
+        '404': { $ref: '#/components/responses/NoEncontrado' }
+
+  /prendas/{id}:
+    parameters: [ { $ref: '#/components/parameters/Id' } ]
+    get:
+      tags: [Prendas]
+      summary: Ficha de prenda con existencias en las 5 sucursales (MOV-02)
+      x-estado: implementado
+      responses:
+        '200': { description: Ficha, content: { application/json: { schema: { $ref: '#/components/schemas/PrendaFicha' } } } }
+        '404': { $ref: '#/components/responses/NoEncontrado' }
+    put:
+      tags: [Prendas]
+      summary: Edita una prenda (administrador, gerente)
+      x-estado: implementado
+      requestBody:
+        content: { application/json: { schema: { $ref: '#/components/schemas/PrendaNueva' } } }
+      responses:
+        '200': { description: Actualizada }
+    delete:
+      tags: [Prendas]
+      summary: Desactiva una prenda (baja lógica)
+      x-estado: implementado
+      responses:
+        '200': { description: Desactivada }
+
+  /inventario:
+    get:
+      tags: [Inventario]
+      summary: Lista existencias (el gerente solo ve su sucursal)
+      x-estado: implementado
+      parameters:
+        - { name: sucursalId, in: query, schema: { type: integer } }
+        - { name: prendaId, in: query, schema: { type: integer } }
+        - { name: bajoUmbral, in: query, description: Solo prendas con stock bajo (WEB-04), schema: { type: boolean } }
+      responses:
+        '200': { description: Lista, content: { application/json: { schema: { type: array, items: { $ref: '#/components/schemas/Existencia' } } } } }
+    put:
+      tags: [Inventario]
+      summary: Fija la existencia de prenda+talla+color en una sucursal (carga inicial / ajuste)
+      description: Crea el registro si no existe (auditoría `alta`) o lo corrige (`ajuste`). Gerente solo en su sucursal.
+      x-estado: implementado
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [idPrenda, idSucursal, talla, color, cantidad]
+              properties:
+                idPrenda: { type: integer }
+                idSucursal: { type: integer }
+                talla: { type: string }
+                color: { type: string }
+                cantidad: { type: integer, minimum: 0 }
+      responses:
+        '200': { description: Existencia resultante }
+        '403': { $ref: '#/components/responses/Prohibido' }
+
+  /inventario/{id}/historial:
+    parameters: [ { $ref: '#/components/parameters/Id' } ]
+    get:
+      tags: [Inventario]
+      summary: Historial de auditoría de un registro de inventario
+      x-estado: implementado
+      responses:
+        '200': { description: Movimientos }
+
+  /ventas:
+    post:
+      tags: [Ventas]
+      summary: Descuenta piezas por venta (MOV-04)
+      description: Transaccional. Solo sobre la sucursal asignada al usuario (el administrador en cualquiera).
+      x-estado: implementado
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [idInventario, cantidad]
+              properties:
+                idInventario: { type: integer }
+                cantidad: { type: integer, minimum: 1 }
+      responses:
+        '201': { description: Existencia actualizada, content: { application/json: { schema: { $ref: '#/components/schemas/Existencia' } } } }
+        '403': { $ref: '#/components/responses/Prohibido' }
+        '409': { description: STOCK_INSUFICIENTE }
+
+  /traspasos:
+    get:
+      tags: [Traspasos]
+      summary: Lista los traspasos visibles para el usuario (MOV-05, WEB-03)
+      description: |
+        Visibilidad por rol: el empleado ve las solicitudes que creó; el gerente ve las de su sucursal
+        (como origen o destino); el administrador ve todas. Más recientes primero, máximo 200.
+      x-estado: implementado
+      parameters:
+        - { name: estado, in: query, schema: { $ref: '#/components/schemas/EstadoTraspaso' } }
+        - { name: sucursalId, in: query, description: Filtra por sucursal de origen o de destino, schema: { type: integer } }
+      responses:
+        '200': { description: Lista, content: { application/json: { schema: { type: array, items: { $ref: '#/components/schemas/Traspaso' } } } } }
+        '400': { $ref: '#/components/responses/DatosInvalidos' }
+        '401': { $ref: '#/components/responses/NoAutenticado' }
+    post:
+      tags: [Traspasos]
+      summary: Solicita piezas a otra sucursal (MOV-05)
+      description: |
+        Nace en estado SOLICITADO y **no mueve el stock**. La sucursal destino es la del solicitante;
+        el administrador (que no tiene sucursal) debe indicarla en `idSucursalDestino`.
+        Se valida que el origen tenga las piezas. Avisa a los gerentes de la sucursal de origen.
+      x-estado: implementado
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [idSucursalOrigen, detalle]
+              properties:
+                idSucursalOrigen: { type: integer, description: Sucursal a la que se le piden las piezas }
+                idSucursalDestino: { type: integer, description: Solo para el administrador. Para los demás roles es la sucursal asignada }
+                detalle:
+                  type: array
+                  minItems: 1
+                  maxItems: 50
+                  description: No puede repetir la misma prenda, talla y color
+                  items:
+                    type: object
+                    required: [idPrenda, talla, color, cantidad]
+                    properties:
+                      idPrenda: { type: integer }
+                      talla: { type: string }
+                      color: { type: string }
+                      cantidad: { type: integer, minimum: 1 }
+      responses:
+        '201': { description: Creado en estado SOLICITADO, content: { application/json: { schema: { $ref: '#/components/schemas/Traspaso' } } } }
+        '400': { $ref: '#/components/responses/DatosInvalidos' }
+        '401': { $ref: '#/components/responses/NoAutenticado' }
+        '403': { $ref: '#/components/responses/Prohibido' }
+        '404': { $ref: '#/components/responses/NoEncontrado' }
+        '409': { description: STOCK_INSUFICIENTE en la sucursal de origen, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+
+  /traspasos/{id}:
+    parameters: [ { $ref: '#/components/parameters/Id' } ]
+    get:
+      tags: [Traspasos]
+      summary: Detalle de un traspaso
+      x-estado: implementado
+      responses:
+        '200': { description: Traspaso, content: { application/json: { schema: { $ref: '#/components/schemas/Traspaso' } } } }
+        '401': { $ref: '#/components/responses/NoAutenticado' }
+        '403': { $ref: '#/components/responses/Prohibido' }
+        '404': { $ref: '#/components/responses/NoEncontrado' }
+
+  /traspasos/{id}/estado:
+    parameters: [ { $ref: '#/components/parameters/Id' } ]
+    patch:
+      tags: [Traspasos]
+      summary: Cambia el estado (SOLICITADO → APROBADO/RECHAZADO → EN_CAMINO → RECIBIDO)
+      description: |
+        Transiciones válidas: SOLICITADO→APROBADO, SOLICITADO→RECHAZADO, APROBADO→EN_CAMINO, EN_CAMINO→RECIBIDO.
+        - Aprobar o rechazar: el gerente de la sucursal de origen o de destino, o el administrador; nunca el propio solicitante.
+        - Marcar en camino: el gerente de la sucursal de origen o el administrador.
+        - Marcar recibido: el gerente de la sucursal de destino o el administrador. **Al pasar a RECIBIDO se mueve el stock
+          en una transacción** (resta en el origen, suma en el destino, con auditoría `traspaso`).
+        Cada cambio avisa al solicitante (ver /notificaciones).
+      x-estado: implementado
+      requestBody:
+        required: true
+        content: { application/json: { schema: { type: object, required: [estado], properties: { estado: { $ref: '#/components/schemas/EstadoTraspaso' } } } } }
+      responses:
+        '200': { description: Traspaso actualizado, content: { application/json: { schema: { $ref: '#/components/schemas/Traspaso' } } } }
+        '401': { $ref: '#/components/responses/NoAutenticado' }
+        '403': { $ref: '#/components/responses/Prohibido' }
+        '404': { $ref: '#/components/responses/NoEncontrado' }
+        '409': { description: TRANSICION_NO_PERMITIDA, o STOCK_INSUFICIENTE al recibir, content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+
+  /notificaciones:
+    get:
+      tags: [Notificaciones]
+      summary: Avisos del usuario autenticado (RF-07)
+      description: La app y la web la consultan periódicamente (por ejemplo cada 30 s). Más recientes primero.
+      x-estado: implementado
+      parameters:
+        - { name: soloNoLeidas, in: query, schema: { type: boolean, default: false } }
+        - { name: limite, in: query, schema: { type: integer, minimum: 1, maximum: 100, default: 50 } }
+      responses:
+        '200': { description: Lista, content: { application/json: { schema: { type: array, items: { $ref: '#/components/schemas/Notificacion' } } } } }
+        '401': { $ref: '#/components/responses/NoAutenticado' }
+
+  /notificaciones/resumen:
+    get:
+      tags: [Notificaciones]
+      summary: Cuántos avisos no leídos tiene el usuario (para el indicador de la barra)
+      x-estado: implementado
+      responses:
+        '200': { description: Resumen, content: { application/json: { schema: { type: object, properties: { no_leidas: { type: integer } } } } } }
+        '401': { $ref: '#/components/responses/NoAutenticado' }
+
+  /notificaciones/{id}/leida:
+    parameters: [ { $ref: '#/components/parameters/Id' } ]
+    patch:
+      tags: [Notificaciones]
+      summary: Marca un aviso como leído
+      x-estado: implementado
+      responses:
+        '200': { description: Aviso actualizado, content: { application/json: { schema: { $ref: '#/components/schemas/Notificacion' } } } }
+        '401': { $ref: '#/components/responses/NoAutenticado' }
+        '404': { $ref: '#/components/responses/NoEncontrado' }
+
+  /notificaciones/marcar-leidas:
+    post:
+      tags: [Notificaciones]
+      summary: Marca todos los avisos del usuario como leídos
+      x-estado: implementado
+      responses:
+        '200': { description: Resultado, content: { application/json: { schema: { type: object, properties: { marcadas: { type: integer } } } } } }
+        '401': { $ref: '#/components/responses/NoAutenticado' }
+
+  /reportes/existencias:
+    get:
+      tags: [Reportes]
+      summary: Reporte de existencias por sucursal (RF-15, WEB-05)
+      description: |
+        Por sucursal: cuántos productos distintos y cuántas piezas hay, con desglose por prenda, talla y color.
+        El administrador ve las 5 sucursales o filtra con `sucursalId`; el gerente solo la suya.
+      x-estado: implementado
+      parameters:
+        - { name: sucursalId, in: query, schema: { type: integer } }
+        - { $ref: '#/components/parameters/Formato' }
+      responses:
+        '200': { $ref: '#/components/responses/Reporte' }
+        '401': { $ref: '#/components/responses/NoAutenticado' }
+        '403': { $ref: '#/components/responses/Prohibido' }
+
+  /reportes/mas-vendidos:
+    get:
+      tags: [Reportes]
+      summary: Prendas con más piezas vendidas, por sucursal y periodo (RF-14, solo administrador)
+      description: Se calcula con los movimientos `venta` de la auditoría de inventario.
+      x-estado: implementado
+      parameters:
+        - { name: sucursalId, in: query, schema: { type: integer } }
+        - { name: desde, in: query, schema: { type: string, format: date } }
+        - { name: hasta, in: query, schema: { type: string, format: date } }
+        - { name: limite, in: query, schema: { type: integer, minimum: 1, maximum: 100, default: 10 } }
+        - { $ref: '#/components/parameters/Formato' }
+      responses:
+        '200': { $ref: '#/components/responses/Reporte' }
+        '401': { $ref: '#/components/responses/NoAutenticado' }
+        '403': { $ref: '#/components/responses/Prohibido' }
+
+  /reportes/stock-bajo:
+    get:
+      tags: [Reportes]
+      summary: Prendas cuya existencia está en o por debajo del umbral de alerta (RF-13)
+      description: El administrador ve todas las sucursales; el gerente solo la suya.
+      x-estado: implementado
+      parameters:
+        - { name: sucursalId, in: query, schema: { type: integer } }
+        - { $ref: '#/components/parameters/Formato' }
+      responses:
+        '200': { $ref: '#/components/responses/Reporte' }
+        '401': { $ref: '#/components/responses/NoAutenticado' }
+        '403': { $ref: '#/components/responses/Prohibido' }
+
+  /prendas/{id}/foto:
+    parameters: [ { $ref: '#/components/parameters/Id' } ]
+    post:
+      tags: [Prendas]
+      summary: Sube la foto de una prenda (administrador y gerente)
+      description: |
+        `multipart/form-data` con el campo `foto` (JPG, PNG o WebP, máximo 5 MB). Se guarda en un volumen y se sirve
+        desde `/uploads/prendas/<archivo>`; el valor queda en `foto_url` de la prenda.
+        **`foto_url` es una ruta relativa** (por ejemplo `/uploads/prendas/prenda-3-ab12.png`): el cliente le antepone el
+        origen de la API (la URL base sin `/api/v1`). El archivo se descarga sin token. Al subir otra foto se borra la anterior.
+        Se valida el contenido real del archivo, no su nombre: 400 si no es JPG, PNG o WebP o si pesa más de 5 MB.
+      x-estado: implementado
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema: { type: object, required: [foto], properties: { foto: { type: string, format: binary } } }
+      responses:
+        '200': { description: Prenda con su nueva foto_url, content: { application/json: { schema: { $ref: '#/components/schemas/PrendaFicha' } } } }
+        '400': { $ref: '#/components/responses/DatosInvalidos' }
+        '401': { $ref: '#/components/responses/NoAutenticado' }
+        '403': { $ref: '#/components/responses/Prohibido' }
+        '404': { $ref: '#/components/responses/NoEncontrado' }
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: |
+        Token emitido por Keycloak (realm `checklizz`, cliente `checklizz-app`).
+        `POST http://localhost:8080/realms/checklizz/protocol/openid-connect/token`
+        con `grant_type=password`, `client_id=checklizz-app`, `username` y `password`.
+
+  parameters:
+    Id: { name: id, in: path, required: true, schema: { type: integer } }
+    Formato: { name: formato, in: query, description: Formato de salida del reporte, schema: { type: string, enum: [json, pdf, xlsx], default: json } }
+
+  responses:
+    NoAutenticado: { description: Falta el token o es inválido (TOKEN_REQUERIDO / TOKEN_INVALIDO), content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+    Prohibido: { description: El rol o la sucursal no permiten esta acción (PROHIBIDO), content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+    NoEncontrado: { description: No existe (NO_ENCONTRADO), content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+    Reporte:
+      description: El reporte en JSON, o como archivo PDF o Excel segun `formato`
+      content:
+        application/json: { schema: { oneOf: [ { $ref: '#/components/schemas/ReporteExistencias' }, { $ref: '#/components/schemas/ReporteMasVendidos' }, { $ref: '#/components/schemas/ReporteStockBajo' } ] } }
+        application/pdf: { schema: { type: string, format: binary } }
+        application/vnd.openxmlformats-officedocument.spreadsheetml.sheet: { schema: { type: string, format: binary } }
+    DatosInvalidos: { description: Validación fallida (DATOS_INVALIDOS), content: { application/json: { schema: { $ref: '#/components/schemas/Error' } } } }
+
+  schemas:
+    Rol: { type: string, enum: [administrador, gerente, empleado] }
+    EstadoTraspaso: { type: string, enum: [SOLICITADO, APROBADO, RECHAZADO, EN_CAMINO, RECIBIDO] }
+    Error:
+      type: object
+      properties:
+        error: { type: string, example: STOCK_INSUFICIENTE }
+        mensaje: { type: string }
+        detalles: { type: array, items: { type: object, properties: { campo: { type: string }, mensaje: { type: string } } } }
+    Perfil:
+      type: object
+      properties:
+        id: { type: integer }
+        nombre: { type: string }
+        rol: { $ref: '#/components/schemas/Rol' }
+        sucursalId: { type: integer, nullable: true }
+        keycloakId: { type: string, format: uuid }
+    Sucursal:
+      type: object
+      properties: { id: { type: integer }, nombre: { type: string }, ubicacion: { type: string } }
+    Usuario:
+      type: object
+      properties:
+        id: { type: integer }
+        nombre: { type: string }
+        email: { type: string }
+        id_keycloak: { type: string, format: uuid }
+        rol: { $ref: '#/components/schemas/Rol' }
+        id_sucursal_asignada: { type: integer, nullable: true }
+        activo: { type: boolean }
+        creado_en: { type: string, format: date-time }
+    UsuarioNuevo:
+      type: object
+      required: [nombre, email, username, password, rol]
+      properties:
+        nombre: { type: string }
+        email: { type: string, format: email }
+        username: { type: string }
+        password: { type: string, minLength: 8 }
+        rol: { $ref: '#/components/schemas/Rol' }
+        sucursalId: { type: integer, description: Obligatorio para gerente y empleado }
+    PrendaNueva:
+      type: object
+      required: [codigo_barras, descripcion]
+      properties:
+        codigo_barras: { type: string }
+        descripcion: { type: string }
+        marca: { type: string }
+        categoria: { type: string }
+        temporada: { type: string }
+        foto_url: { type: string, nullable: true, description: 'URL completa de una foto externa, o ruta relativa /uploads/prendas/<archivo> de una foto subida a la API (POST /prendas/{id}/foto)' }
+        umbral_alerta: { type: integer, minimum: 0, default: 2 }
+    PrendaResumen:
+      allOf:
+        - $ref: '#/components/schemas/PrendaNueva'
+        - type: object
+          properties:
+            id: { type: integer }
+            existencia_total: { type: integer }
+    PrendaFicha:
+      allOf:
+        - $ref: '#/components/schemas/PrendaNueva'
+        - type: object
+          properties:
+            id: { type: integer }
+            existencias:
+              type: array
+              items:
+                type: object
+                properties:
+                  id: { type: integer, description: id de inventario (se usa para vender) }
+                  id_sucursal: { type: integer }
+                  sucursal: { type: string }
+                  talla: { type: string }
+                  color: { type: string }
+                  cantidad: { type: integer }
+    Existencia:
+      type: object
+      properties:
+        id: { type: integer }
+        id_prenda: { type: integer }
+        id_sucursal: { type: integer }
+        sucursal: { type: string }
+        talla: { type: string }
+        color: { type: string }
+        cantidad: { type: integer }
+        umbral_alerta: { type: integer }
+    Traspaso:
+      type: object
+      properties:
+        id: { type: integer }
+        id_sucursal_origen: { type: integer }
+        sucursal_origen: { type: string }
+        id_sucursal_destino: { type: integer }
+        sucursal_destino: { type: string }
+        usuario_solicita: { type: integer }
+        solicitante: { type: string }
+        usuario_aprueba: { type: integer, nullable: true }
+        aprobador: { type: string, nullable: true }
+        estado: { $ref: '#/components/schemas/EstadoTraspaso' }
+        fecha_solicitud: { type: string, format: date-time }
+        fecha_actualizacion: { type: string, format: date-time }
+        detalle:
+          type: array
+          items:
+            type: object
+            properties:
+              id_prenda: { type: integer }
+              codigo_barras: { type: string }
+              descripcion: { type: string }
+              talla: { type: string }
+              color: { type: string }
+              cantidad: { type: integer }
+    TipoNotificacion:
+      type: string
+      enum: [TRASPASO_SOLICITADO, TRASPASO_APROBADO, TRASPASO_RECHAZADO, TRASPASO_EN_CAMINO, TRASPASO_RECIBIDO]
+    Notificacion:
+      type: object
+      properties:
+        id: { type: integer }
+        id_traspaso: { type: integer, nullable: true }
+        tipo: { $ref: '#/components/schemas/TipoNotificacion' }
+        mensaje: { type: string }
+        leida: { type: boolean }
+        creada_en: { type: string, format: date-time }
+    ReporteExistencias:
+      type: object
+      properties:
+        generado_en: { type: string, format: date-time }
+        sucursales:
+          type: array
+          items:
+            type: object
+            properties:
+              id_sucursal: { type: integer }
+              sucursal: { type: string }
+              productos_distintos: { type: integer }
+              piezas: { type: integer }
+              detalle:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id_prenda: { type: integer }
+                    descripcion: { type: string }
+                    talla: { type: string }
+                    color: { type: string }
+                    cantidad: { type: integer }
+    ReporteMasVendidos:
+      type: object
+      properties:
+        desde: { type: string, format: date, nullable: true }
+        hasta: { type: string, format: date, nullable: true }
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              id_prenda: { type: integer }
+              descripcion: { type: string }
+              id_sucursal: { type: integer, nullable: true }
+              sucursal: { type: string, nullable: true }
+              piezas_vendidas: { type: integer }
+    ReporteStockBajo:
+      type: object
+      properties:
+        generado_en: { type: string, format: date-time }
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              id: { type: integer, description: id de inventario }
+              id_prenda: { type: integer }
+              descripcion: { type: string }
+              id_sucursal: { type: integer }
+              sucursal: { type: string }
+              talla: { type: string }
+              color: { type: string }
+              cantidad: { type: integer }
+              umbral_alerta: { type: integer }
