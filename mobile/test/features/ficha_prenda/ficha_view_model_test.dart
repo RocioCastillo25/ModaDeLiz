@@ -1,4 +1,4 @@
-import 'package:checklizz/core/security/in_memory_token_storage.dart';
+﻿import 'package:checklizz/core/security/in_memory_token_storage.dart';
 import 'package:checklizz/data/models/prenda.dart';
 import 'package:checklizz/data/models/prenda_ficha.dart';
 import 'package:checklizz/data/models/search_filters.dart';
@@ -67,7 +67,7 @@ void main() {
 
   test('carga la ficha por código de barras', () async {
     final vm = FichaViewModel(prendas, await _loggedIn('demo.vendedor'));
-    await vm.loadByBarcode('7501000000028');
+    await vm.loadByBarcode('7501000000029');
     expect(vm.status, FichaStatus.data);
     expect(vm.ficha?.prenda.id, 2);
   });

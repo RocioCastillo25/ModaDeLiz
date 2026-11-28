@@ -16,6 +16,11 @@ import '../../features/auth/login_view_model.dart';
 import '../../features/auth/session_view_model.dart';
 import '../../features/busqueda/busqueda_view_model.dart';
 import '../../features/ficha_prenda/ficha_view_model.dart';
+import '../../data/services/barcode_scanner_service.dart';
+import '../../data/services/mobile_scanner_service.dart';
+import '../../features/escaner/escaner_view_model.dart';
+import '../../features/venta/venta_view_model.dart';
+import '../../data/models/stock_item.dart';
 import '../../features/home/home_view_model.dart';
 import '../config/app_config.dart';
 import '../network/api_client.dart';
@@ -112,5 +117,19 @@ void registerDependencies(
     )
     ..registerFactory<FichaViewModel>(
       () => FichaViewModel(getIt<PrendaRepository>(), getIt<SessionViewModel>()),
+    )
+    // El escáner usa la cámara real también con datos de ejemplo.
+    ..registerFactory<BarcodeScannerService>(MobileScannerService.new)
+    ..registerFactoryParam<EscanerViewModel, BarcodeScannerService, void>(
+      (scanner, _) => EscanerViewModel(scanner, getIt<PrendaRepository>()),
+    )
+    ..registerFactoryParam<VentaViewModel, int, List<StockItem>>(
+      (prendaId, options) => VentaViewModel(
+        getIt<InventarioRepository>(),
+        getIt<PrendaRepository>(),
+        getIt<ConnectivityService>(),
+        prendaId: prendaId,
+        options: options,
+      ),
     );
 }

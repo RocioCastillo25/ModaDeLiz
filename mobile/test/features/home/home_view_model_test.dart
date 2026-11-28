@@ -48,10 +48,12 @@ void main() {
     ]);
   });
 
-  test('la búsqueda está disponible', () {
-    final search = home.sections.firstWhere((s) => s.id == HomeSectionId.search);
-    expect(search.enabled, isTrue);
-    expect(search.hint, isNull);
+  test('la búsqueda y el escáner están disponibles', () {
+    for (final id in [HomeSectionId.search, HomeSectionId.scanner]) {
+      final section = home.sections.firstWhere((s) => s.id == id);
+      expect(section.enabled, isTrue, reason: '${section.title} ya existe');
+      expect(section.hint, isNull);
+    }
   });
 
   test('los traspasos aparecen como "próximamente" hasta el Sprint 3', () {

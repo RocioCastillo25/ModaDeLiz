@@ -9,6 +9,9 @@ import 'features/auth/login_view_model.dart';
 import 'features/auth/session_view_model.dart';
 import 'features/busqueda/busqueda_view_model.dart';
 import 'features/ficha_prenda/ficha_view_model.dart';
+import 'data/services/barcode_scanner_service.dart';
+import 'features/escaner/escaner_view_model.dart';
+import 'features/venta/venta_view_model.dart';
 import 'features/home/home_view_model.dart';
 
 Future<void> main() async {
@@ -26,6 +29,11 @@ Future<void> main() async {
       features: FeatureFactory(
         createSearch: () => getIt<BusquedaViewModel>(),
         createFicha: () => getIt<FichaViewModel>(),
+        createSale: (prendaId, options) =>
+            getIt<VentaViewModel>(param1: prendaId, param2: options),
+        createScannerService: () => getIt<BarcodeScannerService>(),
+        createScanner: (scanner) =>
+            getIt<EscanerViewModel>(param1: scanner),
       ),
       showDemoHint: AppConfig.useMock,
     ),

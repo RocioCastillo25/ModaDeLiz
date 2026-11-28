@@ -49,9 +49,12 @@ abstract class BarcodeScannerService {
   /// Códigos leídos, ya sin repeticiones consecutivas del mismo valor.
   Stream<String> get codes;
 
-  /// Inicia la cámara. Si el sistema lo pide, muestra la solicitud de permiso.
-  /// Lanza [ScannerException] con [ScannerError.permissionDenied] o
-  /// [ScannerError.unavailable].
+  /// Problemas de cámara: permiso negado o cámara no disponible.
+  Stream<ScannerError> get errors;
+
+  /// Prepara la cámara. La solicitud de permiso del sistema aparece cuando la
+  /// vista previa (`buildPreview`) entra en pantalla, es decir, al abrir el
+  /// escáner; si se niega, se informa por `errors`.
   Future<void> start();
 
   Future<void> stop();
@@ -75,8 +78,8 @@ Implementación real: `MobileScannerService`, el único archivo que importa `mob
 |-----------|--------|----------|
 | `BusquedaViewModel` | `idle`, `loading`, `results`, `empty`, `error`; filtros; sucursales | `search()`, `applyFilters()`, `clearFilters()`, `loadMore()`, `retry()` |
 | `FichaViewModel` | `loading`, `data`, `error`; ficha; existencia propia | `load(id)`, `loadByBarcode(code)`, `refresh()`, `applySale(StockItem)` |
-| `VentaViewModel` | `editing`, `confirming`, `submitting`, `done`, `error`; cantidad | `setQuantity(text)`, `confirm()`, `submit()`; valida entero positivo y bloquea el doble envío y la falta de conexión |
-| `EscanerViewModel` | `explaining`, `scanning`, `resolving`, `notFound`, `permissionDenied`, `unavailable` | `start()`, `onCode(code)`, `rescan()`, `lookupManually(code)` |
+| `VentaViewModel` | `editing`, `confirming`, `submitting`, `done`, `error`, `insufficient`; existencia elegida y cantidad | `select(item)`, `setQuantity(text)`, `confirm()`, `backToEditing()`, `submit()`; valida entero positivo, avisa (sin bloquear) si pide más de lo que se ve, bloquea el doble envío y la falta de conexión; ante un 409 consulta la ficha y informa la existencia vigente |
+| `EscanerViewModel` | `explaining`, `scanning`, `resolving`, `found`, `notFound`, `error`, `permissionDenied`, `unavailable` | `start()`, `rescan()`, `resume()`, `lookUp(code)`, `toggleTorch()`; ignora el mismo código durante 2 s tras abrir su ficha |
 
 Reglas comunes: cada ViewModel declara sus estados con un `enum` propio; las Views solo escuchan; ningún ViewModel conoce widgets ni dio.
 
